@@ -23,7 +23,7 @@ public abstract class PyramidComponent : MonoBehaviour {
 			.SetEase(Ease.InCubic)
 			.OnComplete(() => floating = false);
 	}
-	public void FallOff()
+	public virtual void FallOff()
 	{
 		transform.DOKill();
 		withPhysics = true;

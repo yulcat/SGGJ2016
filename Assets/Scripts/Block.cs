@@ -100,6 +100,11 @@ public class Block : PyramidComponent
     void OnMouseDown()
     {
 		pyramid.RemoveBlock(this);
-		Destroy(gameObject);
+		transform.DOKill();
+		withPhysics = true;
+		body.constraints = RigidbodyConstraints.None;
+		body.velocity = Vector3.forward * 12f;
+		GetComponent<BoxCollider>().size = Vector3.one * 0.8f;
+		Invoke("DestroySelf",5f);
     }
 }
