@@ -11,6 +11,12 @@ public struct XY
 		x = newX;
 		y = newY;
 	}
+	public XY(Vector3 vec)
+	{
+		vec = vec * 2f;
+		x = Mathf.RoundToInt(vec.x);
+		y = Mathf.RoundToInt(vec.y);
+	}
 	public Vector3 ToVector3()
 	{
 		var vec = new Vector3(x,y,0);

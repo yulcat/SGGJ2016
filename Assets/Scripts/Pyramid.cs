@@ -4,14 +4,18 @@ using System.Linq;
 
 public class Pyramid : MonoBehaviour {
 	List<Block> blocks;
+	CharacterControl character;
 	float angularVelocity = 0f;
 	public float angularDamp = 0.1f;
 	public float torqueMultiplier = 5f;
 	public float returnTorque = 10f;
+	public float torqueSum;
 	// Use this for initialization
 	void Start () {
 		blocks = GetComponentsInChildren<Block>().ToList();
 		blocks.ForEach(b => b.SetPyramid(this));
+		character = FindObjectOfType<CharacterControl>();
+		character.SetPyramid(this);
 	}
 
 	public void RemoveBlock(Block block)
@@ -42,7 +46,7 @@ public class Pyramid : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		var torqueSum = - blocks.Sum(b => b.torque) * torqueMultiplier;
+		torqueSum = - blocks.Sum(b => b.torque) * torqueMultiplier;
 		var currentRot = transform.rotation.eulerAngles.z;
 		var returning = - returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
 		angularVelocity += returning + torqueSum;
