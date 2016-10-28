@@ -59,21 +59,18 @@ public class Block : PyramidComponent
 
 	void RefreshPositionSelf(XY targetPosition)
     {
-		if(targetPosition.x == 0 && targetPosition.y == 1)
-		{
-			return;
-		}
-		if(targetPosition.y == 1)
-		{
-			FallOff();
-		}
-		else if(pyramid.HasBlocks(c => CheckFeet(targetPosition, c)))
+		if(pyramid.HasBlocks(c => CheckFeet(targetPosition, c)))
 		{
 			if(position == targetPosition) return;
 			FallTo(position.y, targetPosition.y);
 			position = targetPosition;
 			pyramid.RefreshBlocks();
 		}
+		else if(targetPosition.y == 1)
+		{
+			FallOff();
+		}
+
 		else
 		{
 			RefreshPositionSelf(new XY(targetPosition.x, targetPosition.y-2));
@@ -82,6 +79,10 @@ public class Block : PyramidComponent
 	
 	bool CheckFeet(XY pos, PyramidComponent target)
 	{
+		if(pos.x == 0 && pos.y == 1)
+		{
+			return true;
+		}
 		if(target is CharacterControl)
 		{
 			//Check if character is crashed
