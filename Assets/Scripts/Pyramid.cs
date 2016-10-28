@@ -13,6 +13,10 @@ public class Pyramid : MonoBehaviour {
 	public void RemoveBlock(Block block)
 	{
 		blocks.Remove(block);
+		RefreshBlocks();
+	}
+	public void RefreshBlocks()
+	{
 		blocks.ForEach(b => b.RefreshPosition());
 	}
 
@@ -28,7 +32,7 @@ public class Pyramid : MonoBehaviour {
 
 	public bool CheckFeet(XY pos, XY check)
 	{
-		return (check.y != pos.y - 2)
+		return (check.y == pos.y - 2)
 			&& (check.x >= pos.x - 1)
 			&& (check.x <= pos.x + 1); 
 	}

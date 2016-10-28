@@ -16,6 +16,14 @@ public struct XY
 		var vec = new Vector3(x,y,0);
 		return vec/2f;
 	}
+	public static bool operator == (XY one, XY other)
+	{
+		return one.x == other.x && one.y == other.y;
+	}
+	public static bool operator != (XY one, XY other)
+	{
+		return !(one == other);
+	}
 }
 public class Block : MonoBehaviour
 {
@@ -26,7 +34,7 @@ public class Block : MonoBehaviour
 	public void SetPyramid(Pyramid m)
 	{
 		pyramid = m;
-		var floatPos = transform.position * 2f;
+		var floatPos = transform.localPosition * 2f;
 		position = new XY(Mathf.RoundToInt(floatPos.x), Mathf.RoundToInt(floatPos.y));
 	}
 
@@ -37,7 +45,11 @@ public class Block : MonoBehaviour
 
     void RefreshPositionSelf(XY targetPosition)
     {
-		if(targetPosition.x == 0 && targetPosition.y == 1) return;
+		Debug.Log(position.ToVector3());
+		if(targetPosition.x == 0 && targetPosition.y == 1)
+		{
+			return;
+		}
 		if(targetPosition.y == 1)
 		{
 			FallOff();
@@ -48,21 +60,42 @@ public class Block : MonoBehaviour
 		}
 		else
 		{
-			targetPosition.y -= 2;
-			RefreshPositionSelf(targetPosition);
+			RefreshPositionSelf(new XY(targetPosition.x, targetPosition.y-2));
 		}
     }
 	void FallTo(XY targetPosition)
 	{
-		transform.DOMove(targetPosition.ToVector3(), 0.5f).SetEase(Ease.InQuint);
+		if(position == targetPosition)
+		{
+			return;
+		}
+		transform.DOLocalMove(targetPosition.ToVector3(), 0.5f).SetEase(Ease.InCubic);
 		position = targetPosition;
+		pyramid.RefreshBlocks();
 	}
 	void FallOff()
 	{
-		transform.DOMoveY(-1, 0.5f).SetEase(Ease.OutQuint).OnComplete(() => Destroy(gameObject));
+		withPhysics = true;
+		pyramid.RemoveBlock(this);
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		Invoke("DestroySelf",2f);
 	}
     void OnMouseDown()
     {
-
+		pyramid.RemoveBlock(this);
+		Destroy(gameObject);
     }
+	void DestroySelf()
+	{
+		Destroy(gameObject);
+	}
+	bool withPhysics = false;
+	void FixedUpdate()
+	{
+		if(withPhysics)
+		{
+			if(transform.position.y > 0.5f) return;
+			GetComponent<Rigidbody>().velocity *= 0.85f;
+		}
+	}
 }
