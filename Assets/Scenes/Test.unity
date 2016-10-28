@@ -942,7 +942,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381808612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.0021165914, w: -0.9999978}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,9 +982,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef15bbc598502422fa052ac33f834458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angularDamp: 0.1
-  torqueMultiplier: 3
-  returnTorque: 6
+  angularDamp: 0.02
+  torqueMultiplier: 1
+  returnTorque: 4
+  torqueSum: -0
+  calculate: 0
 --- !u!1001 &1384161952
 Prefab:
   m_ObjectHideFlags: 0
@@ -1409,11 +1411,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 21
       objectReference: {fileID: 0}
-    - target: {fileID: 23000012702596150, guid: e15e8d7e322bb48e5ac2c1bdda834277,
+    - target: {fileID: 136000010449432580, guid: e15e8d7e322bb48e5ac2c1bdda834277,
         type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 206efbb5d03e740c19a477a8349a2cd8, type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e15e8d7e322bb48e5ac2c1bdda834277, type: 2}
   m_IsPrefabParent: 0

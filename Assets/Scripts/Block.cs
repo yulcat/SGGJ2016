@@ -13,7 +13,9 @@ public struct XY
 	}
 	public XY(Vector3 vec)
 	{
+		vec.y = Mathf.Floor(vec.y);
 		vec = vec * 2f;
+		vec.y ++;
 		x = Mathf.RoundToInt(vec.x);
 		y = Mathf.RoundToInt(vec.y);
 	}
@@ -31,29 +33,23 @@ public struct XY
 		return !(one == other);
 	}
 }
-public class Block : MonoBehaviour
+public class Block : PyramidComponent
 {
 	List<Block> Feet;
-	Pyramid pyramid;
-	bool floating;
-	Rigidbody body;
 	public XY position;
 
-	public void SetPyramid(Pyramid m)
+	public override void SetPyramid(Pyramid m)
 	{
-		floating = false;
-		pyramid = m;
-		body = GetComponent<Rigidbody>();
+		base.SetPyramid(m);
 		var floatPos = transform.localPosition * 2f;
 		position = new XY(Mathf.RoundToInt(floatPos.x), Mathf.RoundToInt(floatPos.y));
 	}
-
-	public void RefreshPosition()
+	public override void RefreshPosition()
 	{
 		RefreshPositionSelf(position);
 	}
 
-	public float torque
+	public override float torque
 	{
 		get
 		{
@@ -61,7 +57,7 @@ public class Block : MonoBehaviour
 		}
 	}
 
-    void RefreshPositionSelf(XY targetPosition)
+	void RefreshPositionSelf(XY targetPosition)
     {
 		if(targetPosition.x == 0 && targetPosition.y == 1)
 		{
@@ -71,50 +67,38 @@ public class Block : MonoBehaviour
 		{
 			FallOff();
 		}
-		else if(pyramid.HasFeet(targetPosition))
+		else if(pyramid.HasBlocks(c => CheckFeet(targetPosition, c)))
 		{
-			FallTo(targetPosition);
+			if(position == targetPosition) return;
+			FallTo(position.y, targetPosition.y);
+			position = targetPosition;
+			pyramid.RefreshBlocks();
 		}
 		else
 		{
 			RefreshPositionSelf(new XY(targetPosition.x, targetPosition.y-2));
 		}
     }
-	void FallTo(XY targetPosition)
+	
+	bool CheckFeet(XY pos, PyramidComponent target)
 	{
-		if(position == targetPosition)
+		if(target is CharacterControl)
 		{
-			return;
+			//Check if character is crashed
+			return false;
 		}
-		transform.DOLocalMove(targetPosition.ToVector3(), 0.5f)
-			.SetEase(Ease.InCubic)
-			.OnComplete(() => floating = false);
-		position = targetPosition;
-		pyramid.RefreshBlocks();
-	}
-	public void FallOff()
-	{
-		withPhysics = true;
-		pyramid.RemoveBlock(this);
-		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		Invoke("DestroySelf",5f);
+		if(target is Block)
+		{
+			var check = (target as Block).position;
+			return (check.y == pos.y - 2)
+				&& (check.x >= pos.x - 1)
+				&& (check.x <= pos.x + 1);
+		}
+		return false;
 	}
     void OnMouseDown()
     {
 		pyramid.RemoveBlock(this);
 		Destroy(gameObject);
     }
-	void DestroySelf()
-	{
-		Destroy(gameObject);
-	}
-	bool withPhysics = false;
-	void FixedUpdate()
-	{
-		if(withPhysics)
-		{
-			if(transform.position.y > 0.5f) return;
-			GetComponent<Rigidbody>().velocity *= 0.8f;
-		}
-	}
 }
