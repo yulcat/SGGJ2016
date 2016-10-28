@@ -29,11 +29,15 @@ public class Block : MonoBehaviour
 {
 	List<Block> Feet;
 	Pyramid pyramid;
+	bool floating;
+	Rigidbody body;
 	public XY position;
 
 	public void SetPyramid(Pyramid m)
 	{
+		floating = false;
 		pyramid = m;
+		body = GetComponent<Rigidbody>();
 		var floatPos = transform.localPosition * 2f;
 		position = new XY(Mathf.RoundToInt(floatPos.x), Mathf.RoundToInt(floatPos.y));
 	}
@@ -41,6 +45,14 @@ public class Block : MonoBehaviour
 	public void RefreshPosition()
 	{
 		RefreshPositionSelf(position);
+	}
+
+	public float torque
+	{
+		get
+		{
+			return position.x * 0.5f * body.mass;
+		}
 	}
 
     void RefreshPositionSelf(XY targetPosition)
@@ -69,16 +81,18 @@ public class Block : MonoBehaviour
 		{
 			return;
 		}
-		transform.DOLocalMove(targetPosition.ToVector3(), 0.5f).SetEase(Ease.InCubic);
+		transform.DOLocalMove(targetPosition.ToVector3(), 0.5f)
+			.SetEase(Ease.InCubic)
+			.OnComplete(() => floating = false);
 		position = targetPosition;
 		pyramid.RefreshBlocks();
 	}
-	void FallOff()
+	public void FallOff()
 	{
 		withPhysics = true;
 		pyramid.RemoveBlock(this);
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		Invoke("DestroySelf",2f);
+		Invoke("DestroySelf",5f);
 	}
     void OnMouseDown()
     {
@@ -95,7 +109,7 @@ public class Block : MonoBehaviour
 		if(withPhysics)
 		{
 			if(transform.position.y > 0.5f) return;
-			GetComponent<Rigidbody>().velocity *= 0.85f;
+			GetComponent<Rigidbody>().velocity *= 0.8f;
 		}
 	}
 }
