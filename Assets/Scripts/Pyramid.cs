@@ -48,7 +48,6 @@ public class Pyramid : MonoBehaviour {
 		angularVelocity += returning + torqueSum;
 		angularVelocity *= 1 - angularDamp;
 		transform.rotation = Quaternion.Euler(0,0,currentRot + (angularVelocity * Time.fixedDeltaTime));
-		Debug.Log(Mathf.Cos(currentRot * Mathf.Deg2Rad));
 		if(Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
 		{
 			blocks.ForEach(b => b.FallOff());

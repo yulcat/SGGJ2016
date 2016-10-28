@@ -57,7 +57,6 @@ public class Block : MonoBehaviour
 
     void RefreshPositionSelf(XY targetPosition)
     {
-		Debug.Log(position.ToVector3());
 		if(targetPosition.x == 0 && targetPosition.y == 1)
 		{
 			return;
