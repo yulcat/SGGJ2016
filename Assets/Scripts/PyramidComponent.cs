@@ -16,6 +16,11 @@ public abstract class PyramidComponent : MonoBehaviour {
 	{
 		get;
 	}
+	protected float GetTorque(Vector2 pos, float mass)
+	{
+		return pyramid.transform.TransformVector(pos).x * mass;
+		// return pos.x * mass;
+	}
 	protected void FallTo(int originalY, int y)
 	{
 		floating = true;
@@ -27,6 +32,15 @@ public abstract class PyramidComponent : MonoBehaviour {
 	{
 		transform.DOKill();
 		withPhysics = true;
+		var col = GetComponent<Collider>();
+		if(col is BoxCollider)
+		{
+			(col as BoxCollider).size *= 0.9f;
+		}
+		else if(col is SphereCollider)
+		{
+			(col as SphereCollider).radius *= 0.9f;
+		}
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = deltaPosition / Time.fixedDeltaTime;
 		Invoke("DestroySelf",5f);

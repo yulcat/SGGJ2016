@@ -44,7 +44,8 @@ public class CharacterControl : PyramidComponent {
 	{
 		get
 		{
-			return transform.localPosition.x * body.mass;
+			return GetTorque(transform.localPosition, body.mass);
+			// return transform.localPosition.x * body.mass;
 		}
 	}
 

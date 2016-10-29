@@ -7,7 +7,8 @@ public class Balloon : Block {
 	{
 		get
 		{
-			return -position.x * 0.5f * body.mass;
+			return -GetTorque(position.ToVector3(), body.mass);
+			// return -position.x * 0.5f * body.mass;
 		}
 	}
     protected override void FixedUpdate()

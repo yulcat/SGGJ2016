@@ -4,6 +4,7 @@ using DG.Tweening;
 public class FlagBalloon : Balloon {
 	public void Launch(CharacterControl character)
 	{
+		GameState.Win();
 		var joint = gameObject.AddComponent<SpringJoint>();
 		joint.anchor = Vector3.up * 0.5f;
 		joint.autoConfigureConnectedAnchor = false;
@@ -22,7 +23,6 @@ public class FlagBalloon : Balloon {
 		Invoke("DestroySelf",10f);
 		character.CancelInvoke();
 		character.Invoke("DestroySelf",10f);
-		GameState.Win();
 	}
 	public override void FallOff(bool refresh = true)
 	{
