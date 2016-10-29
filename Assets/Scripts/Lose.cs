@@ -22,7 +22,7 @@ public class Lose : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0))
 		{
 			var current = SceneManager.GetActiveScene().buildIndex;
-			SceneManager.LoadScene(current);
+			SceneLoader.LoadScene(current);
 		}
 	}
 }

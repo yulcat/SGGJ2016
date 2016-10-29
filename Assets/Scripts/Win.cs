@@ -18,9 +18,9 @@ public class Win : MonoBehaviour {
 		{
 			var current = SceneManager.GetActiveScene().buildIndex;
 			if(current == SceneManager.sceneCountInBuildSettings -1)
-				SceneManager.LoadScene(0);
+				SceneLoader.LoadScene(0);
 			else
-				SceneManager.LoadScene(current+1);
+				SceneLoader.LoadScene(current+1);
 		}
 	}
 }
