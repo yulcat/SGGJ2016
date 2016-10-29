@@ -22,13 +22,13 @@ public class GameState : MonoBehaviour {
 	{
 		if(instance.isGameEnd) return;
 		instance.isGameEnd = true;
-		instance.Invoke("WinGame",3f);
+		instance.Invoke("WinGame",2f);
 	}
 	public static void Lose(LoseCause _cause)
 	{
 		if(instance.isGameEnd) return;
 		instance.isGameEnd = true;
-		instance.Invoke("LoseGame",3f);
+		instance.Invoke("LoseGame",2f);
 		instance.cause = _cause;
 	}
 	void Awake()

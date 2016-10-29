@@ -11,6 +11,13 @@ public class Balloon : Block {
 			// return -position.x * 0.5f * body.mass;
 		}
 	}
+	public override void FallOff(bool refresh = true)
+	{
+		base.FallOff(refresh);
+		var v = body.velocity;
+		v.z = -3;
+		body.velocity = v;
+	}
     protected override void FixedUpdate()
 	{
 		deltaPosition = transform.position - prevPosition;
@@ -26,6 +33,7 @@ public class Balloon : Block {
 	}
     protected override void OnMouseDown()
     {
+		if(GameState.instance.isGameEnd) return;
 		pyramid.RemoveBlock(this);
 		transform.DOKill();
 		withPhysics = true;

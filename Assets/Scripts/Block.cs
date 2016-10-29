@@ -58,6 +58,17 @@ public class Block : PyramidComponent
 		}
 	}
 
+	protected override void FallResult()
+	{
+		base.FallResult();
+		var character = pyramid.GetBlock(c => c is CharacterControl) as CharacterControl;
+		if(character.BlockFallTest(this))
+		{
+			character.crushEffect.SetActive(true);
+			GameState.Lose(GameState.LoseCause.Crushed);
+		}
+	}
+
 	void RefreshPositionSelf(XY targetPosition)
     {
 		if(pyramid.HasBlocks(c => CheckFeet(targetPosition, c)))
@@ -101,6 +112,7 @@ public class Block : PyramidComponent
 	}
     protected virtual void OnMouseDown()
     {
+		if(GameState.instance.isGameEnd) return;
 		pyramid.RemoveBlock(this);
 		transform.DOKill();
 		withPhysics = true;

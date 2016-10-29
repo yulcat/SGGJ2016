@@ -26,7 +26,11 @@ public abstract class PyramidComponent : MonoBehaviour {
 		floating = true;
 		transform.DOLocalMoveY(y/2f, 0.5f)
 			.SetEase(Ease.InCubic)
-			.OnComplete(() => floating = false);
+			.OnComplete(FallResult);
+	}
+	protected virtual void FallResult()
+	{
+		floating = false;
 	}
 	public virtual void FallOff(bool refresh = true)
 	{

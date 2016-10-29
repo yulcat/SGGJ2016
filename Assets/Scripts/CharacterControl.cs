@@ -7,12 +7,15 @@ public class CharacterControl : PyramidComponent {
 	int currentFloor;
 	public float thickness = 0.25f;
 	public float moveSpeed = 1f;
+	public GameObject crushEffect;
+	Animator anim;
 
 	public override void SetPyramid(Pyramid m)
 	{
 		base.SetPyramid(m);
 		var floatPos = transform.localPosition * 2f;
 		currentFloor = Mathf.RoundToInt(transform.localPosition.y * 2f);
+		anim = GetComponentInChildren<Animator>(true);
 	}
 
 	public override void RefreshPosition()
@@ -69,6 +72,10 @@ public class CharacterControl : PyramidComponent {
 		plane.Raycast(ray, out dist);
 		return pyramid.transform.InverseTransformPoint(ray.GetPoint(dist));
 	}
+	public bool BlockFallTest(Block target)
+	{
+		return CheckOverlap(transform.localPosition.x, currentFloor, target);
+	}
 
 	bool CheckFeet(float x, int y, PyramidComponent target, int dy = -2)
 	{
@@ -101,24 +108,20 @@ public class CharacterControl : PyramidComponent {
 	}
 
 	IEnumerator Start () {
-		// if(Input.GetMouseButtonDown(0))
-		// {
-		// 	var pos = GetClickPosition();
-		// 	var y = Mathf.FloorToInt(pos.y) * 2 + 1;
-		// 	if(pyramid.HasBlocks(c => CheckFeet(pos.x, y, c))
-		// 		&& !pyramid.HasBlocks(c => CheckOverlap(pos.x, y, c)))
-		// 	{
-		// 		moveTarget = pos;
-		// 		StopAllCoroutines();
-		// 		StartCoroutine(MoveToTarget());
-		// 	}
-		// }
 		while(true)
 		{
 			yield return null;
 			if(pyramid == null || floating) continue;
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
+			if(Mathf.Abs(direction) < 0.3f)
+			{
+				anim.SetBool("IsTrace",false);
+				continue;
+			}
+			var rotation = direction>0? 120 : -120;
+			anim.transform.localRotation = Quaternion.Euler(0,rotation,0);
+			anim.SetBool("IsTrace",true);
 			float dx = direction * moveSpeed * Time.deltaTime;
 			float destination = currentX + dx;
 			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
@@ -134,6 +137,7 @@ public class CharacterControl : PyramidComponent {
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();
+				anim.SetBool("IsTrace",false);
 				yield return StartCoroutine(WaitForLanding());
 				//Jump off
 			}
@@ -144,41 +148,6 @@ public class CharacterControl : PyramidComponent {
 		base.FallOff();
 		StopAllCoroutines();
 		GameState.Lose(GameState.LoseCause.CharacterLost);
-	}
-	IEnumerator MoveToTarget()
-	{
-		while(true)
-		{
-			var currentX = transform.localPosition.x;
-			var toward = moveTarget.x - currentX;
-			var abs = Mathf.Abs(toward);
-			if(abs < 0.1f)
-				yield break; //Reached Target Position
-
-			int direction = (int)(toward / abs);
-			float dx = direction * moveSpeed * Time.fixedDeltaTime;
-			float destination = currentX + dx;
-			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
-			if(flag != null)
-			{
-				(flag as FlagBalloon).Launch(this);
-				yield break; //Reached Goal
-			}
-			if(pyramid.HasBlocks(c => CheckOverlap(destination,currentFloor,c)))
-				yield break; //Blocked by block
-			
-			transform.Translate(dx, 0, 0);
-			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
-			{
-				RefreshPosition();
-				yield return StartCoroutine(WaitForLanding());
-				//Jump off
-			}
-			else
-			{
-				yield return new WaitForFixedUpdate();
-			}
-		}
 	}
 	IEnumerator WaitForLanding()
 	{

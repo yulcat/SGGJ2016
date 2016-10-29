@@ -2,6 +2,11 @@
 using DG.Tweening;
 
 public class FlagBalloon : Balloon {
+	BalloonLine line;
+	void Awake()
+	{
+		line = GetComponentInChildren<BalloonLine>(true);
+	}
 	public void Launch(CharacterControl character)
 	{
 		GameState.Win();
@@ -11,6 +16,8 @@ public class FlagBalloon : Balloon {
 		joint.connectedBody = character.GetComponent<Rigidbody>();
 		joint.connectedAnchor = Vector3.up * 0.5f;
 		joint.damper = 0.8f;
+		line.target = character.transform;
+		line.gameObject.SetActive(true);
 		transform.SetParent(null);
 		pyramid.RemoveBlock(this, false);
 		pyramid.CollapseAll();
