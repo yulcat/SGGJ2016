@@ -71,10 +71,10 @@ public class CharacterControl : PyramidComponent {
 
 	bool CheckFeet(float x, int y, PyramidComponent target, int dy = -2)
 	{
-		if(target is Block)
+		if(target is Block && !(target is FlagBalloon))
 		{
 			var check = (target as Block).position;
-			return (check.y == y + dy)
+			return (check.y == y - 2)
 				&& (check.x + 1 >= (x - thickness)*2f)
 				&& (check.x - 1 <= (x + thickness)*2f);
 		}
@@ -83,12 +83,19 @@ public class CharacterControl : PyramidComponent {
 
 	bool CheckOverlap(float x, int y, PyramidComponent target)
 	{
-		return CheckFeet(x,y,target,0);
+		if(target is Block)
+		{
+			var check = (target as Block).position;
+			return (check.y == y)
+				&& (check.x + 1 >= (x - thickness)*2f)
+				&& (check.x - 1 <= (x + thickness)*2f);
+		}
+		return false;
 	}
 
 	bool CheckFlag(float x, int y, PyramidComponent target)
 	{
-		if(target is FlagBalloon) return CheckFeet(x,y,target,0);
+		if(target is FlagBalloon) return CheckOverlap(x,y,target);
 		else return false;
 	}
 
@@ -108,7 +115,7 @@ public class CharacterControl : PyramidComponent {
 		while(true)
 		{
 			yield return null;
-			if(pyramid == null) continue;
+			if(pyramid == null || floating) continue;
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
 			float dx = direction * moveSpeed * Time.deltaTime;

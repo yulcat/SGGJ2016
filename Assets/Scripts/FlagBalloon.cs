@@ -9,7 +9,7 @@ public class FlagBalloon : Balloon {
 		joint.autoConfigureConnectedAnchor = false;
 		joint.connectedBody = character.GetComponent<Rigidbody>();
 		joint.connectedAnchor = Vector3.up * 0.5f;
-		joint.damper = 0.5f;
+		joint.damper = 0.8f;
 		transform.SetParent(null);
 		pyramid.RemoveBlock(this, false);
 		pyramid.CollapseAll();
@@ -18,9 +18,10 @@ public class FlagBalloon : Balloon {
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
-		body.velocity = Vector3.forward * -5f;
-		Invoke("DestroySelf",5f);
-		character.Invoke("DestroySelf",5f);
+		body.velocity = Vector3.forward * -4f;
+		Invoke("DestroySelf",10f);
+		character.CancelInvoke();
+		character.Invoke("DestroySelf",10f);
 	}
 	public override void FallOff(bool refresh = true)
 	{

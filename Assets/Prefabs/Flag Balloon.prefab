@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3059b8087bb4d3ebdfc27de4bec6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buoyancy: 1200
+  buoyancy: 800
 --- !u!135 &135000012133907254
 SphereCollider:
   m_ObjectHideFlags: 1
