@@ -22,6 +22,8 @@ GameObject:
   - 198: {fileID: 198000013843941880}
   - 199: {fileID: 199000011693503282}
   - 114: {fileID: 114000013894468626}
+  - 114: {fileID: 114000011366606852}
+  - 82: {fileID: 82000011525723506}
   m_Layer: 0
   m_Name: Dust
   m_TagString: Untagged
@@ -42,6 +44,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!82 &82000011525723506
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013981537520}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.4
+  m_Pitch: 0.3
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &114000011366606852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013981537520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f0391790ebc43aaaba1cfb92fd71c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnAwake: 1
+  packs:
+  - name: dust
+    clips:
+    - {fileID: 8300000, guid: 3a8a84ba10e7045988db4d135b0fec8d, type: 3}
+    - {fileID: 8300000, guid: 5b650c3a0eacc4e558c6436d7f0c21ce, type: 3}
+    - {fileID: 8300000, guid: dba00370f73234604a13cc5971dc4465, type: 3}
+    - {fileID: 8300000, guid: ecc6bc05003e649c194b4be5a88943a5, type: 3}
+    - {fileID: 8300000, guid: 46ba6fbcbb6f3466e900de68cc62d434, type: 3}
+    - {fileID: 8300000, guid: 53c4c0afb515a4bd1bd426509874b052, type: 3}
 --- !u!114 &114000013894468626
 MonoBehaviour:
   m_ObjectHideFlags: 1
