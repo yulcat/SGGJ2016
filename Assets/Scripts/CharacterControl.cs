@@ -8,12 +8,14 @@ public class CharacterControl : PyramidComponent {
 	public float thickness = 0.25f;
 	public float moveSpeed = 1f;
 	public GameObject crushEffect;
+	Animator anim;
 
 	public override void SetPyramid(Pyramid m)
 	{
 		base.SetPyramid(m);
 		var floatPos = transform.localPosition * 2f;
 		currentFloor = Mathf.RoundToInt(transform.localPosition.y * 2f);
+		anim = GetComponentInChildren<Animator>(true);
 	}
 
 	public override void RefreshPosition()
@@ -112,6 +114,14 @@ public class CharacterControl : PyramidComponent {
 			if(pyramid == null || floating) continue;
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
+			if(Mathf.Abs(direction) < 0.3f)
+			{
+				anim.SetBool("IsTrace",false);
+				continue;
+			}
+			var rotation = direction>0? 120 : -120;
+			anim.transform.localRotation = Quaternion.Euler(0,rotation,0);
+			anim.SetBool("IsTrace",true);
 			float dx = direction * moveSpeed * Time.deltaTime;
 			float destination = currentX + dx;
 			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
@@ -127,6 +137,7 @@ public class CharacterControl : PyramidComponent {
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();
+				anim.SetBool("IsTrace",false);
 				yield return StartCoroutine(WaitForLanding());
 				//Jump off
 			}
