@@ -92,7 +92,8 @@ public class CharacterControl : PyramidComponent {
 		while(true)
 		{
 			yield return null;
-			if(pyramid == null || floating) continue;
+			if(pyramid == null) continue;
+			if(floating) yield return StartCoroutine(WaitForLanding());
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
 			if(Mathf.Abs(direction) < 0.3f)
@@ -120,7 +121,6 @@ public class CharacterControl : PyramidComponent {
 			{
 				RefreshPosition();
 				anim.SetBool("IsTrace",false);
-				yield return StartCoroutine(WaitForLanding());
 				//Jump off
 			}
 		}
@@ -142,6 +142,7 @@ public class CharacterControl : PyramidComponent {
 			if(floating) yield return null;
 			else
 			{
+				GetComponent<AudioList>().Play("step");
 				anim.SetTrigger("Land");
 				var flag = pyramid.GetBlock(c => 
 					CheckFlag(transform.localPosition.x,currentFloor,c));
