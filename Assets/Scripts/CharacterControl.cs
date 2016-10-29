@@ -142,6 +142,7 @@ public class CharacterControl : PyramidComponent {
 	{
 		base.FallOff();
 		StopAllCoroutines();
+		GameState.Lose(GameState.LoseCause.CharacterLost);
 	}
 	IEnumerator MoveToTarget()
 	{

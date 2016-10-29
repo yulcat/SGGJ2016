@@ -5,7 +5,7 @@ public class FlagBalloon : Balloon {
 	public void Launch(CharacterControl character)
 	{
 		var joint = gameObject.AddComponent<SpringJoint>();
-		joint.anchor = Vector3.down * 0.5f;
+		joint.anchor = Vector3.up * 0.5f;
 		joint.autoConfigureConnectedAnchor = false;
 		joint.connectedBody = character.GetComponent<Rigidbody>();
 		joint.connectedAnchor = Vector3.up * 0.5f;
@@ -22,10 +22,12 @@ public class FlagBalloon : Balloon {
 		Invoke("DestroySelf",10f);
 		character.CancelInvoke();
 		character.Invoke("DestroySelf",10f);
+		GameState.Win();
 	}
 	public override void FallOff(bool refresh = true)
 	{
 		base.FallOff(refresh);
+		GameState.Lose(GameState.LoseCause.BalloonLost);
 	}
 	protected override void OnMouseDown()
     {
