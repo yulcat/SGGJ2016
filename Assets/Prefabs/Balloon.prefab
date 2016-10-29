@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 5
-  ClickCount: 3
+  ClickCount: 1
   buoyancy: 800
 --- !u!135 &135000012133907254
 SphereCollider:
