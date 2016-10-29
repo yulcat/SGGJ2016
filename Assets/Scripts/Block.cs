@@ -36,6 +36,8 @@ public struct XY
 public class Block : PyramidComponent
 {
 	List<Block> Feet;
+	public int ClickCount = 3;
+	int currentClickCount = 0;
 	public XY position;
 
 	public override void SetPyramid(Pyramid m)
@@ -83,7 +85,6 @@ public class Block : PyramidComponent
 			pyramid.RemoveBlock(this);
 			FallOff();
 		}
-
 		else
 		{
 			RefreshPositionSelf(new XY(targetPosition.x, targetPosition.y-2));
@@ -113,12 +114,20 @@ public class Block : PyramidComponent
     protected virtual void OnMouseDown()
     {
 		if(pyramid == null || GameState.instance.isGameEnd) return;
-		pyramid.RemoveBlock(this);
-		transform.DOKill();
-		withPhysics = true;
-		body.constraints = RigidbodyConstraints.None;
-		body.velocity = Vector3.forward * 12f;
-		var col = GetComponent<Collider>();
-		Invoke("DestroySelf",5f);
+		if(++currentClickCount == ClickCount)
+		{
+			pyramid.RemoveBlock(this);
+			transform.DOKill();
+			withPhysics = true;
+			body.constraints = RigidbodyConstraints.None;
+			body.velocity = Vector3.forward * 12f;
+			var col = GetComponent<Collider>();
+			Invoke("DestroySelf",5f);
+		}
+		else
+		{
+			transform.DOLocalMoveZ((float)currentClickCount / ClickCount, 0.3f)
+				.SetEase(Ease.OutQuint);
+		}
     }
 }

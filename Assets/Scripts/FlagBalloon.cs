@@ -16,7 +16,8 @@ public class FlagBalloon : Balloon {
 		joint.connectedBody = character.GetComponent<Rigidbody>();
 		joint.connectedAnchor = Vector3.up * 0.5f;
 		joint.damper = 0.8f;
-		line.target = character.transform;
+		character.TurnToCamera();
+		line.target = character.GetComponentInChildren<BearHandMarker>().transform;
 		line.gameObject.SetActive(true);
 		transform.SetParent(null);
 		pyramid.RemoveBlock(this, false);

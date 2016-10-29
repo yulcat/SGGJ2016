@@ -27,6 +27,7 @@ public class CharacterControl : PyramidComponent {
     {
 		if(y <= 1)
 		{
+			anim.SetTrigger("Fail");
 			pyramid.RemoveBlock(this);
 			FallOff();
 		}
@@ -127,6 +128,7 @@ public class CharacterControl : PyramidComponent {
 			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
 			if(flag != null)
 			{
+				anim.SetBool("GetBalloon",true);
 				(flag as FlagBalloon).Launch(this);
 				yield break; //Reached Goal
 			}
@@ -143,6 +145,10 @@ public class CharacterControl : PyramidComponent {
 			}
 		}
 	}
+	public void TurnToCamera()
+	{
+		anim.transform.localRotation = Quaternion.Euler(0,180,0);
+	}
 	public override void FallOff(bool refresh = true)
 	{
 		base.FallOff();
@@ -154,7 +160,11 @@ public class CharacterControl : PyramidComponent {
 		while(true)
 		{
 			if(floating) yield return null;
-			else yield break;
+			else
+			{
+				anim.SetTrigger("Land");
+				yield break;
+			}
 		}
 	}
 }

@@ -61,10 +61,5 @@ public abstract class PyramidComponent : MonoBehaviour {
 	{
 		deltaPosition = transform.position - prevPosition;
 		prevPosition = transform.position;
-		if(withPhysics)
-		{
-			if(transform.position.y > 0.5f) return;
-			body.velocity *= 0.8f;
-		}
 	}
 }
