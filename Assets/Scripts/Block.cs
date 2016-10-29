@@ -68,6 +68,7 @@ public class Block : PyramidComponent
 		}
 		else if(targetPosition.y == 1)
 		{
+			pyramid.RemoveBlock(this);
 			FallOff();
 		}
 
@@ -97,14 +98,14 @@ public class Block : PyramidComponent
 		}
 		return false;
 	}
-    void OnMouseDown()
+    protected virtual void OnMouseDown()
     {
 		pyramid.RemoveBlock(this);
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = Vector3.forward * 12f;
-		GetComponent<BoxCollider>().size = Vector3.one * 0.8f;
+		var col = GetComponent<Collider>();
 		Invoke("DestroySelf",5f);
     }
 }

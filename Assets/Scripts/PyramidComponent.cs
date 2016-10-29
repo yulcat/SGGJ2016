@@ -23,11 +23,10 @@ public abstract class PyramidComponent : MonoBehaviour {
 			.SetEase(Ease.InCubic)
 			.OnComplete(() => floating = false);
 	}
-	public virtual void FallOff()
+	public virtual void FallOff(bool refresh = true)
 	{
 		transform.DOKill();
 		withPhysics = true;
-		pyramid.RemoveBlock(this);
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = deltaPosition / Time.fixedDeltaTime;
 		Invoke("DestroySelf",5f);
@@ -37,7 +36,7 @@ public abstract class PyramidComponent : MonoBehaviour {
 		Destroy(gameObject);
 	}
 	protected bool withPhysics = false;
-	Vector3 prevPosition;
+	protected Vector3 prevPosition;
 	protected Vector3 deltaPosition;
 	protected virtual void FixedUpdate()
 	{

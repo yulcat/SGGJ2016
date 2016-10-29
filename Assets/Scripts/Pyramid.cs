@@ -6,7 +6,6 @@ using System;
 public class Pyramid : MonoBehaviour
 {
     List<PyramidComponent> blocks;
-    CharacterControl character;
     float angularVelocity = 0f;
     public float angularDamp = 0.1f;
     public float torqueMultiplier = 5f;
@@ -18,14 +17,13 @@ public class Pyramid : MonoBehaviour
     {
         blocks = GetComponentsInChildren<PyramidComponent>().ToList();
         blocks.ForEach(b => b.SetPyramid(this));
-        character = FindObjectOfType<CharacterControl>();
-        character.SetPyramid(this);
     }
 
-    public void RemoveBlock(PyramidComponent block)
+    public void RemoveBlock(PyramidComponent block, bool refresh = true)
     {
         blocks.Remove(block);
-        RefreshBlocks();
+		if(refresh)
+	        RefreshBlocks();
     }
     public void RefreshBlocks()
     {
@@ -36,6 +34,16 @@ public class Pyramid : MonoBehaviour
     {
         return blocks.Any(func);
     }
+	public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
+    {
+        return blocks.FirstOrDefault(func);
+    }
+	public void CollapseAll()
+	{
+		blocks.ForEach(b => b.FallOff(false));
+		transform.DetachChildren();
+        blocks.Clear();
+	}
 
     void OnDrawGizmos()
     {
@@ -43,7 +51,7 @@ public class Pyramid : MonoBehaviour
 		{
 			calculate = false;
 			Start();
-			FixedUpdate();
+			torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
 		}
     }
 
@@ -57,8 +65,7 @@ public class Pyramid : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, currentRot + angularVelocity);
         if (Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
         {
-            transform.DetachChildren();
-            blocks.ForEach(b => b.FallOff());
+            CollapseAll();
         }
     }
 }

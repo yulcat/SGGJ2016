@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class CharacterControl : PyramidComponent {
 	Vector3 moveTarget;
@@ -23,6 +24,7 @@ public class CharacterControl : PyramidComponent {
     {
 		if(y <= 1)
 		{
+			pyramid.RemoveBlock(this);
 			FallOff();
 		}
 		else if(pyramid.HasBlocks(c => CheckFeet(x,y,c)))
@@ -84,21 +86,52 @@ public class CharacterControl : PyramidComponent {
 		return CheckFeet(x,y,target,0);
 	}
 
-	void Update () {
-		if(Input.GetMouseButtonDown(0))
+	bool CheckFlag(float x, int y, PyramidComponent target)
+	{
+		if(target is FlagBalloon) return CheckFeet(x,y,target,0);
+		else return false;
+	}
+
+	IEnumerator Start () {
+		// if(Input.GetMouseButtonDown(0))
+		// {
+		// 	var pos = GetClickPosition();
+		// 	var y = Mathf.FloorToInt(pos.y) * 2 + 1;
+		// 	if(pyramid.HasBlocks(c => CheckFeet(pos.x, y, c))
+		// 		&& !pyramid.HasBlocks(c => CheckOverlap(pos.x, y, c)))
+		// 	{
+		// 		moveTarget = pos;
+		// 		StopAllCoroutines();
+		// 		StartCoroutine(MoveToTarget());
+		// 	}
+		// }
+		while(true)
 		{
-			var pos = GetClickPosition();
-			var y = Mathf.FloorToInt(pos.y) * 2 + 1;
-			if(pyramid.HasBlocks(c => CheckFeet(pos.x, y, c))
-				&& !pyramid.HasBlocks(c => CheckOverlap(pos.x, y, c)))
+			yield return null;
+			if(pyramid == null) continue;
+			var currentX = transform.localPosition.x;
+			var direction = Input.GetAxis("Horizontal");
+			float dx = direction * moveSpeed * Time.deltaTime;
+			float destination = currentX + dx;
+			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
+			if(flag != null)
 			{
-				moveTarget = pos;
-				StopAllCoroutines();
-				StartCoroutine(MoveToTarget());
+				(flag as FlagBalloon).Launch(this);
+				yield break; //Reached Goal
+			}
+			if(pyramid.HasBlocks(c => CheckOverlap(destination,currentFloor,c)))
+				continue; //Blocked by block
+			
+			transform.Translate(dx, 0, 0);
+			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
+			{
+				RefreshPosition();
+				yield return StartCoroutine(WaitForLanding());
+				//Jump off
 			}
 		}
 	}
-	public override void FallOff()
+	public override void FallOff(bool refresh = true)
 	{
 		base.FallOff();
 		StopAllCoroutines();
@@ -111,19 +144,26 @@ public class CharacterControl : PyramidComponent {
 			var toward = moveTarget.x - currentX;
 			var abs = Mathf.Abs(toward);
 			if(abs < 0.1f)
-				yield break;
+				yield break; //Reached Target Position
 
 			int direction = (int)(toward / abs);
 			float dx = direction * moveSpeed * Time.fixedDeltaTime;
 			float destination = currentX + dx;
+			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
+			if(flag != null)
+			{
+				(flag as FlagBalloon).Launch(this);
+				yield break; //Reached Goal
+			}
 			if(pyramid.HasBlocks(c => CheckOverlap(destination,currentFloor,c)))
-				yield break;
+				yield break; //Blocked by block
 			
 			transform.Translate(dx, 0, 0);
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();
 				yield return StartCoroutine(WaitForLanding());
+				//Jump off
 			}
 			else
 			{
