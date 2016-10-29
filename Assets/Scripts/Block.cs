@@ -112,7 +112,7 @@ public class Block : PyramidComponent
 	}
     protected virtual void OnMouseDown()
     {
-		if(GameState.instance.isGameEnd) return;
+		if(pyramid == null || GameState.instance.isGameEnd) return;
 		pyramid.RemoveBlock(this);
 		transform.DOKill();
 		withPhysics = true;

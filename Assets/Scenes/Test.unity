@@ -2501,7 +2501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angularDamp: 0.1
-  torqueMultiplier: 0.2
+  torqueMultiplier: 0.25
   returnTorque: 0
   torqueSum: 0.363
   calculate: 0

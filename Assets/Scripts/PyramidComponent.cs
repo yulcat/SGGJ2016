@@ -2,6 +2,7 @@
 using DG.Tweening;
 
 public abstract class PyramidComponent : MonoBehaviour {
+	public float lifeTime = 5f;
 	protected Pyramid pyramid;
 	protected bool floating;
 	protected Rigidbody body;
@@ -47,7 +48,7 @@ public abstract class PyramidComponent : MonoBehaviour {
 		}
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = deltaPosition / Time.fixedDeltaTime;
-		Invoke("DestroySelf",5f);
+		Invoke("DestroySelf",lifeTime);
 	}
 	protected void DestroySelf()
 	{
