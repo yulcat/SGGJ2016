@@ -37,6 +37,12 @@ public abstract class PyramidComponent : MonoBehaviour {
 	{
 		transform.DOKill();
 		withPhysics = true;
+		ShirinkCollider();
+		body.constraints = RigidbodyConstraints.None;
+		body.velocity = deltaPosition / Time.fixedDeltaTime;
+	}
+	protected void ShirinkCollider()
+	{
 		var col = GetComponent<Collider>();
 		if(col is BoxCollider)
 		{
@@ -46,8 +52,6 @@ public abstract class PyramidComponent : MonoBehaviour {
 		{
 			(col as SphereCollider).radius *= 0.9f;
 		}
-		body.constraints = RigidbodyConstraints.None;
-		body.velocity = deltaPosition / Time.fixedDeltaTime;
 	}
 	protected bool withPhysics = false;
 	protected Vector3 prevPosition;

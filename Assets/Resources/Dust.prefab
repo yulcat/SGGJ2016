@@ -21,8 +21,9 @@ GameObject:
   - 4: {fileID: 4000011152038088}
   - 198: {fileID: 198000013843941880}
   - 199: {fileID: 199000011693503282}
+  - 114: {fileID: 114000013894468626}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,6 +42,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000013894468626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013981537520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c774826c606ae46fe82708d8ccf3b50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableTime: 3
 --- !u!198 &198000013843941880
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -85,7 +98,7 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
@@ -1808,7 +1821,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: e984503b9b5dee446a3e1d2ccb26bd95, type: 2}
+  - {fileID: 2100000, guid: f8a614601153b49669b20b482a831a70, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

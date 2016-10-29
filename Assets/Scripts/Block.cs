@@ -99,7 +99,6 @@ public class Block : PyramidComponent
 		}
 		if(target is CharacterControl)
 		{
-			//Check if character is crashed
 			return false;
 		}
 		if(target is Block)
@@ -121,7 +120,7 @@ public class Block : PyramidComponent
 			withPhysics = true;
 			body.constraints = RigidbodyConstraints.None;
 			body.velocity = Vector3.forward * 12f;
-			var col = GetComponent<Collider>();
+			ShirinkCollider();
 		}
 		else
 		{
@@ -129,4 +128,12 @@ public class Block : PyramidComponent
 				.SetEase(Ease.OutQuint);
 		}
     }
+	void OnCollisionEnter(Collision col)
+	{
+		if(col.collider.GetComponent<Terrain>()==null) return;
+		var contact = col.contacts[0].point;
+		var effect = EffectSpawner.GetEffect("Dust");
+		effect.transform.position = contact;
+		effect.SetActive(true);
+	}
 }
