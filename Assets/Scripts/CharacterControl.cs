@@ -7,6 +7,7 @@ public class CharacterControl : PyramidComponent {
 	int currentFloor;
 	public float thickness = 0.25f;
 	public float moveSpeed = 1f;
+	public GameObject crushEffect;
 
 	public override void SetPyramid(Pyramid m)
 	{
@@ -69,6 +70,10 @@ public class CharacterControl : PyramidComponent {
 		plane.Raycast(ray, out dist);
 		return pyramid.transform.InverseTransformPoint(ray.GetPoint(dist));
 	}
+	public bool BlockFallTest(Block target)
+	{
+		return CheckOverlap(transform.localPosition.x, currentFloor, target);
+	}
 
 	bool CheckFeet(float x, int y, PyramidComponent target, int dy = -2)
 	{
@@ -101,18 +106,6 @@ public class CharacterControl : PyramidComponent {
 	}
 
 	IEnumerator Start () {
-		// if(Input.GetMouseButtonDown(0))
-		// {
-		// 	var pos = GetClickPosition();
-		// 	var y = Mathf.FloorToInt(pos.y) * 2 + 1;
-		// 	if(pyramid.HasBlocks(c => CheckFeet(pos.x, y, c))
-		// 		&& !pyramid.HasBlocks(c => CheckOverlap(pos.x, y, c)))
-		// 	{
-		// 		moveTarget = pos;
-		// 		StopAllCoroutines();
-		// 		StartCoroutine(MoveToTarget());
-		// 	}
-		// }
 		while(true)
 		{
 			yield return null;
@@ -144,41 +137,6 @@ public class CharacterControl : PyramidComponent {
 		base.FallOff();
 		StopAllCoroutines();
 		GameState.Lose(GameState.LoseCause.CharacterLost);
-	}
-	IEnumerator MoveToTarget()
-	{
-		while(true)
-		{
-			var currentX = transform.localPosition.x;
-			var toward = moveTarget.x - currentX;
-			var abs = Mathf.Abs(toward);
-			if(abs < 0.1f)
-				yield break; //Reached Target Position
-
-			int direction = (int)(toward / abs);
-			float dx = direction * moveSpeed * Time.fixedDeltaTime;
-			float destination = currentX + dx;
-			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
-			if(flag != null)
-			{
-				(flag as FlagBalloon).Launch(this);
-				yield break; //Reached Goal
-			}
-			if(pyramid.HasBlocks(c => CheckOverlap(destination,currentFloor,c)))
-				yield break; //Blocked by block
-			
-			transform.Translate(dx, 0, 0);
-			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
-			{
-				RefreshPosition();
-				yield return StartCoroutine(WaitForLanding());
-				//Jump off
-			}
-			else
-			{
-				yield return new WaitForFixedUpdate();
-			}
-		}
 	}
 	IEnumerator WaitForLanding()
 	{
