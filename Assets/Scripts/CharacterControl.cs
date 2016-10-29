@@ -163,6 +163,14 @@ public class CharacterControl : PyramidComponent {
 			else
 			{
 				anim.SetTrigger("Land");
+				var flag = pyramid.GetBlock(c => 
+					CheckFlag(transform.localPosition.x,currentFloor,c));
+				if(flag != null)
+				{
+					anim.SetBool("GetBalloon",true);
+					(flag as FlagBalloon).Launch(this);
+					yield break; //Reached Goal
+				}
 				yield break;
 			}
 		}
