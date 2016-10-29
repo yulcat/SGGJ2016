@@ -10,6 +10,6 @@ public class BalloonLine : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		line.SetPosition(1,transform.InverseTransformPoint(target.position + Vector3.up * 0.5f));
+		line.SetPosition(1,transform.InverseTransformPoint(target.position));
 	}
 }

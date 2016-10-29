@@ -137,7 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3059b8087bb4d3ebdfc27de4bec6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buoyancy: 800
+  lifeTime: 5
+  ClickCount: 3
+  buoyancy: 1000
 --- !u!114 &114000014210770338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,7 +183,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 10, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     startWidth: 0.03
     endWidth: 0.03
