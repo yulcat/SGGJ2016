@@ -48,11 +48,6 @@ public abstract class PyramidComponent : MonoBehaviour {
 		}
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = deltaPosition / Time.fixedDeltaTime;
-		Invoke("DestroySelf",lifeTime);
-	}
-	protected void DestroySelf()
-	{
-		Destroy(gameObject);
 	}
 	protected bool withPhysics = false;
 	protected Vector3 prevPosition;

@@ -122,7 +122,6 @@ public class Block : PyramidComponent
 			body.constraints = RigidbodyConstraints.None;
 			body.velocity = Vector3.forward * 12f;
 			var col = GetComponent<Collider>();
-			Invoke("DestroySelf",5f);
 		}
 		else
 		{

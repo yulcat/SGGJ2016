@@ -53,26 +53,6 @@ public class CharacterControl : PyramidComponent {
 		}
 	}
 
-	void OnDrawGizmos()
-	{
-		if(!Application.isPlaying) return;
-		Gizmos.color = Color.red;
-        Gizmos.DrawSphere(pyramid.transform.TransformPoint(moveTarget), 0.52f);
-	}
-
-	Plane GetPyramidPlane()
-	{
-		return new Plane(pyramid.transform.forward, pyramid.transform.position);
-	}
-
-	Vector3 GetClickPosition()
-	{
-		var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		var plane = GetPyramidPlane();
-		float dist;
-		plane.Raycast(ray, out dist);
-		return pyramid.transform.InverseTransformPoint(ray.GetPoint(dist));
-	}
 	public bool BlockFallTest(Block target)
 	{
 		return CheckOverlap(transform.localPosition.x, currentFloor, target);
