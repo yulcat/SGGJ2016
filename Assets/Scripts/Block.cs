@@ -127,6 +127,8 @@ public class Block : PyramidComponent
 			transform.DOLocalMoveZ((float)currentClickCount / ClickCount, 0.3f)
 				.SetEase(Ease.OutQuint);
 		}
+		var audio = GetComponent<AudioList>();
+		if(audio != null) audio.Play("Push");
     }
 	void OnCollisionEnter(Collision col)
 	{
