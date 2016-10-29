@@ -40,6 +40,5 @@ public class Balloon : Block {
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = Vector3.forward * 8f;
 		var col = GetComponent<Collider>();
-		Invoke("DestroySelf",5f);
     }
 }

@@ -28,9 +28,6 @@ public class FlagBalloon : Balloon {
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = Vector3.forward * -4f;
-		Invoke("DestroySelf",10f);
-		character.CancelInvoke();
-		character.Invoke("DestroySelf",10f);
 	}
 	public override void FallOff(bool refresh = true)
 	{
