@@ -11,9 +11,10 @@ public class FlagBalloon : Balloon {
 	{
 		GameState.Win();
 		var joint = gameObject.AddComponent<SpringJoint>();
+		var charBody = character.GetComponent<Rigidbody>();
 		joint.anchor = Vector3.up * 0.5f;
 		joint.autoConfigureConnectedAnchor = false;
-		joint.connectedBody = character.GetComponent<Rigidbody>();
+		joint.connectedBody = charBody;
 		joint.connectedAnchor = Vector3.up * 0.5f;
 		joint.damper = 0.8f;
 		character.TurnToCamera();
@@ -22,6 +23,7 @@ public class FlagBalloon : Balloon {
 		transform.SetParent(null);
 		pyramid.RemoveBlock(this, false);
 		pyramid.CollapseAll();
+		charBody.velocity = Vector3.zero;
 		GetComponent<Collider>().enabled = false;
 		character.GetComponent<Collider>().enabled = false;
 		transform.DOKill();
