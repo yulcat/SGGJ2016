@@ -23,6 +23,7 @@ public class VRControl : MonoBehaviour {
 		{
 			// var bullet = Instantiate<GameObject>(bulletOriginal);
 			var bullet = EffectSpawner.GetEffect("Bullet");
+			bullet.gameObject.SetActive (true);
 			bullet.transform.position = shootPosition.transform.position;
 			bullet.GetComponent<Rigidbody>().velocity = -shootPosition.up * shootSpeed;
 			bullet.GetComponent<Bullet>().Invoke("DisableSelf",15f);

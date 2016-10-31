@@ -91,6 +91,35 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &8239268
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: PixelSnap
+      second: 0
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &98415315
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,35 +825,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ea4fa8e094314cd397a71d7be99fa84, type: 2}
   m_IsPrefabParent: 0
---- !u!21 &492526488
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-    - first:
-        name: _MainTex
-      second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - first:
-        name: PixelSnap
-      second: 0
-    m_Colors:
-    - first:
-        name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &495307266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,11 +1667,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011055179588, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.25
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4000011055179588, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -9.66
+      value: -17.3
       objectReference: {fileID: 0}
     - target: {fileID: 4000011055179588, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1697,15 +1697,35 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1506541354}
+      objectReference: {fileID: 1515596483}
     - target: {fileID: 23000011345290222, guid: 9bdc19e812fd040d5a68f5483bcb340a,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 492526488}
+      objectReference: {fileID: 8239268}
     - target: {fileID: 4000012331391072, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010833151364, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010833151364, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010833151364, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010833151364, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012700699836, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136000011918805056, guid: 9bdc19e812fd040d5a68f5483bcb340a, type: 2}
@@ -2114,7 +2134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angularDamp: 0.1
   torqueMultiplier: 0.2
-  returnTorque: 0
+  returnTorque: 3
   torqueSum: 0.363
   calculate: 0
 --- !u!1001 &1394950668
@@ -2301,7 +2321,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1495745249}
---- !u!43 &1506541354
+--- !u!43 &1515596483
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
