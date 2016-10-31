@@ -14,6 +14,7 @@ public class Title : VRListener {
 	}
 	public override void OnClick()
 	{
+		if(!gameObject.activeSelf) return;
 		SceneLoader.LoadScene(1);
 	}
 }

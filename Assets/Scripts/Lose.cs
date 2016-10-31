@@ -28,6 +28,7 @@ public class Lose : VRListener {
 
     public override void OnClick()
     {
+		if(!active || !gameObject.activeSelf) return;
         Reload();
     }
 

@@ -25,6 +25,7 @@ public class Win : VRListener
 
     public override void OnClick()
     {
+		if(!active || !gameObject.activeSelf) return;
         LoadScene();
     }
 
