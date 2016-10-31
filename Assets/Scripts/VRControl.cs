@@ -21,9 +21,11 @@ public class VRControl : MonoBehaviour {
 		var device = SteamVR_Controller.Input((int)trackedObj.index);
 		if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
 		{
-			var bullet = Instantiate<GameObject>(bulletOriginal);
+			// var bullet = Instantiate<GameObject>(bulletOriginal);
+			var bullet = EffectSpawner.GetEffect("Bullet");
 			bullet.transform.position = shootPosition.transform.position;
 			bullet.GetComponent<Rigidbody>().velocity = -shootPosition.up * shootSpeed;
+			bullet.GetComponent<Bullet>().Invoke("DisableSelf",15f);
 		}
 		var pressed = device.GetPress(SteamVR_Controller.ButtonMask.Touchpad);
 		var axis = device.GetAxis(EVRButtonId.k_EButton_SteamVR_Touchpad);
