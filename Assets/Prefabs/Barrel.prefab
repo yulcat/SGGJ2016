@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 218b7cb1381da4d33b3cd2ecd8f4966d, type: 2}
+  - {fileID: 2100000, guid: c52107d2f18994a56adb673ece6f228e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

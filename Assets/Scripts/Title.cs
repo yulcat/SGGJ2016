@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Title : MonoBehaviour {
-	IEnumerator Start () {
+public class Title : VRListener {
+	IEnumerator Start ()
+	{
 		yield return new WaitForSeconds(2);
 		while(true)
 		{
@@ -10,5 +11,9 @@ public class Title : MonoBehaviour {
 				SceneLoader.LoadScene(1);
 			yield return null;
 		}
+	}
+	public override void OnClick()
+	{
+		SceneLoader.LoadScene(1);
 	}
 }

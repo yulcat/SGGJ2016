@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Lose : MonoBehaviour {
+public class Lose : VRListener {
 	public Text text;
 	public GameState.LoseCause cause;
 	public string[] messages;
@@ -21,8 +22,18 @@ public class Lose : MonoBehaviour {
 		if(!active) return;
 		if(Input.GetMouseButtonDown(0))
 		{
-			var current = SceneManager.GetActiveScene().buildIndex;
-			SceneLoader.LoadScene(current);
+			Reload();
 		}
+	}
+
+    public override void OnClick()
+    {
+        Reload();
+    }
+
+	void Reload()
+	{
+		var current = SceneManager.GetActiveScene().buildIndex;
+		SceneLoader.LoadScene(current);
 	}
 }
