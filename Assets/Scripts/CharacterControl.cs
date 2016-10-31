@@ -95,7 +95,7 @@ public class CharacterControl : PyramidComponent {
 			if(pyramid == null) continue;
 			if(floating) yield return StartCoroutine(WaitForLanding());
 			var currentX = transform.localPosition.x;
-			var direction = Input.GetAxis("Horizontal");
+			var direction = GetDirection();
 			if(Mathf.Abs(direction) < 0.3f)
 			{
 				anim.SetBool("IsTrace",false);
@@ -123,6 +123,25 @@ public class CharacterControl : PyramidComponent {
 				anim.SetBool("IsTrace",false);
 				//Jump off
 			}
+		}
+	}
+	bool overrided = false;
+	float dirc;
+	public void OverrideInput(Vector2 direction)
+	{
+		overrided = true;
+		dirc = direction.x;
+	}
+	float GetDirection()
+	{
+		if(!overrided)
+		{
+			return Input.GetAxis("Horizontal");
+		}
+		else
+		{
+			overrided = false;
+			return dirc;
 		}
 	}
 	public void TurnToCamera()
