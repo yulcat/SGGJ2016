@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17994392, g: 0.22529683, b: 0.3067823, a: 1}
+  m_IndirectSpecularColor: {r: 0.46128905, g: 0.5119791, b: 0.58980995, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 0.9117647, g: 0.8829859, b: 0.80449826, a: 1}
-  m_Intensity: 0.69
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -238,10 +238,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 358762522}
-  m_LocalRotation: {x: 0.29156944, y: -0.4853728, z: 0.019005338, w: 0.82403845}
+  m_LocalRotation: {x: 0.20139042, y: -0.46628088, z: 0.8382512, w: 0.19839111}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 29.916002, y: -65.728004, z: -16.576}
+  m_LocalEulerAnglesHint: {x: 120.5, y: 557.5, z: -16.576}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -576,8 +576,6 @@ GameObject:
   - 92: {fileID: 922663832}
   - 124: {fileID: 922663831}
   - 81: {fileID: 922663830}
-  - 114: {fileID: 922663835}
-  - 114: {fileID: 922663836}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -653,46 +651,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &922663835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 922663829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0923359e9e352a4b9b11c7b7161ad67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Radius: 0.182
-  m_SampleCount: 1
-  m_OcclusionIntensity: 1.5
-  m_Blur: 2
-  m_Downsampling: 2
-  m_OcclusionAttenuation: 1
-  m_MinZ: 0.01
-  m_SSAOShader: {fileID: 4800000, guid: 43ca18288c424f645aaa1e9e07f04c50, type: 3}
-  m_RandomTexture: {fileID: 2800000, guid: a181ca8e3c62f3e4b8f183f6c586b032, type: 3}
---- !u!114 &922663836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 922663829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0923359e9e352a4b9b11c7b7161ad67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Radius: 0.4
-  m_SampleCount: 1
-  m_OcclusionIntensity: 1.5
-  m_Blur: 2
-  m_Downsampling: 2
-  m_OcclusionAttenuation: 1
-  m_MinZ: 0.01
-  m_SSAOShader: {fileID: 4800000, guid: 43ca18288c424f645aaa1e9e07f04c50, type: 3}
-  m_RandomTexture: {fileID: 2800000, guid: a181ca8e3c62f3e4b8f183f6c586b032, type: 3}
 --- !u!1 &967705429
 GameObject:
   m_ObjectHideFlags: 0
