@@ -31,7 +31,7 @@ public class Balloon : Block {
 			body.velocity *= 0.8f;
 		}
 	}
-    protected override void OnMouseDown()
+    public override void ClickListener()
     {
 		if(GameState.instance.isGameEnd) return;
 		pyramid.RemoveBlock(this);

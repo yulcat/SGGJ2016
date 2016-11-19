@@ -3,7 +3,7 @@ using System.Collections;
 using DG.Tweening;
 
 public class Bomb : Block {
-	protected override void OnMouseDown()
+	public override void ClickListener()
     {
 		if(pyramid == null || GameState.instance.isGameEnd) return;
 		pyramid.RemoveBlock(this);

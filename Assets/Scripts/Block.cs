@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 
+[System.SerializableAttribute]
 public struct XY
 {
 	public int x;
@@ -110,7 +111,7 @@ public class Block : PyramidComponent
 		}
 		return false;
 	}
-    protected virtual void OnMouseDown()
+    public virtual void ClickListener()
     {
 		if(pyramid == null || GameState.instance.isGameEnd) return;
 		if(++currentClickCount == ClickCount)

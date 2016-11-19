@@ -36,7 +36,7 @@ public class FlagBalloon : Balloon {
 		base.FallOff(refresh);
 		GameState.Lose(GameState.LoseCause.BalloonLost);
 	}
-	protected override void OnMouseDown()
+	public override void ClickListener()
     {
     }
 }

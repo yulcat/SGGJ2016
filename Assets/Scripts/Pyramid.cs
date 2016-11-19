@@ -11,19 +11,49 @@ public class Pyramid : MonoBehaviour
     public float torqueMultiplier = 5f;
     public float returnTorque = 10f;
     public float torqueSum;
-	public bool calculate = false;
+    public bool calculate = false;
+    private Plane inputPlane;
+    private Vector3 recentClick;
     // Use this for initialization
     void Start()
     {
         blocks = GetComponentsInChildren<PyramidComponent>().ToList();
         blocks.ForEach(b => b.SetPyramid(this));
+        inputPlane = new Plane(Vector3.forward, transform.position + (Vector3.back * 0.5f));
+    }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float rayDistance;
+            if (inputPlane.Raycast(ray, out rayDistance))
+            {
+                recentClick = ray.GetPoint(rayDistance);
+                PushBlock(transform.InverseTransformPoint(recentClick));
+            }
+        }
+    }
+    void PushBlock(Vector3 clickPosition)
+    {
+        var block = GetBlock(b => IsClicked(b, clickPosition)) as Block;
+        if (block != null) block.ClickListener();
+    }
+    bool IsClicked(PyramidComponent obj, Vector3 clickPosition)
+    {
+        var block = obj as Block;
+        if (block == null) return false;
+        var y = Mathf.FloorToInt(clickPosition.y) * 2 + 1;
+        return block.position.y == y
+            && block.position.x + 1 >= clickPosition.x * 2
+            && block.position.x - 1 <= clickPosition.x * 2;
     }
 
     public void RemoveBlock(PyramidComponent block, bool refresh = true)
     {
         blocks.Remove(block);
-		if(refresh)
-	        RefreshBlocks();
+        if (refresh)
+            RefreshBlocks();
     }
     public void RefreshBlocks()
     {
@@ -34,25 +64,27 @@ public class Pyramid : MonoBehaviour
     {
         return blocks.Any(func);
     }
-	public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
+    public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
     {
         return blocks.FirstOrDefault(func);
     }
-	public void CollapseAll()
-	{
-		blocks.ForEach(b => b.FallOff(false));
-		transform.DetachChildren();
+    public void CollapseAll()
+    {
+        blocks.ForEach(b => b.FallOff(false));
+        transform.DetachChildren();
         blocks.Clear();
-	}
+    }
 
     void OnDrawGizmos()
     {
-		if(calculate && !Application.isPlaying)
-		{
-			calculate = false;
-			Start();
-			torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
-		}
+        // Gizmos.color = Color.green;
+        // Gizmos.DrawSphere(recentClick,0.2f);
+        if (calculate && !Application.isPlaying)
+        {
+            calculate = false;
+            Start();
+            torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
+        }
     }
 
     void FixedUpdate()
