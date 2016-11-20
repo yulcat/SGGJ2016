@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16752964, g: 0.2102537, b: 0.2896643, a: 1}
+  m_IndirectSpecularColor: {r: 0.4461379, g: 0.49588668, b: 0.5745671, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1513,7 +1513,8 @@ MonoBehaviour:
   angularDamp: 0.1
   torqueMultiplier: 0.25
   returnTorque: 0
-  torqueSum: 0.09125002
+  torqueSum: -0.28000012
+  inertia: 2.430009
   calculate: 0
 --- !u!1001 &1394950668
 Prefab:

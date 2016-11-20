@@ -11,6 +11,7 @@ public class Pyramid : MonoBehaviour
     public float torqueMultiplier = 5f;
     public float returnTorque = 10f;
     public float torqueSum;
+    public float inertia;
     public bool calculate = false;
     private Plane inputPlane;
     private Vector3 recentClick;
@@ -84,15 +85,18 @@ public class Pyramid : MonoBehaviour
             calculate = false;
             Start();
             torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
+            inertia = blocks.Aggregate(0f,GetInertiaSum) * 0.01f;
         }
     }
 
     void FixedUpdate()
     {
+        if(blocks.Count == 0) return;
+        inertia = blocks.Aggregate(0f,GetInertiaSum) * 0.01f;
         torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
         var currentRot = transform.rotation.eulerAngles.z;
         var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
-        angularVelocity += (returning + torqueSum) * Time.fixedDeltaTime;
+        angularVelocity += (returning + torqueSum) * Time.fixedDeltaTime / inertia;
         angularVelocity *= 1 - angularDamp;
         transform.rotation = Quaternion.Euler(0, 0, currentRot + angularVelocity);
         if (Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
@@ -100,5 +104,12 @@ public class Pyramid : MonoBehaviour
             GameState.Lose(GameState.LoseCause.Collapsed);
             CollapseAll();
         }
+    }
+    float GetInertiaSum(float inertia, PyramidComponent comp)
+    {
+        var mass = comp.GetComponent<Rigidbody>().mass;
+        var r = comp.transform.localPosition.magnitude;
+        var multiplier = comp is Balloon? 0 : 1;
+        return (mass * r * r * multiplier) + inertia;
     }
 }

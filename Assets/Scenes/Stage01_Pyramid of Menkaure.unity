@@ -1287,6 +1287,7 @@ MonoBehaviour:
   torqueMultiplier: 0.25
   returnTorque: 0
   torqueSum: -0.10499999
+  inertia: 157.55089
   calculate: 0
 --- !u!1001 &1394950668
 Prefab:
