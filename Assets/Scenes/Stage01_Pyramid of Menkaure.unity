@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angularDamp: 0.1
-  torqueMultiplier: 0.25
+  torqueMultiplier: 10
   returnTorque: 0
   torqueSum: -0.10499999
   inertia: 157.55089
@@ -1703,6 +1703,11 @@ Prefab:
     - target: {fileID: 4000011428799170, guid: e15e8d7e322bb48e5ac2c1bdda834277, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013459626984, guid: e15e8d7e322bb48e5ac2c1bdda834277,
+        type: 2}
+      propertyPath: lifeTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33000013027080634, guid: e15e8d7e322bb48e5ac2c1bdda834277, type: 2}

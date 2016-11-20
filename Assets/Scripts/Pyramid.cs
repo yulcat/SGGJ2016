@@ -96,14 +96,9 @@ public class Pyramid : MonoBehaviour
         torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
         var currentRot = transform.rotation.eulerAngles.z;
         var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
-        angularVelocity += (returning + torqueSum) * Time.fixedDeltaTime / inertia;
+        ApplyMomentum(torqueSum + returning);
+        ApplyAngularVelocity();
         angularVelocity *= 1 - angularDamp;
-        transform.rotation = Quaternion.Euler(0, 0, currentRot + angularVelocity);
-        if (Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
-        {
-            GameState.Lose(GameState.LoseCause.Collapsed);
-            CollapseAll();
-        }
     }
     float GetInertiaSum(float inertia, PyramidComponent comp)
     {
@@ -111,5 +106,20 @@ public class Pyramid : MonoBehaviour
         var r = comp.transform.localPosition.magnitude;
         var multiplier = comp is Balloon? 0 : 1;
         return (mass * r * r * multiplier) + inertia;
+    }
+    public void ApplyMomentum(float momentum)
+    {
+        angularVelocity += momentum * Time.deltaTime / inertia;
+    }
+    void ApplyAngularVelocity()
+    {
+        var currentRot = transform.rotation.eulerAngles.z;
+        var dc = angularVelocity * Time.fixedDeltaTime;
+        transform.rotation = Quaternion.Euler(0, 0, currentRot + dc);
+        if (Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
+        {
+            GameState.Lose(GameState.LoseCause.Collapsed);
+            CollapseAll();
+        }
     }
 }

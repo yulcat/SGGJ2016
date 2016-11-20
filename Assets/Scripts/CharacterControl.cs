@@ -117,6 +117,7 @@ public class CharacterControl : PyramidComponent {
 				continue; //Blocked by block
 			
 			transform.Translate(dx, 0, 0);
+			pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed));
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();
@@ -124,6 +125,13 @@ public class CharacterControl : PyramidComponent {
 				//Jump off
 			}
 		}
+	}
+	float GetMoveMomentum(float vx)
+	{
+		var mv = transform.right * vx * body.mass;
+		var r = transform.localPosition;
+		Debug.Log(Vector3.Cross(r,mv).z);
+		return -Vector3.Cross(r,mv).z;
 	}
 	public void TurnToCamera()
 	{

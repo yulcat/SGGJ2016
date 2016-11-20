@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angularDamp: 0.1
-  torqueMultiplier: 0.25
+  torqueMultiplier: 10
   returnTorque: 0
   torqueSum: -0.28000012
   inertia: 2.430009
