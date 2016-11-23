@@ -426,7 +426,7 @@ PlayerSettings:
   - WebPlayer::ScriptingBackend
   - iOS::Architecture
   - iOS::ScriptingBackend
-  Android::ScriptingBackend: 1
+  Android::ScriptingBackend: 0
   Standalone::ScriptingBackend: 0
   WebPlayer::ScriptingBackend: 0
   iOS::Architecture: 2

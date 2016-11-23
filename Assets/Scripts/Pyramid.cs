@@ -24,15 +24,24 @@ public class Pyramid : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        foreach(var t in Input.touches)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float rayDistance;
-            if (inputPlane.Raycast(ray, out rayDistance))
-            {
-                recentClick = ray.GetPoint(rayDistance);
-                PushBlock(transform.InverseTransformPoint(recentClick));
-            }
+            if(t.phase != TouchPhase.Began) continue;
+            RayCheck(t.position);
+        }
+        if (!Input.touchSupported && Input.GetMouseButtonDown(0))
+        {
+            RayCheck(Input.mousePosition);
+        }
+    }
+    void RayCheck(Vector3 position)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(position);
+        float rayDistance;
+        if (inputPlane.Raycast(ray, out rayDistance))
+        {
+            recentClick = ray.GetPoint(rayDistance);
+            PushBlock(transform.InverseTransformPoint(recentClick));
         }
     }
     void PushBlock(Vector3 clickPosition)

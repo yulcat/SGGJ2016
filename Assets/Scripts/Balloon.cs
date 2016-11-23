@@ -25,7 +25,7 @@ public class Balloon : Block {
 		if(withPhysics)
 		{
             body.AddForceAtPosition(
-                Vector3.up * buoyancy * Time.fixedDeltaTime, 
+                Vector3.up * buoyancy, 
                 transform.TransformPoint(Vector3.up * -0.5f));
 			if(transform.position.y > 0.5f) return;
 			body.velocity *= 0.8f;
