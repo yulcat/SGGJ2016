@@ -96,6 +96,13 @@ public class CharacterControl : PyramidComponent {
 			if(floating) yield return StartCoroutine(WaitForLanding());
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
+			// Debug.Log(InControl.InputManager.ActiveDevice.GetControl(InControl.InputControlType.LeftStickX).Value);
+			var touchDirection = InControl
+				.InputManager
+				.ActiveDevice
+				.GetControl(InControl.InputControlType.LeftStickX)
+				.Value;
+			if(Mathf.Abs(direction) < 0.3f) direction = touchDirection;
 			if(Mathf.Abs(direction) < 0.3f)
 			{
 				anim.SetBool("IsTrace",false);
