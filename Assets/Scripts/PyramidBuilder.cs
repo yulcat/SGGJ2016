@@ -38,7 +38,7 @@ public struct StageData
 	public int number;
 }
 public class PyramidBuilder : MonoBehaviour {
-	public string stageToLoad;
+	public int stageToLoad;
 	Dictionary<BlockType,GameObject> resource = new Dictionary<BlockType,GameObject>();
 	// Use this for initialization
 	void Start () {
