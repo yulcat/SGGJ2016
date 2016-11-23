@@ -890,6 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f0391790ebc43aaaba1cfb92fd71c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playOnAwake: 0
   packs:
   - name: step
     clips:
