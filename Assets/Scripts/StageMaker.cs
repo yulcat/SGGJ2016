@@ -11,6 +11,7 @@ public class StageMaker : MonoBehaviour
 	{
 		public BlockType type;
 		public int max;
+	
 	}
     
     public BlockType[] basicBlocks;
@@ -30,8 +31,8 @@ public class StageMaker : MonoBehaviour
 			SetFlagBalloon(ref stage);
 			stage.ForEach(floor => MakeFloor(ref floor));
 			var blockData = ListToBlockData(stage);
-			if(!SanityCheck(blockData)) continue;
 			AddSpecialBlocks(blockData);
+			if(!SanityCheck(blockData)) continue;
 			GetComponent<PyramidBuilder>().Build(blockData);
 			current = blockData;
 			return;
@@ -78,11 +79,11 @@ public class StageMaker : MonoBehaviour
 		if(blockMassTable.ContainsKey(blockType)) return blockMassTable[blockType];
 		var obj = Resources.Load<GameObject>("Blocks/"+blockType.ToString());
 		var body = obj.GetComponent<Rigidbody>();
-		blockMassTable.Add(blockType, body.mass);
+		float mass = body.mass;
 		if(blockType == BlockType.Balloon || blockType == BlockType.FlagBalloon)
-			return -body.mass;
-		else
-			return body.mass;
+			mass *= -1;
+		blockMassTable.Add(blockType, mass);
+		return body.mass;
 	}
 	List<BlockData> ListToBlockData(List<List<BlockType>> stage)
 	{
@@ -98,7 +99,12 @@ public class StageMaker : MonoBehaviour
 	}
 	bool SanityCheck(List<BlockData> stage)
 	{
-		var torque = stage.Sum(b => GetBlockMass((BlockType)b.type) * b.x * 2);
+		var torque = stage.Sum(b => GetBlockMass(b.GetBlockType()) * transform.TransformVector(b.GetXY().ToVector3()).x);
+		Debug.Log("torqueSum : "+ torque);
+		foreach(var b in blockMassTable)
+		{
+			Debug.Log(b.Key.ToString() + " : " + b.Value.ToString());
+		}
 		return Mathf.Abs(torque) < maxTorque;
 	}
 	void AddSpecialBlocks(List<BlockData> blockData)
@@ -108,10 +114,10 @@ public class StageMaker : MonoBehaviour
 			for(int i=0; i<b.max; i++)
 			{
 				var selected = Random.Range(0,blockData.Count);
-				if(basicBlocks.Any(basic => basic == (BlockType)blockData[selected].type))
+				if(basicBlocks.Any(basic => basic == blockData[selected].GetBlockType()))
 				{
 					var modified = blockData[selected];
-					modified.type = (int)b.type;
+					modified.SetBlockType(b.type);
 					blockData[selected] = modified;
 				}
 			}
@@ -131,7 +137,7 @@ public class StageMaker : MonoBehaviour
 		pathBuilder.Append(".json");
 		var path = pathBuilder.ToString();
 	
-		string str = JsonMapper.ToJson(current);
+		string str = JsonMapper.ToJson(current.Select(b => b.data).ToArray());
 		using (FileStream fs = new FileStream(path, FileMode.Create)){
 			using (StreamWriter writer = new StreamWriter(fs)){
 				writer.Write(str);

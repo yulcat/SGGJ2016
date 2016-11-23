@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
 using LitJson;
 using System.Collections.Generic;
 
@@ -7,14 +7,29 @@ using System.Collections.Generic;
 public enum BlockType { Character=0, FlagBalloon, Empty, Wood, Sand, Iron, Balloon }
 public struct BlockData
 {
-	public int type;
-	public int x;
-	public int y;
+	public int[] data;
+	public BlockType GetBlockType()
+	{
+		return (BlockType)data[0];
+	}
+	public void SetBlockType(BlockType t)
+	{
+		data[0] = (int)t;
+	}
+	public XY GetXY()
+	{
+		return new XY(data[1],data[2]);
+	}
 	public BlockData(BlockType _type, int _x, int _y)
 	{
-		type = (int)_type;
-		x = _x;
-		y = _y;
+		data = new int[3];
+		data[0] = (int)_type;
+		data[1] = _x;
+		data[2] = _y;
+	}
+	public BlockData(int[] newData)
+	{
+		data = newData;
 	}
 }
 public struct StageData
@@ -42,9 +57,9 @@ public class PyramidBuilder : MonoBehaviour {
 	{
 		var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
 		if(!stage) return;
-		Build(JsonMapper.ToObject<List<BlockData>>(stage.text));
+		Build(JsonMapper.ToObject<List<int[]>>(stage.text).Select(i => new BlockData(i)));
 	}
-	public void Build(List<BlockData> blockData)
+	public void Build(IEnumerable<BlockData> blockData)
 	{
 		var childCount = transform.childCount;
 		for(int i=0; i<childCount; i++)
@@ -56,10 +71,10 @@ public class PyramidBuilder : MonoBehaviour {
 		List<PyramidComponent> instantiated = new List<PyramidComponent>();
 		foreach(var block in blockData)
 		{
-			if((BlockType)block.type == BlockType.Empty) continue;
-			var newObj = Instantiate<GameObject>(GetBlock((BlockType)block.type));
+			if(block.GetBlockType() == BlockType.Empty) continue;
+			var newObj = Instantiate<GameObject>(GetBlock(block.GetBlockType()));
 			newObj.transform.SetParent(transform);
-			newObj.transform.localPosition = new Vector2(block.x * 0.5f, block.y * 0.5f);
+			newObj.transform.localPosition = block.GetXY().ToVector3();
 			instantiated.Add(newObj.GetComponent<PyramidComponent>());
 		}
 		GetComponent<Pyramid>().EnlistBlocks(instantiated);

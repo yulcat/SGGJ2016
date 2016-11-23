@@ -25,7 +25,7 @@ public class Pyramid : MonoBehaviour
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
     {
         // blocks.ForEach(b => Destroy(b.gameObject));
-        blocks.Clear();
+        blocks = new List<PyramidComponent>();
         blocks.AddRange(newBlocks);
         blocks.ForEach(b => b.SetPyramid(this));
     }
