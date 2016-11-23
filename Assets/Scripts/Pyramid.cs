@@ -22,6 +22,13 @@ public class Pyramid : MonoBehaviour
         blocks.ForEach(b => b.SetPyramid(this));
         inputPlane = new Plane(Vector3.forward, transform.position + (Vector3.back * 0.5f));
     }
+    public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
+    {
+        blocks.ForEach(b => Destroy(b.gameObject));
+        blocks.Clear();
+        blocks.AddRange(newBlocks);
+        blocks.ForEach(b => b.SetPyramid(this));
+    }
     void Update()
     {
         foreach(var t in Input.touches)
