@@ -32,7 +32,7 @@ public class StageMaker : MonoBehaviour
 			stage.ForEach(floor => MakeFloor(ref floor));
 			var blockData = ListToBlockData(stage);
 			AddSpecialBlocks(blockData);
-			if(!SanityCheck(blockData)) continue;
+			if(!SanityCheck(ref blockData)) continue;
 			GetComponent<PyramidBuilder>().Build(blockData);
 			current = blockData;
 			return;
@@ -97,14 +97,14 @@ public class StageMaker : MonoBehaviour
 		}
 		return blockData;
 	}
-	bool SanityCheck(List<BlockData> stage)
+	bool SanityCheck(ref List<BlockData> stage)
 	{
 		var torque = stage.Sum(b => GetBlockMass(b.GetBlockType()) * transform.TransformVector(b.GetXY().ToVector3()).x);
-		Debug.Log("torqueSum : "+ torque);
-		foreach(var b in blockMassTable)
-		{
-			Debug.Log(b.Key.ToString() + " : " + b.Value.ToString());
-		}
+		var charMass = GetBlockMass(BlockType.Character);
+		var charX = Mathf.RoundToInt(- torque / charMass * 2);
+		var charY = stage.Max(d => d.GetXY().y) + 2;
+		if(Mathf.Abs(charX) > Mathf.Abs(charY)/2) return false;
+		stage.Add(new BlockData(BlockType.Character,charX,charY));
 		return Mathf.Abs(torque) < maxTorque;
 	}
 	void AddSpecialBlocks(List<BlockData> blockData)

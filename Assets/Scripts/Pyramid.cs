@@ -15,11 +15,15 @@ public class Pyramid : MonoBehaviour
     public bool calculate = false;
     private Plane inputPlane;
     private Vector3 recentClick;
+    private bool initializedByBuilder = false;
     // Use this for initialization
     void Start()
     {
-        blocks = GetComponentsInChildren<PyramidComponent>().ToList();
-        blocks.ForEach(b => b.SetPyramid(this));
+        if(!initializedByBuilder)
+        {
+            blocks = GetComponentsInChildren<PyramidComponent>().ToList();
+            blocks.ForEach(b => b.SetPyramid(this));
+        }
         inputPlane = new Plane(Vector3.forward, transform.position + (Vector3.back * 0.5f));
     }
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
@@ -28,6 +32,7 @@ public class Pyramid : MonoBehaviour
         blocks = new List<PyramidComponent>();
         blocks.AddRange(newBlocks);
         blocks.ForEach(b => b.SetPyramid(this));
+        initializedByBuilder = true;
     }
     void Update()
     {
