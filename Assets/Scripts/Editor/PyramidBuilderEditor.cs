@@ -17,6 +17,7 @@ public class PyramidBuilderEditor : Editor {
         PyramidBuilder builder = target as PyramidBuilder;
         var loaded = Resources.LoadAll<TextAsset>("Stages");
         var intName = loaded.Select(asset => System.Convert.ToInt32(asset.name));
+        if(intName.Count() == 0) return;
         EditorGUILayout.IntSlider (toLoad, intName.Min(), intName.Max(), new GUIContent ("Stage"));
         if (GUILayout.Button("Load Stage"))
         {
