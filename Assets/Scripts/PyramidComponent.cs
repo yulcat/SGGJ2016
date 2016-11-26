@@ -2,6 +2,7 @@
 using DG.Tweening;
 
 public abstract class PyramidComponent : MonoBehaviour {
+	public BlockType BlockType;
 	public float lifeTime = 5f;
 	protected Pyramid pyramid;
 	protected bool floating;

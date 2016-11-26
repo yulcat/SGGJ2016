@@ -125,7 +125,7 @@ public class StageMaker : MonoBehaviour
 	}
 	public void SaveStage()
 	{
-		if(current == null) return;
+		var children = GetComponentsInChildren<PyramidComponent>().Select(obj => ObjectToBlockData(obj));
 		var stages = Resources.LoadAll<TextAsset>("Stages");
 		int max = 0;
 		if(stages.Length != 0)
@@ -137,7 +137,7 @@ public class StageMaker : MonoBehaviour
 		pathBuilder.Append(".json");
 		var path = pathBuilder.ToString();
 	
-		string str = JsonMapper.ToJson(current.Select(b => b.data).ToArray());
+		string str = JsonMapper.ToJson(children.Select(b => b.data).ToArray());
 		using (FileStream fs = new FileStream(path, FileMode.Create)){
 			using (StreamWriter writer = new StreamWriter(fs)){
 				writer.Write(str);
@@ -146,5 +146,11 @@ public class StageMaker : MonoBehaviour
 		#if UNITY_EDITOR
 		UnityEditor.AssetDatabase.Refresh ();
 		#endif
+	}
+	BlockData ObjectToBlockData(PyramidComponent obj)
+	{
+		var blockType = obj.BlockType;
+		var pos = new XY(obj.transform.localPosition);
+		return new BlockData(blockType, pos.x, pos.y);
 	}
 }
