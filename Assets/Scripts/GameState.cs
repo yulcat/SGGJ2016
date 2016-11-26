@@ -33,7 +33,10 @@ public class GameState : MonoBehaviour {
 	}
 	void Awake()
 	{
-		if(_instance == null) _instance = this;
+		if(_instance == null)
+		{
+			_instance = this;
+		}
 	}
 	void WinGame()
 	{

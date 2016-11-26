@@ -68,7 +68,7 @@ public class PyramidBuilder : MonoBehaviour
     public void LoadStage()
     {
         var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
-        if (!stage) return;
+        if (!stage) throw new System.Exception(stageToLoad + " is not valid stage");
         Build(JsonMapper.ToObject<List<int[]>>(stage.text).Select(i => new BlockData(i)));
     }
     public void Build(IEnumerable<BlockData> blockData)
@@ -90,5 +90,13 @@ public class PyramidBuilder : MonoBehaviour
             instantiated.Add(newObj.GetComponent<PyramidComponent>());
         }
         GetComponent<Pyramid>().EnlistBlocks(instantiated);
+    }
+    public void ClearStage()
+    {
+        var childCount = transform.childCount;
+        for(int i=0; i<childCount; i++)
+        {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
     }
 }

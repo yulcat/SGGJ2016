@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title.unity
   - enabled: 1
-    path: Assets/Scenes/Stage01_Pyramid of Menkaure.unity
+    path: Assets/Scenes/StageSelect.unity
   - enabled: 1
-    path: Assets/Scenes/Stage02_Pyramid of Zoser.unity
-  - enabled: 1
-    path: Assets/Scenes/Stage03_Great Pyramid of Khafre.unity
-  - enabled: 1
-    path: Assets/Scenes/Stage04_Pyramid of Hetepheres.unity
-  - enabled: 1
-    path: Assets/Scenes/Stage05_Great Pyramid of Khufu.unity
+    path: Assets/Scenes/StageMake.unity

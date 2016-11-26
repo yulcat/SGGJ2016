@@ -23,6 +23,10 @@ public class PyramidBuilderEditor : Editor {
         {
 			builder.LoadStage();
         }
+        if (GUILayout.Button("Clear Stage"))
+        {
+            builder.ClearStage();
+        }
         serializedObject.ApplyModifiedProperties ();
     }
 }
