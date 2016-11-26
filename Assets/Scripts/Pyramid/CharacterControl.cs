@@ -137,7 +137,6 @@ public class CharacterControl : PyramidComponent {
 	{
 		var mv = transform.right * vx * body.mass;
 		var r = transform.localPosition;
-		Debug.Log(Vector3.Cross(r,mv).z);
 		return -Vector3.Cross(r,mv).z;
 	}
 	public void TurnToCamera()
