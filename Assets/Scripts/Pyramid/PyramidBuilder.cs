@@ -73,6 +73,8 @@ public class PyramidBuilder : MonoBehaviour
     }
     public void Build(IEnumerable<BlockData> blockData)
     {
+        transform.rotation = Quaternion.identity;
+        FindObjectsOfType<PyramidComponent>().ToList().ForEach(p => Destroy(p.gameObject));
         var childCount = transform.childCount;
         for (int i = 0; i < childCount; i++)
         {

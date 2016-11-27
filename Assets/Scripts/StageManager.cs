@@ -28,13 +28,22 @@ public class StageManager : MonoBehaviour {
 		instance.stageToLoad = stage;
 		instance.StartCoroutine(instance.LoadStageCoroutine());
 	}
+	public static void ReloadCurrentStage()
+	{
+		instance.StartCoroutine(instance.LoadStageCoroutine());
+	}
+	public static void LoadNextStage()
+	{
+		instance.stageToLoad ++;
+		instance.StartCoroutine(instance.LoadStageCoroutine());
+	}
 	int stageToLoad;
 	IEnumerator LoadStageCoroutine()
 	{
-		if(FindObjectOfType<Pyramid>()==null)
-		{
+		// if(FindObjectOfType<Pyramid>()==null)
+		// {
 			yield return SceneLoader.LoadScene(2);
-		}
+		// }
 		Debug.Log("try loading stage");
 		var builder = FindObjectOfType<PyramidBuilder>();
 		builder.stageToLoad = stageToLoad;

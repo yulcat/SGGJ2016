@@ -16,11 +16,12 @@ public class Win : MonoBehaviour {
 		if(!active) return;
 		if(Input.GetMouseButtonDown(0))
 		{
-			var current = SceneManager.GetActiveScene().buildIndex;
-			if(current == SceneManager.sceneCountInBuildSettings -1)
-				SceneLoader.LoadScene(0);
-			else
-				SceneLoader.LoadScene(current+1);
+			StageManager.LoadNextStage();
+			// var current = SceneManager.GetActiveScene().buildIndex;
+			// if(current == SceneManager.sceneCountInBuildSettings -1)
+			// 	SceneLoader.LoadScene(0);
+			// else
+			// 	SceneLoader.LoadScene(current+1);
 		}
 	}
 }

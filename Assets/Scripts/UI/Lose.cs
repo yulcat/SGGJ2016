@@ -21,8 +21,9 @@ public class Lose : MonoBehaviour {
 		if(!active) return;
 		if(Input.GetMouseButtonDown(0))
 		{
-			var current = SceneManager.GetActiveScene().buildIndex;
-			SceneLoader.LoadScene(current);
+			StageManager.ReloadCurrentStage();
+			// var current = SceneManager.GetActiveScene().buildIndex;
+			// SceneLoader.LoadScene(current);
 		}
 	}
 }
