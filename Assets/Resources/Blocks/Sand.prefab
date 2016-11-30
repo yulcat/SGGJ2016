@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockType: 4
   lifeTime: 10
-  ClickCount: 4
+  ClickCount: 2
   position:
     x: 0
     y: 0

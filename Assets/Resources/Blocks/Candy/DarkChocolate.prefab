@@ -23,7 +23,7 @@ GameObject:
   - 65: {fileID: 65000014004695720}
   - 23: {fileID: 23000012553872078}
   m_Layer: 0
-  m_Name: WhiteChocolate
+  m_Name: DarkChocolate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
