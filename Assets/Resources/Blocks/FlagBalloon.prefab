@@ -137,7 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3059b8087bb4d3ebdfc27de4bec6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockType: 1
   lifeTime: 5
   ClickCount: 3
   position:

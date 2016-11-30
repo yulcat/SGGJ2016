@@ -879,6 +879,7 @@ MonoBehaviour:
   lifeTime: 5
   thickness: 0.2
   moveSpeed: 1
+  counterTorqueMultiplier: 0.5
   crushEffect: {fileID: 1000013080962252}
 --- !u!114 &114000013620095624
 MonoBehaviour:

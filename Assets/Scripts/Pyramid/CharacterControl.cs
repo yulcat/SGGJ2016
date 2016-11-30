@@ -7,6 +7,8 @@ public class CharacterControl : PyramidComponent {
 	int currentFloor;
 	public float thickness = 0.25f;
 	public float moveSpeed = 1f;
+	[RangeAttribute(0f,1f)]
+	public float counterTorqueMultiplier = 1f;
 	public GameObject crushEffect;
 	Animator anim;
 
@@ -124,7 +126,7 @@ public class CharacterControl : PyramidComponent {
 				continue; //Blocked by block
 			
 			transform.Translate(dx, 0, 0);
-			pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed));
+			pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed) * counterTorqueMultiplier);
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();

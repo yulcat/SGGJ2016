@@ -40,10 +40,7 @@ public class StageManager : MonoBehaviour {
 	int stageToLoad;
 	IEnumerator LoadStageCoroutine()
 	{
-		// if(FindObjectOfType<Pyramid>()==null)
-		// {
-			yield return SceneLoader.LoadScene(2);
-		// }
+		yield return SceneLoader.LoadScene(2);
 		Debug.Log("try loading stage");
 		var builder = FindObjectOfType<PyramidBuilder>();
 		builder.stageToLoad = stageToLoad;
