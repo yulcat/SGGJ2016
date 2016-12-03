@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
 
 public class CharacterControl : PyramidComponent {
 	Vector3 moveTarget;
@@ -91,6 +92,11 @@ public class CharacterControl : PyramidComponent {
 	}
 
 	IEnumerator Start () {
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			childBody.constraints = RigidbodyConstraints.FreezeAll;
+		}
 		while(true)
 		{
 			yield return null;
@@ -147,8 +153,15 @@ public class CharacterControl : PyramidComponent {
 	}
 	public override void FallOff(bool refresh = true)
 	{
-		base.FallOff();
+		transform.DOKill();
+		withPhysics = true;
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			childBody.constraints = RigidbodyConstraints.None;
+		}
 		StopAllCoroutines();
+		anim.enabled = false;
 		GameState.Lose(GameState.LoseCause.CharacterLost);
 	}
 	IEnumerator WaitForLanding()

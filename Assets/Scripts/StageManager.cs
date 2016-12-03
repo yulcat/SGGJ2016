@@ -37,13 +37,14 @@ public class StageManager : MonoBehaviour {
 		instance.stageToLoad ++;
 		instance.StartCoroutine(instance.LoadStageCoroutine());
 	}
-	int stageToLoad;
+	int stageToLoad = -1;
 	IEnumerator LoadStageCoroutine()
 	{
 		yield return SceneLoader.LoadScene(2);
 		Debug.Log("try loading stage");
 		var builder = FindObjectOfType<PyramidBuilder>();
-		builder.stageToLoad = stageToLoad;
+		if(stageToLoad != -1)
+			builder.stageToLoad = stageToLoad;
 		builder.LoadStage();
 	}
 
