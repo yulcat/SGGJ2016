@@ -164,6 +164,24 @@ public class CharacterControl : PyramidComponent {
 		anim.enabled = false;
 		GameState.Lose(GameState.LoseCause.CharacterLost);
 	}
+	public void FlyWithBalloon()
+	{
+		body.velocity = Vector3.zero;
+		body.constraints = RigidbodyConstraints.None;
+		anim.enabled = true;
+		body.isKinematic = false;
+		body.useGravity = true;
+		var cols = GetComponentsInChildren<Collider>();
+		foreach(var col in cols)
+		{
+			col.enabled = false;
+		}
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			if(body != childBody) childBody.isKinematic = true;
+		}
+	}
 	IEnumerator WaitForLanding()
 	{
 		while(true)
