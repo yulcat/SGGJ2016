@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33000012075038240}
   - component: {fileID: 65000012869866732}
   - component: {fileID: 23000013691289230}
-  - component: {fileID: 114190867495769536}
   - component: {fileID: 114326292823951016}
+  - component: {fileID: 114042798204880896}
   m_Layer: 0
   m_Name: StageSelectBlock
   m_TagString: SAND
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114190867495769536
+--- !u!114 &114042798204880896
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -102,12 +102,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011598727082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74489dfa223ff4fba86998eafe3e6d74, type: 3}
+  m_Script: {fileID: 11500000, guid: 53aece37d78b54d08a2a5e3720969215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRatio: 0.004
   deltaX: 12
-  withButton: 1
 --- !u!114 &114326292823951016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,3 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4880405a2f6442dd8365576fa9fe7d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 0
