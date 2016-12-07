@@ -137,7 +137,7 @@ public class Pyramid : MonoBehaviour
         var currentRot = transform.rotation.eulerAngles.z;
         var dc = angularVelocity * Time.fixedDeltaTime;
         transform.rotation = Quaternion.Euler(0, 0, currentRot + dc);
-        if (Mathf.Cos(currentRot * Mathf.Deg2Rad) < 0.9f)
+        if (Mathf.Cos((currentRot + dc) * Mathf.Deg2Rad) < 0.9f)
         {
             GameState.Lose(GameState.LoseCause.Collapsed);
             CollapseAll();

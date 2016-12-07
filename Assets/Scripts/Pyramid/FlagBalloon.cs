@@ -23,9 +23,8 @@ public class FlagBalloon : Balloon {
 		transform.SetParent(null);
 		pyramid.RemoveBlock(this, false);
 		pyramid.CollapseAll();
-		charBody.velocity = Vector3.zero;
 		GetComponent<Collider>().enabled = false;
-		character.GetComponent<Collider>().enabled = false;
+		character.FlyWithBalloon();
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;

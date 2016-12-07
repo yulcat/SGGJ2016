@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
 
 public class CharacterControl : PyramidComponent {
 	Vector3 moveTarget;
 	int currentFloor;
 	public float thickness = 0.25f;
 	public float moveSpeed = 1f;
+	[RangeAttribute(0f,1f)]
+	public float counterTorqueMultiplier = 1f;
 	public GameObject crushEffect;
 	Animator anim;
 
@@ -89,6 +92,11 @@ public class CharacterControl : PyramidComponent {
 	}
 
 	IEnumerator Start () {
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			childBody.constraints = RigidbodyConstraints.FreezeAll;
+		}
 		while(true)
 		{
 			yield return null;
@@ -124,7 +132,7 @@ public class CharacterControl : PyramidComponent {
 				continue; //Blocked by block
 			
 			transform.Translate(dx, 0, 0);
-			pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed));
+			pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed) * counterTorqueMultiplier);
 			if(!pyramid.HasBlocks(c => CheckFeet(destination,currentFloor,c)))
 			{
 				RefreshPosition();
@@ -145,9 +153,34 @@ public class CharacterControl : PyramidComponent {
 	}
 	public override void FallOff(bool refresh = true)
 	{
-		base.FallOff();
+		transform.DOKill();
+		withPhysics = true;
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			childBody.constraints = RigidbodyConstraints.None;
+		}
 		StopAllCoroutines();
+		anim.enabled = false;
 		GameState.Lose(GameState.LoseCause.CharacterLost);
+	}
+	public void FlyWithBalloon()
+	{
+		body.velocity = Vector3.zero;
+		body.constraints = RigidbodyConstraints.None;
+		anim.enabled = true;
+		body.isKinematic = false;
+		body.useGravity = true;
+		var cols = GetComponentsInChildren<Collider>();
+		foreach(var col in cols)
+		{
+			col.enabled = false;
+		}
+		var bodies = GetComponentsInChildren<Rigidbody>();
+		foreach(var childBody in bodies)
+		{
+			if(body != childBody) childBody.isKinematic = true;
+		}
 	}
 	IEnumerator WaitForLanding()
 	{
