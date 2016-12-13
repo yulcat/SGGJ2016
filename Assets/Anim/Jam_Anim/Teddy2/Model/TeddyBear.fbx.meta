@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 8c20c380af461574f99424a22acd34c1
+timeCreated: 1480509651
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -283,7 +285,7 @@ ModelImporter:
       transformModified: 1
     - name: Left_ElbowJoint01
       position: {x: -0.14806099, y: 0.00230285, z: -0.013507294}
-      rotation: {x: 0.055067834, y: -0.034493588, z: -0.045598887, w: 0.99684423}
+      rotation: {x: 0.055067837, y: -0.03449359, z: -0.04559889, w: 0.9968443}
       scale: {x: 1, y: 0.9999999, z: 1}
       transformModified: 1
     - name: Left_WristJoint01
@@ -303,7 +305,7 @@ ModelImporter:
       transformModified: 1
     - name: Right_ElbowJoint01
       position: {x: 0.14837325, y: -0.004011907, z: 0.008885929}
-      rotation: {x: -0.73874223, y: 0.02186534, z: 0.048655823, w: -0.671874}
+      rotation: {x: -0.7387422, y: 0.021865338, z: 0.048655815, w: -0.6718739}
       scale: {x: 1.0000002, y: 0.9999999, z: 0.99999994}
       transformModified: 1
     - name: Right_WristJoint01
@@ -348,7 +350,7 @@ ModelImporter:
       transformModified: 1
     - name: Right_AnkleJoint01
       position: {x: 0.16275841, y: -0.002460743, z: -0.00036378682}
-      rotation: {x: 0.024392774, y: -0.036161453, z: 0.5586859, w: -0.8282316}
+      rotation: {x: 0.02439277, y: -0.03616145, z: 0.55868584, w: -0.82823145}
       scale: {x: 1, y: 0.9999999, z: 1.0000002}
       transformModified: 1
     - name: Right_ToeJoint01

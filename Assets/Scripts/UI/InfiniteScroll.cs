@@ -5,6 +5,14 @@ using System.Linq;
 public class InfiniteScroll : MonoBehaviour
 {
 	public float deltaX = 500;
+    public float xPosition
+    {
+        get
+        {
+            return rect.anchoredPosition.x + (delta * deltaX);
+        }
+    }
+    int delta;
     RectTransform rect;
 	LoadStageButton[] buttons;
 
@@ -18,24 +26,8 @@ public class InfiniteScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var pos = rect.anchoredPosition;
-        if (pos.x > deltaX && buttons[0].index > 0)
-        {
-            pos.x -= deltaX;
-            rect.anchoredPosition = pos;
-			foreach(var b in buttons)
-			{
-				b.index--;
-			}
-        }
-        else if (pos.x < -deltaX && buttons[buttons.Length-1].index < 20)
-        {
-            pos.x += deltaX;
-            rect.anchoredPosition = pos;
-			foreach(var b in buttons)
-			{
-				b.index++;
-			}
-        }
+        var size = rect.sizeDelta;
+        size.x = Mathf.Clamp(3000 - rect.anchoredPosition.x, 3000, 20000);
+        rect.sizeDelta = size;
     }
 }
