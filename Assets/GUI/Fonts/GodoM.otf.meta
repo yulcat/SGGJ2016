@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b39c9a4461f114aefb79629bc57d68a3
+timeCreated: 1481654074
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Godo M
+  fontNames:
+  - Godo M
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
