@@ -2,28 +2,12 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Lose : MonoBehaviour {
+public class Lose : Window {
 	public Text text;
 	public GameState.LoseCause cause;
 	public string[] messages;
-	bool active;
-	void Start()
+	public void ReloadCurrentStage()
 	{
-		Invoke("Activate",1f);
-		text.text = messages[(int)cause];
-	}
-	void Activate()
-	{
-		active = true;
-	}
-	// Update is called once per frame
-	void Update () {
-		if(!active) return;
-		if(Input.GetMouseButtonDown(0))
-		{
-			StageManager.ReloadCurrentStage();
-			// var current = SceneManager.GetActiveScene().buildIndex;
-			// SceneLoader.LoadScene(current);
-		}
+		StageManager.ReloadCurrentStage();
 	}
 }
