@@ -21,8 +21,13 @@ public class Window : MonoBehaviour {
 	}
 	void OnEnable()
 	{
+		Debug.Log(gameObject.name + " is Enabled");
 		var rect = GetComponent<RectTransform>();
 		rect.localScale = Vector3.one;
 		rect.DOScale(Vector3.one * 0.5f, 0.3f).From().SetEase(Ease.OutBack);
+	}
+	void OnDisable()
+	{
+		Debug.Log(gameObject.name + " is Disabled");
 	}
 }

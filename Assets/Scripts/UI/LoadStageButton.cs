@@ -9,7 +9,7 @@ public class LoadStageButton : MonoBehaviour {
 		if(WindowManager.instance.isWindowOpen) return;
 		var toLoad = index+1;
 		// StageManager.LoadStage(toLoad);
-		var startWindow = Resources.FindObjectsOfTypeAll<WindowStart>()[0];
+		var startWindow = GameObject.Find("Canvas").GetComponentInChildren<WindowStart>(true);
 		startWindow.OpenStartWindow(toLoad);
 	}
 }

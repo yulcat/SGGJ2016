@@ -37,6 +37,15 @@ public class StageManager : MonoBehaviour {
 		instance.stageToLoad ++;
 		instance.StartCoroutine(instance.LoadStageCoroutine());
 	}
+	public static void LoadStageSelectScene()
+	{
+		instance.StartCoroutine(instance.LoadStageSelectCoroutine());
+	}
+	public static void LoadNextStageSelectScene()
+	{
+		instance.stageToLoad ++;
+		instance.StartCoroutine(instance.LoadStageSelectCoroutine());
+	}
 	int stageToLoad = -1;
 	IEnumerator LoadStageCoroutine()
 	{
@@ -47,5 +56,13 @@ public class StageManager : MonoBehaviour {
 			builder.stageToLoad = stageToLoad;
 		builder.LoadStage();
 	}
-
+	IEnumerator LoadStageSelectCoroutine()
+	{
+		yield return SceneLoader.LoadScene(1);
+		if(stageToLoad != -1)
+		{
+			var scroll = FindObjectOfType<InfiniteScroll>();
+			scroll.JumpToStage(stageToLoad);
+		}
+	}
 }

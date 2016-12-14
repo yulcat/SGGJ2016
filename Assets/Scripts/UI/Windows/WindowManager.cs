@@ -35,9 +35,9 @@ public class WindowManager : MonoBehaviour {
 	{
 		if(windows.Count != 0)
 			windows.Peek().gameObject.SetActive(false);
-		newWindow.gameObject.SetActive(true);
 		windows.Push(newWindow);
-		Debug.Log(newWindow.gameObject.name + " : window open");
+		newWindow.gameObject.SetActive(true);
+		Debug.Log(newWindow.gameObject.name + " : window open : " + newWindow.gameObject.activeSelf);
 	}
 	public void OpenWindow<T>() where T:Window
 	{
