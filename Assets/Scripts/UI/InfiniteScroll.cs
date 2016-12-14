@@ -16,11 +16,19 @@ public class InfiniteScroll : MonoBehaviour
     int delta;
     RectTransform rect;
 	LoadStageButton[] buttons;
-    public void JumpToStage(int index)
+    public void JumpToStage(int index, bool openStartWindow)
     {
-        GetComponent<RectTransform>().DOAnchorPosX((index - 1) * -500, 2f)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() => GameObject.Find("Canvas").GetComponentInChildren<WindowStart>(true).OpenStartWindow(index));
+        if(openStartWindow)
+        {
+            GetComponent<RectTransform>().DOAnchorPosX((index - 1) * -500, 2f)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(() => GameObject.Find("Canvas").GetComponentInChildren<WindowStart>(true).OpenStartWindow(index));
+        }
+        else
+        {
+            GetComponent<RectTransform>().DOAnchorPosX((index - 1) * -500, 2f)
+                .SetEase(Ease.OutCubic);
+        }
     }
 
     // Use this for initialization

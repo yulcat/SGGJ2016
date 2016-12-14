@@ -10,4 +10,8 @@ public class Lose : Window {
 	{
 		StageManager.ReloadCurrentStage();
 	}
+	public void ToStageSelect()
+	{
+		StageManager.LoadStageSelectScene();
+	}
 }

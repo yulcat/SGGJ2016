@@ -1,0 +1,37 @@
+키값,텍스트 내용,비고
+mission_default,나블라가 무너지기 전에 풍선을 잡아야 해요!,기본미션표시
+mission_coin,코인을 먹고 풍선을 잡으세요!,코인먹기
+mission_min,블럭을 최소 (n)개 제거해야해요!,최소 n개 제거
+mission_max,(블럭이미지)블럭은 최대 (n)개만 제거해야해요!,특정 최대 n개 제거
+,,
+share_normal,금메달 수집률 : (n/m)*100 %,노말자랑내용
+reward_normal,100다이아가 지급됩니다!,노말자랑혜택
+,,
+failAd_reward,(아이템이미지)를 드릴게요! 광고를 시청하시겠어요?,특수광고혜택
+,,
+fail_default,아깝네요!,실패기본
+fail_nablaFalled,나블라가 무너졌어요!,실패1
+fail_bearFalled,바닥으로 떨어졌어요!,실패2
+fail_balloonLost,풍선을 놓쳤어요!,실패3
+fail_crushed,블럭에 깔렸어요!,실패4
+item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
+,,
+heartLack,하트가 부족해요!,입장권 부족
+,,
+mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
+special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
+share_special,스페셜 스테이지 기록 : (n) 스테이지,스페셜자랑내용
+reward_special,200다이아가 지급됩니다!,스페셜자랑혜택
+,,
+heart_description,5분마다 입장권이 5개씩 충전됩니다! (n) / 20,입장권에 대한 설명
+,,
+ad_description,입장권이 10개 지급됩니다!,광고 시청 시 혜택설명
+,,
+share_default,금메달 수집률 : (n/m)*100 %,설정자랑내용
+reward_default,100다이아가 지급됩니다!,설정자랑혜택
+,,
+exit_description,게임을 종료하시겠습니까?,종료확인
+,,
+charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)원,캐릭터구매확인
+itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
+diaBuy_confirm,(캐릭터이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
