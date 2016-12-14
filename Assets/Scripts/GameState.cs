@@ -5,8 +5,8 @@ using System.Linq;
 public class GameState : MonoBehaviour {
 	public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed }
 	public bool isGameEnd = false;
-	public GameObject winMessage;
-	public GameObject loseMessage;
+	public Win winMessage;
+	public Lose loseMessage;
 	static GameState _instance;
 	LoseCause cause;
 	public static GameState instance
@@ -40,11 +40,11 @@ public class GameState : MonoBehaviour {
 	}
 	void WinGame()
 	{
-		winMessage.SetActive(true);
+		WindowManager.instance.OpenWindow(winMessage);
 	}
 	void LoseGame()
 	{
-		loseMessage.SetActive(true);
-		loseMessage.GetComponent<Lose>().cause = cause;
+		WindowManager.instance.OpenWindow(loseMessage);
+		loseMessage.text.text = loseMessage.messages[(int)cause];
 	}
 }
