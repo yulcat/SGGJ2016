@@ -8,7 +8,7 @@ public class StageManager : MonoBehaviour {
 		get
 		{
 			if(_instance != null) return _instance;
-			var obj = new GameObject();
+			var obj = new GameObject("StageManager");
 			_instance = obj.AddComponent<StageManager>();
 			return _instance;
 		}
