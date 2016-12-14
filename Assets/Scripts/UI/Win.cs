@@ -1,7 +1,22 @@
-﻿public class Win : Window {
+﻿using UnityEngine.UI;
+
+public class Win : Window {
+	public Text stageNumber;
+	override protected void OnEnable()
+	{
+		base.OnEnable();
+		stageNumber.text = FindObjectOfType<PyramidBuilder>().stageToLoad.ToString();
+	}
 	public void ToNextStage()
 	{
 		StageManager.LoadNextStageSelectScene();
-		// StageManager.LoadNextStage();
+	}
+	public void ReloadCurrentStage()
+	{
+		StageManager.ReloadCurrentStage();
+	}
+	public void ToStageSelect()
+	{
+		StageManager.LoadStageSelectScene();
 	}
 }
