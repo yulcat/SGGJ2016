@@ -8,7 +8,7 @@ public class StageManager : MonoBehaviour {
 		get
 		{
 			if(_instance != null) return _instance;
-			var obj = new GameObject();
+			var obj = new GameObject("StageManager");
 			_instance = obj.AddComponent<StageManager>();
 			return _instance;
 		}
@@ -37,6 +37,17 @@ public class StageManager : MonoBehaviour {
 		instance.stageToLoad ++;
 		instance.StartCoroutine(instance.LoadStageCoroutine());
 	}
+	public static void LoadStageSelectScene()
+	{
+		instance.openStartWindow = false;
+		instance.StartCoroutine(instance.LoadStageSelectCoroutine());
+	}
+	public static void LoadNextStageSelectScene()
+	{
+		instance.openStartWindow = true;
+		instance.stageToLoad ++;
+		instance.StartCoroutine(instance.LoadStageSelectCoroutine());
+	}
 	int stageToLoad = -1;
 	IEnumerator LoadStageCoroutine()
 	{
@@ -47,5 +58,14 @@ public class StageManager : MonoBehaviour {
 			builder.stageToLoad = stageToLoad;
 		builder.LoadStage();
 	}
-
+	bool openStartWindow;
+	IEnumerator LoadStageSelectCoroutine()
+	{
+		yield return SceneLoader.LoadScene(1);
+		if(stageToLoad != -1)
+		{
+			var scroll = FindObjectOfType<InfiniteScroll>();
+			scroll.JumpToStage(stageToLoad, openStartWindow);
+		}
+	}
 }
