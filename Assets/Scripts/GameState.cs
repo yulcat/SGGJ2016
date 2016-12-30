@@ -21,6 +21,7 @@ public class GameState : MonoBehaviour {
 	public static void Win()
 	{
 		if(instance.isGameEnd) return;
+		instance.StartCoroutine(instance.SendScoreToServer());
 		instance.isGameEnd = true;
 		instance.Invoke("WinGame",2f);
 	}
@@ -46,5 +47,15 @@ public class GameState : MonoBehaviour {
 	{
 		WindowManager.instance.OpenWindow(loseMessage);
 		loseMessage.text.text = loseMessage.messages[(int)cause];
+	}
+	IEnumerator SendScoreToServer()
+	{
+		var form = new WWWForm();
+		form.AddField("stage","stage"+FindObjectOfType<PyramidBuilder>().stageToLoad.ToString());
+		form.AddField("id",SystemInfo.deviceUniqueIdentifier);
+		form.AddField("score",Random.Range(0,9000000));
+		var www = new WWW("http://52.78.26.149/api/values",form);
+		yield return www;
+		Debug.Log(www.text);
 	}
 }
