@@ -56,6 +56,10 @@ public class GameState : MonoBehaviour {
 		form.AddField("score",Random.Range(0,9000000));
 		var www = new WWW("http://52.78.26.149/api/values",form);
 		yield return www;
+		if(!string.IsNullOrEmpty(www.error))
+		{
+			Debug.LogWarning(www.error);
+		}
 		Debug.Log(www.text);
 	}
 }
