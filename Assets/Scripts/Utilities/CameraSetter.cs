@@ -24,10 +24,13 @@ public class CameraSetter : MonoBehaviour {
 		foreach(var c in cameras)
 		{
 			c.depth = -1;
+			c.enabled = false;
 		}
 		if(cameras.Any(c => c.gameObject == Selection.activeGameObject))
 		{
-			cameras.First(c => c.gameObject == Selection.activeGameObject).depth = 0;
+			var cam = cameras.First(c => c.gameObject == Selection.activeGameObject);
+			cam.depth = 0;
+			cam.enabled = true;
 		}
 	}
 
