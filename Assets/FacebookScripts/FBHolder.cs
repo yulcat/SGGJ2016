@@ -37,10 +37,10 @@ public class FBHolder : MonoBehaviour {
 			FB.FeedShare (
 				toId: "",
 				link: null,
-				linkName: "EC",
-				linkCaption: "I scored " + 1111.ToString () + " in EC.",
-				linkDescription: "I scored " + 1111.ToString () + " in EC.",
-				picture: new System.Uri ("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQydu2Si199sCVGdx6mXZNwgLcnUN6okX4RAEa-cSMViKkN3YtgYg"),
+                linkName: "Nabla(∇)",
+                linkCaption: "I scored " + 712319.ToString () + " in Nabla(∇).",
+                linkDescription: "I scored " + 712319.ToString () + " in Nabla(∇).",
+                picture: new System.Uri ("https://s3.ap-northeast-2.amazonaws.com/jongwonnet/jongwon/nabla.jpeg"),
 				mediaSource: "",
 				callback: ShareCallback
 			);
