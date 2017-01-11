@@ -16,11 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010482412550}
-  - 33: {fileID: 33000011237018894}
-  - 23: {fileID: 23000010571445236}
+  - component: {fileID: 4000010482412550}
+  - component: {fileID: 33000011237018894}
+  - component: {fileID: 23000010571445236}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -33,12 +33,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012293684898}
-  - 114: {fileID: 114000010019052058}
-  - 54: {fileID: 54000012627946876}
-  - 64: {fileID: 64000010496387290}
+  - component: {fileID: 4000012293684898}
+  - component: {fileID: 114000010019052058}
+  - component: {fileID: 54000012627946876}
+  - component: {fileID: 64000010496387290}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: SAND
@@ -55,10 +55,10 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012293684898}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012293684898
 Transform:
   m_ObjectHideFlags: 1
@@ -68,11 +68,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010482412550}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000010571445236
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +87,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 218b7cb1381da4d33b3cd2ecd8f4966d, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -95,7 +97,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -135,6 +137,8 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114000010019052058
 MonoBehaviour:
@@ -147,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944cb45f9828a429382790216e406a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlockType: 10
   lifeTime: 10
   ClickCount: 1
   position:

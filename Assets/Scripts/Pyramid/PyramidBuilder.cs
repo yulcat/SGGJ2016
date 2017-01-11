@@ -9,11 +9,16 @@ public enum BlockType
     Character = 0,
     FlagBalloon,
     Empty,
-    Wood,
-    Sand,
-    Iron,
+    Light,
+    Medium,
+    Heavy,
     Balloon,
-	Barrel
+    Fixed,
+    Coin,
+    Water,
+	Barrel,
+    Gift,
+    Wood
 }
 public struct BlockData
 {
@@ -49,21 +54,42 @@ public struct StageData
 }
 public class PyramidBuilder : MonoBehaviour
 {
+    public string currentTheme;
     public int stageToLoad;
-    Dictionary<BlockType, GameObject> resource = new Dictionary<BlockType, GameObject>();
+    Dictionary<string,GameObject[]> loadedBlocks = new Dictionary<string,GameObject[]>();
     // Use this for initialization
-    void Start()
-    {
-        var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
-        if (!stage) return;
-        // JsonMapper.ToObject(stage);
-    }
+    // void Start()
+    // {
+    //     var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
+    //     if (!stage) return;
+    //     // JsonMapper.ToObject(stage);
+    // }
     GameObject GetBlock(BlockType blockType)
     {
-        if (resource.ContainsKey(blockType)) return resource[blockType];
-        var obj = Resources.Load<GameObject>("Blocks/" + blockType.ToString());
-        resource.Add(blockType, obj);
-        return obj;
+        if(!string.IsNullOrEmpty(currentTheme))
+        {
+            if(!loadedBlocks.ContainsKey(currentTheme))
+            {
+                var loaded = Resources.LoadAll<GameObject>("Blocks/"+currentTheme);
+                loadedBlocks.Add(currentTheme, loaded);
+            }
+            var foundBlock = FindProperBlock(loadedBlocks[currentTheme],blockType);
+            if(foundBlock) return foundBlock;
+        }
+        if(!loadedBlocks.ContainsKey("Common"))
+        {
+            var loaded = Resources.LoadAll<GameObject>("Blocks/Common");
+            loadedBlocks.Add("Common", loaded);
+        }
+        var foundCommonBlock = FindProperBlock(loadedBlocks["Common"],blockType);
+        if(foundCommonBlock) return foundCommonBlock;
+        throw new System.Exception("no proper block found");
+    }
+    GameObject FindProperBlock(GameObject[] objs, BlockType blockType)
+    {
+        return objs
+            .Where(o => o.GetComponent<PyramidComponent>() != null)
+            .FirstOrDefault(o => o.GetComponent<PyramidComponent>().BlockType == blockType);
     }
     public void LoadStage()
     {
