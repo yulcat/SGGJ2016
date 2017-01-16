@@ -11,3 +11,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StageSelect.unity
   - enabled: 1
     path: Assets/Scenes/StageMake.unity
+  - enabled: 1
+    path: Assets/Scenes/Scene_Desert01.unity
+  - enabled: 1
+    path: Assets/Scenes/Scene_Ice01.unity
+  - enabled: 1
+    path: Assets/Scenes/Stage_Grass01.unity

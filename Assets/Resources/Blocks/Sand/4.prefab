@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 54000012627946876}
   - component: {fileID: 64000010496387290}
   m_Layer: 0
-  m_Name: 4
+  m_Name: Barrel
   m_TagString: SAND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013915937110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -80.116585, y: 0.58376396, z: 53.281593}
+  m_LocalPosition: {x: -1, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4000010482412550}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 64426a9a8733d4552a69e0b4a0f7bd3a, type: 2}
+  - {fileID: 2100000, guid: 218b7cb1381da4d33b3cd2ecd8f4966d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944cb45f9828a429382790216e406a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockType: 0
+  BlockType: 10
   lifeTime: 10
   ClickCount: 1
   position:
