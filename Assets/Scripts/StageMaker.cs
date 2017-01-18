@@ -21,8 +21,10 @@ public class StageMaker : MonoBehaviour
 	public int maxTry = 100;
 	Dictionary<BlockType, float> blockMassTable = new Dictionary<BlockType, float>();
 	List<BlockData> current;
+	PyramidBuilder builder;
 	public void MakeStage()
 	{
+		builder = GetComponent<PyramidBuilder>();
 		if(height<3) throw new System.Exception("Height > 3 needed");
 		int tryCount = 0;
 		while(tryCount++ < maxTry)
@@ -33,7 +35,7 @@ public class StageMaker : MonoBehaviour
 			var blockData = ListToBlockData(stage);
 			AddSpecialBlocks(blockData);
 			if(!SanityCheck(ref blockData)) continue;
-			GetComponent<PyramidBuilder>().Build(blockData);
+			builder.Build(blockData);
 			current = blockData;
 			return;
 		}
@@ -77,7 +79,7 @@ public class StageMaker : MonoBehaviour
 	{
 		if(blockType == BlockType.Empty) return 0;
 		if(blockMassTable.ContainsKey(blockType)) return blockMassTable[blockType];
-		var obj = Resources.Load<GameObject>("Blocks/"+blockType.ToString());
+		var obj = builder.GetBlock(blockType);
 		var body = obj.GetComponent<Rigidbody>();
 		float mass = body.mass;
 		if(blockType == BlockType.Balloon || blockType == BlockType.FlagBalloon)

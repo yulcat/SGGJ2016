@@ -58,14 +58,7 @@ public class PyramidBuilder : MonoBehaviour
     public string currentTheme;
     public int stageToLoad;
     Dictionary<string,GameObject[]> loadedBlocks = new Dictionary<string,GameObject[]>();
-    // Use this for initialization
-    // void Start()
-    // {
-    //     var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
-    //     if (!stage) return;
-    //     // JsonMapper.ToObject(stage);
-    // }
-    GameObject GetBlock(BlockType blockType)
+    public GameObject GetBlock(BlockType blockType)
     {
         if(!string.IsNullOrEmpty(currentTheme))
         {
