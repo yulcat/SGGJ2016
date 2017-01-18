@@ -21,7 +21,8 @@ public class StageMaker : MonoBehaviour
 	public int maxTry = 100;
 	Dictionary<BlockType, float> blockMassTable = new Dictionary<BlockType, float>();
 	List<BlockData> current;
-	PyramidBuilder builder;
+
+    PyramidBuilder builder;
 	public void MakeStage()
 	{
 		builder = GetComponent<PyramidBuilder>();
@@ -127,15 +128,23 @@ public class StageMaker : MonoBehaviour
 	}
 	public void SaveStage()
 	{
-		var children = GetComponentsInChildren<PyramidComponent>().Select(obj => ObjectToBlockData(obj));
 		var stages = Resources.LoadAll<TextAsset>("Stages");
 		int max = 0;
 		if(stages.Length != 0)
 		{
 			max = stages.Max(s => System.Convert.ToInt32(s.name));
 		}
+		SaveStageTo(max+1);
+	}
+	public void OverwriteStage()
+    {
+		SaveStageTo(builder.stageToLoad);
+    }
+	void SaveStageTo(int number)
+	{
+		var children = GetComponentsInChildren<PyramidComponent>().Select(obj => ObjectToBlockData(obj));
 		var pathBuilder = new System.Text.StringBuilder("Assets/Resources/Stages/");
-		pathBuilder.Append((max+1).ToString());
+		pathBuilder.Append((number).ToString());
 		pathBuilder.Append(".json");
 		var path = pathBuilder.ToString();
 	
@@ -148,6 +157,7 @@ public class StageMaker : MonoBehaviour
 		#if UNITY_EDITOR
 		UnityEditor.AssetDatabase.Refresh ();
 		#endif
+		builder.stageToLoad = number;
 	}
 	BlockData ObjectToBlockData(PyramidComponent obj)
 	{
