@@ -108,7 +108,8 @@ public class StageMaker : MonoBehaviour
 		var charY = stage.Max(d => d.GetXY().y) + 2;
 		if(Mathf.Abs(charX) > Mathf.Abs(charY)/2) return false;
 		stage.Add(new BlockData(BlockType.Character,charX,charY));
-		return Mathf.Abs(torque) < maxTorque;
+		var finalTorque = stage.Sum(b => GetBlockMass(b.GetBlockType()) * transform.TransformVector(b.GetXY().ToVector3()).x);
+		return Mathf.Abs(finalTorque) < (maxTorque * 0.1f);
 	}
 	void AddSpecialBlocks(List<BlockData> blockData)
 	{

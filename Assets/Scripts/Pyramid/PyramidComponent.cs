@@ -20,7 +20,9 @@ public abstract class PyramidComponent : MonoBehaviour {
 	}
 	protected float GetTorque(Vector2 pos, float mass)
 	{
-		return pyramid.transform.TransformVector(pos).x * mass;
+		var angle = pyramid.transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+		var radius = pos.x * Mathf.Cos(angle) - pos.y * Mathf.Sin(angle);
+		return radius * mass;
 		// return pos.x * mass;
 	}
 	protected void FallTo(int originalY, int y)
