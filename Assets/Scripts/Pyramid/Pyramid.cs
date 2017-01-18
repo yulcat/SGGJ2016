@@ -115,7 +115,7 @@ public class Pyramid : MonoBehaviour
         if(blocks.Count == 0) return;
         inertia = blocks.Aggregate(0f,GetInertiaSum) * 0.01f;
         torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
-        var currentRot = transform.rotation.eulerAngles.z;
+        var currentRot = transform.localRotation.eulerAngles.z;
         var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
         ApplyMomentum(torqueSum + returning);
         ApplyAngularVelocity();
@@ -134,9 +134,9 @@ public class Pyramid : MonoBehaviour
     }
     void ApplyAngularVelocity()
     {
-        var currentRot = transform.rotation.eulerAngles.z;
+        var currentRot = transform.localRotation.eulerAngles.z;
         var dc = angularVelocity * Time.fixedDeltaTime;
-        transform.rotation = Quaternion.Euler(0, 0, currentRot + dc);
+        transform.localRotation = Quaternion.Euler(0, 0, currentRot + dc);
         if (Mathf.Cos((currentRot + dc) * Mathf.Deg2Rad) < 0.9f)
         {
             GameState.Lose(GameState.LoseCause.Collapsed);

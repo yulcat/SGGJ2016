@@ -2,6 +2,7 @@
 using System.Linq;
 using LitJson;
 using System.Collections.Generic;
+using System;
 
 [System.SerializableAttribute]
 public enum BlockType
@@ -95,11 +96,22 @@ public class PyramidBuilder : MonoBehaviour
     {
         var stage = Resources.Load<TextAsset>("Stages/" + stageToLoad);
         if (!stage) throw new System.Exception(stageToLoad + " is not valid stage");
-        Build(JsonMapper.ToObject<List<int[]>>(stage.text).Select(i => new BlockData(i)));
+        var blockData = JsonMapper.ToObject<List<int[]>>(stage.text).Select(i => new BlockData(i));
+        Build(blockData);
+        SetCameraAndBackground(blockData);
     }
+
+    private void SetCameraAndBackground(IEnumerable<BlockData> blockData)
+    {
+        int maxY = blockData
+            .Where(block => block.GetBlockType() != BlockType.Character)
+            .Max(block => (block.GetXY().y +1)/2);
+        FindObjectOfType<CameraSetter>().SetMainCamera(maxY);
+    }
+
     public void Build(IEnumerable<BlockData> blockData)
     {
-        transform.rotation = Quaternion.identity;
+        transform.localRotation = Quaternion.identity;
         FindObjectsOfType<PyramidComponent>().ToList().ForEach(p => DestroyImmediate(p.gameObject));
         var childCount = transform.childCount;
         for (int i = 0; i < childCount; i++)
@@ -113,8 +125,9 @@ public class PyramidBuilder : MonoBehaviour
         {
             if (block.GetBlockType() == BlockType.Empty) continue;
             var newObj = Instantiate<GameObject>(GetBlock(block.GetBlockType()));
-            newObj.transform.SetParent(transform);
+            newObj.transform.SetParent(transform,false);
             newObj.transform.localPosition = block.GetXY().ToVector3();
+            newObj.transform.localRotation = Quaternion.identity;
             instantiated.Add(newObj.GetComponent<PyramidComponent>());
         }
         GetComponent<Pyramid>().EnlistBlocks(instantiated);

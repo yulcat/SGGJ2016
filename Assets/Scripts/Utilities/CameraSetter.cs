@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System;
 
 public class CameraSetter : MonoBehaviour {
 	public int startingNumber = 3;
@@ -37,11 +38,23 @@ public class CameraSetter : MonoBehaviour {
 	void Start()
 	{
 		cameras = GetComponentsInChildren<Camera>();
-		gameObject.SetActive(false);
 	}
 
 	public Transform GetProperTransform(int height)
 	{
 		return cameras[height+startingNumber].transform;
 	}
+
+    internal void SetMainCamera(int maxY)
+    {
+		if(maxY > endingNumber || maxY < startingNumber)
+			throw new Exception("Nabla is Too High or Too Small");
+		int index = maxY - startingNumber;
+		var targetTransform = transform.GetChild(index);
+        Camera.main.transform.position = targetTransform.position;
+		Camera.main.transform.rotation = targetTransform.rotation;
+		FindObjectOfType<ProperBGLoader>().LoadBG(gameObject.name + index);
+
+		gameObject.SetActive(false);
+    }
 }

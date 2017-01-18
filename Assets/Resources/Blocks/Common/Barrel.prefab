@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4000010482412550}
   - component: {fileID: 33000011237018894}
   - component: {fileID: 23000010571445236}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114000010019052058}
   - component: {fileID: 54000012627946876}
   - component: {fileID: 64000010496387290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: SAND
   m_Icon: {fileID: 0}

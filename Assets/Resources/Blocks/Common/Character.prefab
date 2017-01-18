@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 136000013373709534}
   - component: {fileID: 54000012914174694}
   - component: {fileID: 144000010543951084}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_ArmJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011276320100}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_ShoulderJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010990678370}
   - component: {fileID: 95000013166703816}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TeddyBear(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 136000012528195526}
   - component: {fileID: 54000011795040898}
   - component: {fileID: 144000011116767494}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_ElbowJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011006425822}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_WristJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011717028588}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_ShoulderJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 136000011835263354}
   - component: {fileID: 54000010233014280}
   - component: {fileID: 144000010591707860}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_KneeJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 65000013199874366}
   - component: {fileID: 54000014286614120}
   - component: {fileID: 144000013421021628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChestJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011319611070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_ToeJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 114000013459626984}
   - component: {fileID: 82000011805670842}
   - component: {fileID: 114000013620095624}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4000011086080600}
   - component: {fileID: 198000010568277600}
   - component: {fileID: 199000011403413310}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000012296749960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_ToeJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 135000010125056078}
   - component: {fileID: 54000011833070490}
   - component: {fileID: 144000012032216678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HeadJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011269659294}
   - component: {fileID: 114000011083923280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000013323940004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_AnkleJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010118593444}
   - component: {fileID: 137000013669073542}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Teddy_Bear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 136000012642079966}
   - component: {fileID: 54000011528462788}
   - component: {fileID: 144000012015672920}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_ThighJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 4000013163038720}
   - component: {fileID: 198000011066353118}
   - component: {fileID: 199000013899532866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: crushed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 136000010034480944}
   - component: {fileID: 54000012840014038}
   - component: {fileID: 144000012032376180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_KneeJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011171148634}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HipJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 4000011060639370}
   - component: {fileID: 65000011794543016}
   - component: {fileID: 54000012172911590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RootJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 136000012645104354}
   - component: {fileID: 54000010548568074}
   - component: {fileID: 144000012199627406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_ElbowJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 136000014249659884}
   - component: {fileID: 54000013336026090}
   - component: {fileID: 144000010995296788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_ArmJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000010591131326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_WristJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 136000014038387470}
   - component: {fileID: 54000011803418822}
   - component: {fileID: 144000013978554322}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_ThighJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000013343759808}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_AnkleJoint01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

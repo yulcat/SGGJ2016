@@ -28,7 +28,7 @@ public class FlagBalloon : Balloon {
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
-		body.velocity = Vector3.forward * -4f;
+		body.velocity = transform.TransformVector(Vector3.forward * -4f);
 	}
 	public override void FallOff(bool refresh = true)
 	{
