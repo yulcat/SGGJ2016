@@ -120,7 +120,7 @@ public class Block : PyramidComponent
 			transform.DOKill();
 			withPhysics = true;
 			body.constraints = RigidbodyConstraints.None;
-			body.velocity = Vector3.forward * 12f;
+			body.velocity = transform.TransformVector(Vector3.forward * 12f);
 			ShirinkCollider();
 		}
 		else

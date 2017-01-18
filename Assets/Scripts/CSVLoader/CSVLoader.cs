@@ -5,13 +5,13 @@ using System;
 using System.Linq;
 
 public class CSVLoader {
-	protected static Dictionary<string,T> LoadData<T>(string path)
+	public static Dictionary<string,T> LoadDictionary<T>(string path)
     {
         TextAsset data = Resources.Load(path) as TextAsset;
         return ToDictionary<T>(data.text);
     }
 
-    protected static List<T> LoadList<T>(string path)
+    public static List<T> LoadList<T>(string path)
     {
         TextAsset data = Resources.Load(path) as TextAsset;
         return ToList<T>(data.text);

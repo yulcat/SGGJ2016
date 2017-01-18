@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4000010649959032}
   - component: {fileID: 33000012252409392}
   - component: {fileID: 23000012493731600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bronze
   m_TagString: Untagged
   m_Icon: {fileID: 0}

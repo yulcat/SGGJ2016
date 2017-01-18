@@ -15,7 +15,7 @@ public class Balloon : Block {
 	{
 		base.FallOff(refresh);
 		var v = body.velocity;
-		v.z = -3;
+		v += transform.TransformVector(Vector3.forward * -3);
 		body.velocity = v;
 	}
     protected override void FixedUpdate()
@@ -38,7 +38,7 @@ public class Balloon : Block {
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
-		body.velocity = Vector3.forward * 8f;
+		body.velocity = transform.TransformVector(Vector3.forward * 8f);
 		var col = GetComponent<Collider>();
     }
 }
