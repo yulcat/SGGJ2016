@@ -127,6 +127,7 @@ public class PyramidBuilder : MonoBehaviour
             var newObj = Instantiate<GameObject>(GetBlock(block.GetBlockType()));
             newObj.transform.SetParent(transform,false);
             newObj.transform.localPosition = block.GetXY().ToVector3();
+            newObj.transform.localRotation = Quaternion.identity;
             instantiated.Add(newObj.GetComponent<PyramidComponent>());
         }
         GetComponent<Pyramid>().EnlistBlocks(instantiated);
