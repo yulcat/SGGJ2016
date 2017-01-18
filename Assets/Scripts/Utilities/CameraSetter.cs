@@ -38,7 +38,6 @@ public class CameraSetter : MonoBehaviour {
 	void Start()
 	{
 		cameras = GetComponentsInChildren<Camera>();
-		gameObject.SetActive(false);
 	}
 
 	public Transform GetProperTransform(int height)
@@ -55,5 +54,7 @@ public class CameraSetter : MonoBehaviour {
         Camera.main.transform.position = targetTransform.position;
 		Camera.main.transform.rotation = targetTransform.rotation;
 		FindObjectOfType<ProperBGLoader>().LoadBG(gameObject.name + index);
+
+		gameObject.SetActive(false);
     }
 }
