@@ -37,8 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012293684898}
   - component: {fileID: 54000012627946876}
-  - component: {fileID: 64000010496387290}
   - component: {fileID: 114565092584510050}
+  - component: {fileID: 65883920414462108}
   m_Layer: 9
   m_Name: Barrel
   m_TagString: SAND
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 218b7cb1381da4d33b3cd2ecd8f4966d, type: 2}
+  - {fileID: 2100000, guid: c52107d2f18994a56adb673ece6f228e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,20 +126,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &64000010496387290
-MeshCollider:
+--- !u!65 &65883920414462108
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013915937110}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 461d5d75d97da4405aba8a0b751e4946, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114565092584510050
 MonoBehaviour:
   m_ObjectHideFlags: 1
