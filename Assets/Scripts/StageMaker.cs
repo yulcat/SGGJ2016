@@ -21,8 +21,11 @@ public class StageMaker : MonoBehaviour
 	public int maxTry = 100;
 	Dictionary<BlockType, float> blockMassTable = new Dictionary<BlockType, float>();
 	List<BlockData> current;
+
+    PyramidBuilder builder;
 	public void MakeStage()
 	{
+		builder = GetComponent<PyramidBuilder>();
 		if(height<3) throw new System.Exception("Height > 3 needed");
 		int tryCount = 0;
 		while(tryCount++ < maxTry)
@@ -33,7 +36,7 @@ public class StageMaker : MonoBehaviour
 			var blockData = ListToBlockData(stage);
 			AddSpecialBlocks(blockData);
 			if(!SanityCheck(ref blockData)) continue;
-			GetComponent<PyramidBuilder>().Build(blockData);
+			builder.Build(blockData);
 			current = blockData;
 			return;
 		}
@@ -77,7 +80,7 @@ public class StageMaker : MonoBehaviour
 	{
 		if(blockType == BlockType.Empty) return 0;
 		if(blockMassTable.ContainsKey(blockType)) return blockMassTable[blockType];
-		var obj = Resources.Load<GameObject>("Blocks/"+blockType.ToString());
+		var obj = builder.GetBlock(blockType);
 		var body = obj.GetComponent<Rigidbody>();
 		float mass = body.mass;
 		if(blockType == BlockType.Balloon || blockType == BlockType.FlagBalloon)
@@ -105,7 +108,8 @@ public class StageMaker : MonoBehaviour
 		var charY = stage.Max(d => d.GetXY().y) + 2;
 		if(Mathf.Abs(charX) > Mathf.Abs(charY)/2) return false;
 		stage.Add(new BlockData(BlockType.Character,charX,charY));
-		return Mathf.Abs(torque) < maxTorque;
+		var finalTorque = stage.Sum(b => GetBlockMass(b.GetBlockType()) * transform.TransformVector(b.GetXY().ToVector3()).x);
+		return Mathf.Abs(finalTorque) < (maxTorque * 0.1f);
 	}
 	void AddSpecialBlocks(List<BlockData> blockData)
 	{
@@ -125,15 +129,23 @@ public class StageMaker : MonoBehaviour
 	}
 	public void SaveStage()
 	{
-		var children = GetComponentsInChildren<PyramidComponent>().Select(obj => ObjectToBlockData(obj));
 		var stages = Resources.LoadAll<TextAsset>("Stages");
 		int max = 0;
 		if(stages.Length != 0)
 		{
 			max = stages.Max(s => System.Convert.ToInt32(s.name));
 		}
+		SaveStageTo(max+1);
+	}
+	public void OverwriteStage()
+    {
+		SaveStageTo(builder.stageToLoad);
+    }
+	void SaveStageTo(int number)
+	{
+		var children = GetComponentsInChildren<PyramidComponent>().Select(obj => ObjectToBlockData(obj));
 		var pathBuilder = new System.Text.StringBuilder("Assets/Resources/Stages/");
-		pathBuilder.Append((max+1).ToString());
+		pathBuilder.Append((number).ToString());
 		pathBuilder.Append(".json");
 		var path = pathBuilder.ToString();
 	
@@ -146,6 +158,7 @@ public class StageMaker : MonoBehaviour
 		#if UNITY_EDITOR
 		UnityEditor.AssetDatabase.Refresh ();
 		#endif
+		builder.stageToLoad = number;
 	}
 	BlockData ObjectToBlockData(PyramidComponent obj)
 	{

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 135417744042958712}
   - component: {fileID: 23521799759893420}
   - component: {fileID: 54069376158919042}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FlagBalloon_Special
   m_TagString: Untagged
   m_Icon: {fileID: 0}

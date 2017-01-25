@@ -7,6 +7,13 @@ public class FlagBalloon : Balloon {
 	{
 		line = GetComponentInChildren<BalloonLine>(true);
 	}
+	public override bool CollideResult
+    {
+        get
+        {
+            return false;
+        }
+    }
 	public void Launch(CharacterControl character)
 	{
 		GameState.Win();
@@ -28,7 +35,7 @@ public class FlagBalloon : Balloon {
 		transform.DOKill();
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
-		body.velocity = Vector3.forward * -4f;
+		body.velocity = transform.TransformVector(Vector3.forward * -4f);
 	}
 	public override void FallOff(bool refresh = true)
 	{

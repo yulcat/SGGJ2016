@@ -18,5 +18,9 @@ public class StageMakerEditor : Editor
         {
 			maker.SaveStage();
         }
+        if (GUILayout.Button("Overwrite Current Stage"))
+        {
+			maker.OverwriteStage();
+        }
     }
 }
