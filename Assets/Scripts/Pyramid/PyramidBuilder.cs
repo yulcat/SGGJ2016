@@ -99,7 +99,7 @@ public class PyramidBuilder : MonoBehaviour
         int maxY = blockData
             .Where(block => block.GetBlockType() != BlockType.Character)
             .Max(block => (block.GetXY().y +1)/2);
-        FindObjectOfType<CameraSetter>().SetMainCamera(maxY);
+        Resources.FindObjectsOfTypeAll<CameraSetter>()[0].SetMainCamera(maxY);
     }
 
     public void Build(IEnumerable<BlockData> blockData)

@@ -31,6 +31,8 @@ public class StageManager : MonoBehaviour {
 	}
 	public static void ReloadCurrentStage()
 	{
+		var builder = FindObjectOfType<PyramidBuilder>();
+		instance.stageToLoad = builder.stageToLoad;
 		instance.StartCoroutine(instance.LoadStageCoroutine());
 	}
 	public static void LoadNextStage()
