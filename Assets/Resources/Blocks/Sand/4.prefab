@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 54000012627946876}
   - component: {fileID: 64000010496387290}
   m_Layer: 0
-  m_Name: Barrel
+  m_Name: 4
   m_TagString: SAND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
