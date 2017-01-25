@@ -18,6 +18,7 @@ public class Coin : Block
 	}
 	public void Activate()
 	{
+		GameState.Accomplished("Coin",1);
 		pyramid.RemoveBlock(this);
 		Destroy(gameObject);
 	}

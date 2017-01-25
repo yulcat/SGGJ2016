@@ -180,6 +180,11 @@ public class CharacterControl : PyramidComponent {
 	}
 	public override void FallOff(bool refresh = true)
 	{
+		FreeBodyRagdoll();
+		GameState.Lose(GameState.LoseCause.CharacterLost);
+	}
+	public void FreeBodyRagdoll()
+	{
 		transform.DOKill();
 		withPhysics = true;
 		var bodies = GetComponentsInChildren<Rigidbody>();
@@ -189,7 +194,6 @@ public class CharacterControl : PyramidComponent {
 		}
 		StopAllCoroutines();
 		anim.enabled = false;
-		GameState.Lose(GameState.LoseCause.CharacterLost);
 	}
 	public void FlyWithBalloon()
 	{

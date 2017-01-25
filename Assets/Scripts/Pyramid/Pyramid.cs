@@ -73,6 +73,10 @@ public class Pyramid : MonoBehaviour
 
     public void RemoveBlock(PyramidComponent block, bool refresh = true)
     {
+        if(block is Block && !(block is Coin))
+        {
+            GameState.Accomplished(block.BlockType.ToString(),1);
+        }
         blocks.Remove(block);
         if (refresh)
             RefreshBlocks();
