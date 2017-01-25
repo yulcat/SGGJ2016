@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class StageManager : MonoBehaviour {
-	enum Theme { Sand = 3, Ice = 4, Grass = 5 };
+	public enum Theme { Sand = 3, Ice = 4, Grass = 5 };
 	static StageManager _instance;
 	public static StageManager instance
 	{
@@ -55,7 +55,7 @@ public class StageManager : MonoBehaviour {
 	IEnumerator LoadStageCoroutine()
 	{
 		var theme = StageDataLoader.GetStageData(stageToLoad).theme;
-		int sceneNumber = (int)System.Enum.Parse(typeof(Theme),theme);
+		int sceneNumber = (int)theme;
 		yield return SceneLoader.LoadScene(sceneNumber);
 		Debug.Log("try loading stage");
 		var builder = FindObjectOfType<PyramidBuilder>();

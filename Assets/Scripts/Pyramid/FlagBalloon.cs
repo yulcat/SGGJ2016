@@ -16,7 +16,7 @@ public class FlagBalloon : Balloon {
     }
 	public void Launch(CharacterControl character)
 	{
-		GameState.Win();
+		GameState.EndGame();
 		var joint = gameObject.AddComponent<SpringJoint>();
 		var charBody = character.GetComponent<Rigidbody>();
 		joint.anchor = Vector3.up * 0.5f;
