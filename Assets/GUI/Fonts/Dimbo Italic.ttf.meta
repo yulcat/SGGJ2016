@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: e6c5dbe84b5cd4797be6909c21a096ea
-timeCreated: 1483972876
-licenseType: Free
+guid: 91bc3884b1dd29944980abba08de74a9
 TrueTypeFontImporter:
   serializedVersion: 4
   fontSize: 16
@@ -9,11 +7,8 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Dimbo
-  fontNames:
-  - Dimbo
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 5422194d61cb04d42a0ada2c586982fd, type: 3}
+  fontNames: []
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
