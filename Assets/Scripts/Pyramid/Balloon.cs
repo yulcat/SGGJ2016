@@ -18,6 +18,12 @@ public class Balloon : Block {
 		v += transform.TransformVector(Vector3.forward * -3);
 		body.velocity = v;
 	}
+	public override void Remove()
+	{
+		pyramid.RemoveBlock(this);
+		FallOff();
+		body.velocity = transform.TransformVector(Vector3.forward * 8f);
+	}
     protected override void FixedUpdate()
 	{
 		deltaPosition = transform.position - prevPosition;
@@ -34,11 +40,6 @@ public class Balloon : Block {
     public override void ClickListener()
     {
 		if(GameState.instance.isGameEnd) return;
-		pyramid.RemoveBlock(this);
-		transform.DOKill();
-		withPhysics = true;
-		body.constraints = RigidbodyConstraints.None;
-		body.velocity = transform.TransformVector(Vector3.forward * 8f);
-		var col = GetComponent<Collider>();
+		Remove();
     }
 }

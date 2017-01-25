@@ -182,6 +182,11 @@ public class CharacterControl : PyramidComponent {
 			if(body != childBody) childBody.isKinematic = true;
 		}
 	}
+	public void Kill()
+	{
+		crushEffect.SetActive(true);
+		anim.gameObject.SetActive(false);
+	}
 	IEnumerator WaitForLanding()
 	{
 		while(true)

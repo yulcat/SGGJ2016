@@ -67,7 +67,7 @@ public class Block : PyramidComponent
 		var character = pyramid.GetBlock(c => c is CharacterControl) as CharacterControl;
 		if(character.BlockFallTest(this))
 		{
-			character.crushEffect.SetActive(true);
+			character.Kill();
 			GameState.Lose(GameState.LoseCause.Crushed);
 		}
 	}
@@ -116,12 +116,7 @@ public class Block : PyramidComponent
 		if(pyramid == null || GameState.instance.isGameEnd) return;
 		if(++currentClickCount == ClickCount)
 		{
-			pyramid.RemoveBlock(this);
-			transform.DOKill();
-			withPhysics = true;
-			body.constraints = RigidbodyConstraints.None;
-			body.velocity = transform.TransformVector(Vector3.forward * 12f);
-			ShirinkCollider();
+			Remove();
 		}
 		else
 		{
@@ -131,6 +126,12 @@ public class Block : PyramidComponent
 		var audio = GetComponent<AudioList>();
 		if(audio != null) audio.Play("Push");
     }
+	public virtual void Remove()
+	{
+		pyramid.RemoveBlock(this);
+		FallOff();
+		body.velocity = transform.TransformVector(Vector3.forward * 12f);
+	}
 	void OnCollisionEnter(Collision col)
 	{
 		if(col.collider.GetComponent<Terrain>()==null) return;
