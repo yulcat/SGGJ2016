@@ -74,6 +74,7 @@ public class GameState : MonoBehaviour {
 	{
 		foreach(var kvp in instance.mission)
 		{
+			if(kvp.Value == 0 && kvp.Key != "Less") continue;
 			var sum = instance.accomplished.Where(ac => ac.Key != "Coin").Sum(ac => ac.Value);
 			switch(kvp.Key)
 			{
