@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
+public interface ICollidable
+{
+	bool CollideResult
+	{
+		get;
+	}
+}
 public abstract class PyramidComponent : MonoBehaviour {
 	public BlockType BlockType;
 	public float lifeTime = 5f;

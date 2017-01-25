@@ -63,9 +63,10 @@ public class CharacterControl : PyramidComponent {
 
 	bool CheckFeet(float x, int y, PyramidComponent target, int dy = -2)
 	{
-		if(target is Block && !(target is FlagBalloon))
+		var blockTarget = target as Block;
+		if(blockTarget && blockTarget.CollideResult)
 		{
-			var check = (target as Block).position;
+			var check = blockTarget.position;
 			return (check.y == y - 2)
 				&& (check.x + 1 >= (x - thickness)*2f)
 				&& (check.x - 1 <= (x + thickness)*2f);
@@ -85,9 +86,19 @@ public class CharacterControl : PyramidComponent {
 		return false;
 	}
 
-	bool CheckFlag(float x, int y, PyramidComponent target)
+	bool CheckCollideOverlap(float x, int y, PyramidComponent target)
 	{
-		if(target is FlagBalloon) return CheckOverlap(x,y,target);
+		var blockTarget = target as Block;
+		if(blockTarget != null && blockTarget.CollideResult)
+		{
+			return CheckOverlap(x,y,target);
+		}
+		else return false;
+	}
+
+	bool CheckFlag<T>(float x, int y, PyramidComponent target)
+	{
+		if(target is T) return CheckOverlap(x,y,target);
 		else return false;
 	}
 
@@ -121,14 +132,9 @@ public class CharacterControl : PyramidComponent {
 			anim.SetBool("IsTrace",true);
 			float dx = direction * moveSpeed * Time.deltaTime;
 			float destination = currentX + dx;
-			var flag = pyramid.GetBlock(c => CheckFlag(destination,currentFloor,c));
-			if(flag != null)
-			{
-				anim.SetBool("GetBalloon",true);
-				(flag as FlagBalloon).Launch(this);
-				yield break; //Reached Goal
-			}
-			if(pyramid.HasBlocks(c => CheckOverlap(destination,currentFloor,c)))
+			if(FlagTest(destination)) yield break;
+			CoinTest(destination);
+			if(pyramid.HasBlocks(c => CheckCollideOverlap(destination,currentFloor,c)))
 				continue; //Blocked by block
 			
 			transform.Translate(dx, 0, 0);
@@ -140,6 +146,27 @@ public class CharacterControl : PyramidComponent {
 				//Jump off
 			}
 		}
+	}
+	bool FlagTest(float destination)
+	{
+		var flag = pyramid.GetBlock(c => CheckFlag<FlagBalloon>(destination,currentFloor,c));
+		if(flag != null)
+		{
+			anim.SetBool("GetBalloon",true);
+			(flag as FlagBalloon).Launch(this);
+			return true;
+		}
+		return false;
+	}
+	bool CoinTest(float destination)
+	{
+		var coin = pyramid.GetBlock(c => CheckFlag<Coin>(destination,currentFloor,c));
+		if(coin != null)
+		{
+			(coin as Coin).Activate();
+			return true;
+		}
+		return false;
 	}
 	float GetMoveMomentum(float vx)
 	{
@@ -196,14 +223,11 @@ public class CharacterControl : PyramidComponent {
 			{
 				GetComponent<AudioList>().Play("step");
 				anim.SetTrigger("Land");
-				var flag = pyramid.GetBlock(c => 
-					CheckFlag(transform.localPosition.x,currentFloor,c));
-				if(flag != null)
+				if(FlagTest(transform.localPosition.x))
 				{
-					anim.SetBool("GetBalloon",true);
-					(flag as FlagBalloon).Launch(this);
 					yield break; //Reached Goal
 				}
+				CoinTest(transform.localPosition.x);
 				yield break;
 			}
 		}

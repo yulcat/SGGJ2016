@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
+using System;
 
 [System.SerializableAttribute]
 public struct XY
@@ -34,7 +35,7 @@ public struct XY
 		return !(one == other);
 	}
 }
-public class Block : PyramidComponent
+public class Block : PyramidComponent, ICollidable
 {
 	List<Block> Feet;
 	public int ClickCount = 3;
@@ -57,11 +58,18 @@ public class Block : PyramidComponent
 		get
 		{
 			return GetTorque(position.ToVector3(), body.mass);
-			// return position.x * 0.5f * body.mass;
 		}
 	}
 
-	protected override void FallResult()
+    public virtual bool CollideResult
+    {
+        get
+        {
+            return true;
+        }
+    }
+
+    protected override void FallResult()
 	{
 		base.FallResult();
 		var character = pyramid.GetBlock(c => c is CharacterControl) as CharacterControl;

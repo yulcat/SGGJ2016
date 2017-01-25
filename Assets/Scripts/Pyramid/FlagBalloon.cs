@@ -7,6 +7,13 @@ public class FlagBalloon : Balloon {
 	{
 		line = GetComponentInChildren<BalloonLine>(true);
 	}
+	public override bool CollideResult
+    {
+        get
+        {
+            return false;
+        }
+    }
 	public void Launch(CharacterControl character)
 	{
 		GameState.Win();

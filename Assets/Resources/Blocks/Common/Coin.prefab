@@ -19,11 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4108159829904344}
-  - component: {fileID: 114931383626339496}
   - component: {fileID: 54782083331829830}
-  - component: {fileID: 65704175495795320}
   - component: {fileID: 82330073671433484}
   - component: {fileID: 114022363676093718}
+  - component: {fileID: 114381534849712536}
   m_Layer: 9
   m_Name: Coin
   m_TagString: Untagged
@@ -40,8 +39,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4461683411718224}
   - component: {fileID: 33916928102588600}
-  - component: {fileID: 136588855078763768}
   - component: {fileID: 23055518341318692}
+  - component: {fileID: 64889125649874284}
   m_Layer: 9
   m_Name: Coin
   m_TagString: Untagged
@@ -129,18 +128,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &65704175495795320
-BoxCollider:
+--- !u!64 &64889125649874284
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028996735177096}
-  m_Material: {fileID: 13400000, guid: 461d5d75d97da4405aba8a0b751e4946, type: 2}
+  m_GameObject: {fileID: 1929810508795242}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!82 &82330073671433484
 AudioSource:
   m_ObjectHideFlags: 1
@@ -237,7 +238,7 @@ MonoBehaviour:
   - name: Push
     clips:
     - {fileID: 8300000, guid: 6524864fabb954f94ae9cbe27a8ef6af, type: 3}
---- !u!114 &114931383626339496
+--- !u!114 &114381534849712536
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -245,25 +246,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1028996735177096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944cb45f9828a429382790216e406a6c, type: 3}
+  m_Script: {fileID: 11500000, guid: b7e993748d8584a13868df78acfa32ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BlockType: 8
-  lifeTime: 10
-  ClickCount: 2
+  lifeTime: 5
+  ClickCount: 3
   position:
     x: 0
     y: 0
---- !u!136 &136588855078763768
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1929810508795242}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  rotateSpeed: 200
