@@ -6,6 +6,7 @@ using UnityEngine;
 public class Win : Window {
 	public Text score;
 	public Text stageNumber;
+	[System.NonSerializedAttribute]
 	public int finalScore;
 	int scoreShow;
 	override protected void OnEnable()
