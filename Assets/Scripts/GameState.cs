@@ -4,14 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 
 public class GameState : MonoBehaviour {
-	public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed }
+	public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective }
 	public bool isGameEnd = false;
 	public Win winMessage;
 	public Lose loseMessage;
 	Dictionary<string,int> mission;
 	Dictionary<string,int> accomplished = new Dictionary<string,int>();
 	static GameState _instance;
-	LoseCause cause;
 	Pyramid pyramid;
 	int scoreToSend;
 	public static GameState instance
@@ -39,7 +38,7 @@ public class GameState : MonoBehaviour {
 		if(instance.isGameEnd) return;
 		instance.isGameEnd = true;
 		instance.Invoke("ShowLoseGameMessage",2f);
-		instance.cause = _cause;
+		instance.loseMessage.SetMessage(_cause);
 	}
 	void Initialize()
 	{
@@ -60,7 +59,7 @@ public class GameState : MonoBehaviour {
 			return;
 		}
 		if(IsMissionComplete()) Win();
-		else Lose(LoseCause.BalloonLost);
+		else Lose(LoseCause.Objective);
 	}
 	static bool IsMissionComplete()
 	{
@@ -109,7 +108,6 @@ public class GameState : MonoBehaviour {
 	void ShowLoseGameMessage()
 	{
 		WindowManager.instance.OpenWindow(loseMessage);
-		loseMessage.text.text = loseMessage.messages[(int)cause];
 	}
 	IEnumerator SendScoreToServer()
 	{

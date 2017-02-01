@@ -28,7 +28,7 @@ public class Pyramid : MonoBehaviour
             blocks = GetComponentsInChildren<PyramidComponent>().ToList();
             blocks.ForEach(b => b.SetPyramid(this));
         }
-        inputPlane = new Plane(Vector3.forward, transform.position + (Vector3.back * 0.5f));
+        inputPlane = new Plane(transform.forward, transform.position + (transform.forward * -0.5f));
         maxY = GetMaxY();
     }
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
