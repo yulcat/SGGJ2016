@@ -14,6 +14,7 @@ fail_nablaFalled,나블라가 무너졌어요!,실패1
 fail_bearFalled,바닥으로 떨어졌어요!,실패2
 fail_balloonLost,풍선을 놓쳤어요!,실패3
 fail_crushed,블럭에 깔렸어요!,실패4
+fail_objective,목표를 달성하지 못했어요!,
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족
@@ -35,3 +36,13 @@ exit_description,게임을 종료하시겠습니까?,종료확인
 charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)원,캐릭터구매확인
 itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
 diaBuy_confirm,(캐릭터이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
+,,
+Coin,코인,블럭 이름들
+Light,가벼운 블럭,
+Medium,중간 블럭,
+Heavy,무거운 블럭,
+Balloon,풍선,
+Water,물 블럭,
+Barrel,폭탄 블럭,
+Gift,선물 상자,
+Wood,나무 블럭,

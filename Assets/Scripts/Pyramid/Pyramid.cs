@@ -13,18 +13,23 @@ public class Pyramid : MonoBehaviour
     public float torqueSum;
     public float inertia;
     public bool calculate = false;
+    [System.NonSerializedAttribute]
+    public float maxRotation;
+    [System.NonSerializedAttribute]
+    public int maxY;
     private Plane inputPlane;
     private Vector3 recentClick;
     private bool initializedByBuilder = false;
     // Use this for initialization
     void Start()
     {
-        if(!initializedByBuilder)
+        if (!initializedByBuilder)
         {
             blocks = GetComponentsInChildren<PyramidComponent>().ToList();
             blocks.ForEach(b => b.SetPyramid(this));
         }
-        inputPlane = new Plane(Vector3.forward, transform.position + (Vector3.back * 0.5f));
+        inputPlane = new Plane(transform.forward, transform.position + (transform.forward * -0.5f));
+        maxY = GetMaxY();
     }
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
     {
@@ -36,9 +41,9 @@ public class Pyramid : MonoBehaviour
     }
     void Update()
     {
-        foreach(var t in Input.touches)
+        foreach (var t in Input.touches)
         {
-            if(t.phase != TouchPhase.Began) continue;
+            if (t.phase != TouchPhase.Began) continue;
             RayCheck(t.position);
         }
         if (!Input.touchSupported && Input.GetMouseButtonDown(0))
@@ -73,9 +78,9 @@ public class Pyramid : MonoBehaviour
 
     public void RemoveBlock(PyramidComponent block, bool refresh = true)
     {
-        if(block is Block && !(block is Coin))
+        if (block is Block && !(block is Coin))
         {
-            GameState.Accomplished(block.BlockType.ToString(),1);
+            GameState.Accomplished(block.BlockType.ToString(), 1);
         }
         blocks.Remove(block);
         if (refresh)
@@ -110,14 +115,14 @@ public class Pyramid : MonoBehaviour
             calculate = false;
             Start();
             torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
-            inertia = blocks.Aggregate(0f,GetInertiaSum) * 0.01f;
+            inertia = blocks.Aggregate(0f, GetInertiaSum) * 0.01f;
         }
     }
 
     void FixedUpdate()
     {
-        if(blocks.Count == 0) return;
-        inertia = blocks.Aggregate(0f,GetInertiaSum) * 0.01f;
+        if (blocks.Count == 0) return;
+        inertia = blocks.Aggregate(0f, GetInertiaSum) * 0.01f;
         torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
         var currentRot = transform.localRotation.eulerAngles.z;
         var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
@@ -129,7 +134,7 @@ public class Pyramid : MonoBehaviour
     {
         var mass = comp.GetComponent<Rigidbody>().mass;
         var r = comp.transform.localPosition.magnitude;
-        var multiplier = comp is Balloon? 0 : 1;
+        var multiplier = comp is Balloon ? 0 : 1;
         return (mass * r * r * multiplier) + inertia;
     }
     public void ApplyMomentum(float momentum)
@@ -140,11 +145,19 @@ public class Pyramid : MonoBehaviour
     {
         var currentRot = transform.localRotation.eulerAngles.z;
         var dc = angularVelocity * Time.fixedDeltaTime;
-        transform.localRotation = Quaternion.Euler(0, 0, currentRot + dc);
-        if (Mathf.Cos((currentRot + dc) * Mathf.Deg2Rad) < 0.9f)
+        var nextRot = currentRot + dc;
+        transform.localRotation = Quaternion.Euler(0, 0, nextRot);
+        maxRotation = Mathf.Max(maxRotation, Mathf.Abs(Mathf.DeltaAngle(0,nextRot)));
+        if (Mathf.Cos(nextRot * Mathf.Deg2Rad) < 0.9f)
         {
             GameState.Lose(GameState.LoseCause.Collapsed);
             CollapseAll();
         }
+    }
+    int GetMaxY()
+    {
+        return blocks
+            .Where(block => block.BlockType != BlockType.Character)
+            .Max(block => (new XY(block.transform.localPosition).y + 1) / 2);
     }
 }

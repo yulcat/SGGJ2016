@@ -20,6 +20,8 @@ public class CSVLoader {
 	public static T ToObject<T>(List<string> splitted)
 	{
 		Type type = typeof(T);
+		if(type.IsPrimitive || type == typeof(string))
+			return (T)Convert.ChangeType(splitted[0],type);
         FieldInfo[] fields = type.GetFields();
         object newT = Activator.CreateInstance(type);
         for(int i=0; i<fields.Length; i++)
