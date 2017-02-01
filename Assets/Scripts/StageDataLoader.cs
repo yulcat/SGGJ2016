@@ -37,3 +37,18 @@ public static class StageDataLoader {
 		return _stageData.First(d => d.stageNumber == stage);
 	}
 }
+public static class ScoreDataLoader
+{
+	static Dictionary<string,int> scoreData;
+	public static int GetScore(string key)
+	{
+		if(scoreData == null)
+		{
+			scoreData = CSVLoader.LoadDictionary<int>("Data/scores");
+		}
+		if(scoreData.ContainsKey(key))
+			return scoreData[key];
+		else
+			return 0;
+	}
+}

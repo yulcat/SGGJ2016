@@ -12,6 +12,8 @@ public class GameState : MonoBehaviour {
 	Dictionary<string,int> accomplished = new Dictionary<string,int>();
 	static GameState _instance;
 	LoseCause cause;
+	Pyramid pyramid;
+	int scoreToSend;
 	public static GameState instance
 	{
 		get
@@ -24,15 +26,16 @@ public class GameState : MonoBehaviour {
 	public static void Win()
 	{
 		if(instance.isGameEnd) return;
+		instance.calculateScore();
 		instance.StartCoroutine(instance.SendScoreToServer());
 		instance.isGameEnd = true;
-		instance.Invoke("WinGame",2f);
+		instance.Invoke("ShowWinGameMessage",2f);
 	}
 	public static void Lose(LoseCause _cause)
 	{
 		if(instance.isGameEnd) return;
 		instance.isGameEnd = true;
-		instance.Invoke("LoseGame",2f);
+		instance.Invoke("ShowLoseGameMessage",2f);
 		instance.cause = _cause;
 	}
 	void Awake()
@@ -49,18 +52,11 @@ public class GameState : MonoBehaviour {
 		Debug.Log("stage : " + stage);
 		var stageData = StageDataLoader.GetStageData(stage);
 		mission = stageData.mission;
+		pyramid = FindObjectOfType<Pyramid>();
 	}
 	public static void EndGame()
 	{
 		if(instance.isGameEnd) return;
-		foreach(var kvp in instance.mission)
-		{
-			Debug.Log(string.Format("mission {0} : {1}", kvp.Key, kvp.Value));
-		}
-		foreach(var kvp in instance.accomplished)
-		{
-			Debug.Log(string.Format("accomplished {0} : {1}", kvp.Key, kvp.Value));
-		}
 
 		if(instance.mission == null)
 		{
@@ -99,11 +95,21 @@ public class GameState : MonoBehaviour {
 		else
 			instance.accomplished[key] += value;
 	}
-	void WinGame()
+	void calculateScore()
 	{
+		Debug.Log("MaxRotation : " + pyramid.maxRotation);
+		var rotationScore = Mathf.Cos(pyramid.maxRotation * Mathf.Deg2Rad) - 0.9f;
+		var primeScore = Mathf.FloorToInt(ScoreDataLoader.GetScore("size"+pyramid.maxY) * rotationScore);
+		Debug.Log(string.Format("{0} : {1}","size"+pyramid.maxY,primeScore));
+		var blockScore = accomplished.Sum(a => ScoreDataLoader.GetScore(a.Key) * a.Value);
+		scoreToSend = primeScore + blockScore;
+	}
+	void ShowWinGameMessage()
+	{
+		winMessage.finalScore = scoreToSend;
 		WindowManager.instance.OpenWindow(winMessage);
 	}
-	void LoseGame()
+	void ShowLoseGameMessage()
 	{
 		WindowManager.instance.OpenWindow(loseMessage);
 		loseMessage.text.text = loseMessage.messages[(int)cause];
@@ -112,8 +118,8 @@ public class GameState : MonoBehaviour {
 	{
 		var form = new WWWForm();
 		form.AddField("stage","stage"+FindObjectOfType<PyramidBuilder>().stageToLoad.ToString());
-		form.AddField("id",SystemInfo.deviceUniqueIdentifier);
-		form.AddField("score",Random.Range(0,9000000));
+		form.AddField("id",System.Guid.NewGuid().ToString());
+		form.AddField("score",scoreToSend);
 		var www = new WWW("http://52.78.26.149/api/values",form);
 		yield return www;
 		if(!string.IsNullOrEmpty(www.error))
