@@ -6,15 +6,20 @@ using UnityEngine;
 public class Coin : Block
 {
 	public float rotateSpeed = 1f;
+	Transform child;
 	/// <summary>
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	/// </summary>
 	void Update()
 	{
+		if(child == null)
+		{
+			child = transform.GetChild(0);
+		}
 		if(withPhysics) return;
-		float yRotation = transform.localRotation.eulerAngles.y;
+		float yRotation = child.localRotation.eulerAngles.y;
 		yRotation += rotateSpeed * Time.deltaTime;
-		transform.localRotation = Quaternion.Euler(0,yRotation,0);
+		child.localRotation = Quaternion.Euler(90,yRotation,0);
 	}
 	public void Activate()
 	{
