@@ -3718,15 +3718,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 81
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 138986, guid: bbe43d5fade05c54baefb97ca75c9699, type: 2}
       propertyPath: m_Name
       value: Bricks (45)
-=======
-    - target: {fileID: 4000012515523406, guid: c02be5cb999b544e6adedac4783af62e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -7.5846643
->>>>>>> 52191236fcc47ca6dd9fd218ec8309c15202bdaf
       objectReference: {fileID: 0}
     - target: {fileID: 401298, guid: bbe43d5fade05c54baefb97ca75c9699, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
