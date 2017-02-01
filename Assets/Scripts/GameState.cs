@@ -19,7 +19,10 @@ public class GameState : MonoBehaviour {
 		get
 		{
 			if(_instance == null)
+			{
 				_instance = Resources.FindObjectsOfTypeAll<GameState>().First();
+				_instance.Initialize();
+			}
 			return _instance;
 		}
 	}
@@ -38,14 +41,7 @@ public class GameState : MonoBehaviour {
 		instance.Invoke("ShowLoseGameMessage",2f);
 		instance.cause = _cause;
 	}
-	void Awake()
-	{
-		if(_instance == null)
-		{
-			_instance = this;
-		}
-	}
-	void Start()
+	void Initialize()
 	{
 		var builder = FindObjectOfType<PyramidBuilder>();
 		int stage = builder.stageToLoad;
@@ -70,6 +66,7 @@ public class GameState : MonoBehaviour {
 	{
 		foreach(var kvp in instance.mission)
 		{
+			Debug.Log(string.Format("Mission : {0} x {1}", kvp.Key, kvp.Value));
 			if(kvp.Value == 0 && kvp.Key != "Less") continue;
 			var sum = instance.accomplished.Where(ac => ac.Key != "Coin").Sum(ac => ac.Value);
 			switch(kvp.Key)
