@@ -180,6 +180,7 @@ public class CharacterControl : PyramidComponent {
 	}
 	public override void FallOff(bool refresh = true)
 	{
+		transform.SetParent(null);
 		FreeBodyRagdoll();
 		GameState.Lose(GameState.LoseCause.CharacterLost);
 	}
@@ -191,6 +192,7 @@ public class CharacterControl : PyramidComponent {
 		foreach(var childBody in bodies)
 		{
 			childBody.constraints = RigidbodyConstraints.None;
+			childBody.velocity = deltaPosition / Time.fixedDeltaTime;
 		}
 		StopAllCoroutines();
 		anim.enabled = false;

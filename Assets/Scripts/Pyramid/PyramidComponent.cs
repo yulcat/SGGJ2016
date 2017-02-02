@@ -45,6 +45,7 @@ public abstract class PyramidComponent : MonoBehaviour {
 	}
 	public virtual void FallOff(bool refresh = true)
 	{
+		transform.SetParent(null);
 		transform.DOKill();
 		withPhysics = true;
 		ShirinkCollider();

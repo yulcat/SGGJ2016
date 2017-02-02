@@ -31,13 +31,13 @@ public class GameState : MonoBehaviour {
 		instance.calculateScore();
 		instance.StartCoroutine(instance.SendScoreToServer());
 		instance.isGameEnd = true;
-		instance.Invoke("ShowWinGameMessage",2f);
+		instance.Invoke("ShowWinGameMessage",3f);
 	}
 	public static void Lose(LoseCause _cause)
 	{
 		if(instance.isGameEnd) return;
 		instance.isGameEnd = true;
-		instance.Invoke("ShowLoseGameMessage",2f);
+		instance.Invoke("ShowLoseGameMessage",3f);
 		instance.loseMessage.SetMessage(_cause);
 	}
 	void Initialize()
