@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Linq;
 using System;
 
@@ -8,6 +7,7 @@ public class CameraSetter : MonoBehaviour {
 	public int endingNumber = 9;
 	Camera[] cameras;
 	public bool run = false;
+	#if UNITY_EDITOR
 	void OnDrawGizmos()
 	{
 		if(!run) return;
@@ -27,13 +27,14 @@ public class CameraSetter : MonoBehaviour {
 			c.depth = -1;
 			c.enabled = false;
 		}
-		if(cameras.Any(c => c.gameObject == Selection.activeGameObject))
+		if(cameras.Any(c => c.gameObject == UnityEditor.Selection.activeGameObject))
 		{
-			var cam = cameras.First(c => c.gameObject == Selection.activeGameObject);
+			var cam = cameras.First(c => c.gameObject == UnityEditor.Selection.activeGameObject);
 			cam.depth = 0;
 			cam.enabled = true;
 		}
 	}
+	#endif
 
 	void Start()
 	{
@@ -57,4 +58,5 @@ public class CameraSetter : MonoBehaviour {
 
 		gameObject.SetActive(false);
     }
+	
 }
