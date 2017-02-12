@@ -13,6 +13,7 @@ public class GameState : MonoBehaviour {
 	static GameState _instance;
 	Pyramid pyramid;
 	int scoreToSend;
+	int starCount;
 	public static GameState instance
 	{
 		get
@@ -99,6 +100,7 @@ public class GameState : MonoBehaviour {
 		Debug.Log(string.Format("{0} : {1}","size"+pyramid.maxY,primeScore));
 		var blockScore = accomplished.Sum(a => ScoreDataLoader.GetScore(a.Key) * a.Value);
 		scoreToSend = primeScore + blockScore;
+		starCount = 3;
 	}
 	void ShowWinGameMessage()
 	{
@@ -111,9 +113,12 @@ public class GameState : MonoBehaviour {
 	}
 	IEnumerator SendScoreToServer()
 	{
+		string id = System.Guid.NewGuid().ToString();
+		int stage = FindObjectOfType<PyramidBuilder>().stageToLoad;
+		CheckAndUpdateHighscore(id,stage);
 		var form = new WWWForm();
-		form.AddField("stage","stage"+FindObjectOfType<PyramidBuilder>().stageToLoad.ToString());
-		form.AddField("id",System.Guid.NewGuid().ToString());
+		form.AddField("stage","stage"+stage.ToString());
+		form.AddField("id",id);
 		form.AddField("score",scoreToSend);
 		var www = new WWW("http://52.78.26.149/api/values",form);
 		yield return www;
@@ -122,5 +127,30 @@ public class GameState : MonoBehaviour {
 			Debug.LogWarning(www.error);
 		}
 		Debug.Log(www.text);
+	}
+	void CheckAndUpdateHighscore(string id, int stage)
+	{
+		var clearData = new SaveDataManager.ClearData();
+		clearData.score = scoreToSend;
+		clearData.scoreGuid = id;
+		clearData.stars = starCount;
+		var stageString = stage.ToString();
+		if(SaveDataManager.clearRecord.ContainsKey(stage.ToString()))
+		{
+			var record = SaveDataManager.clearRecord[stageString];
+			if(record.score > scoreToSend)
+			{
+				return;
+			}
+			else
+			{
+				SaveDataManager.clearRecord[stageString] = clearData;
+			}
+		}
+		else
+		{
+			SaveDataManager.clearRecord.Add(stageString,clearData);
+		}
+		SaveDataManager.Save();
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 public class Window : MonoBehaviour {
+	protected const float timeToOpenWindow = 0.3f;
 	public void OpenWindow()
 	{
 		WindowManager.instance.OpenWindow(this);
@@ -23,6 +24,6 @@ public class Window : MonoBehaviour {
 	{
 		var rect = GetComponent<RectTransform>();
 		rect.localScale = Vector3.one;
-		rect.DOScale(Vector3.one * 0.5f, 0.3f).From().SetEase(Ease.OutBack);
+		rect.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack);
 	}
 }
