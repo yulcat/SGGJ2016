@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using AvoEx;
 
@@ -12,7 +11,7 @@ public static class SaveDataManager {
 	}
 	public class SaveData
 	{
-		public Dictionary<int,ClearData> clearRecord = new Dictionary<int,ClearData>();
+		public Dictionary<string,ClearData> clearRecord = new Dictionary<string,ClearData>();
 	}
 	private static SaveData _data;
 	public static SaveData data
@@ -22,13 +21,15 @@ public static class SaveDataManager {
 			if(_data != null)
 				return _data;
 			if(PlayerPrefs.HasKey("data"))
+			{
 				_data = LoadData();
+			}
 			else
 				_data = new SaveData();
 			return _data;
 		}
 	}
-	public static Dictionary<int,ClearData> clearRecord
+	public static Dictionary<string,ClearData> clearRecord
 	{
 		get
 		{
@@ -50,6 +51,6 @@ public static class SaveDataManager {
     }
 	public static void Save()
 	{
-		PlayerPrefs.SetString("data",AesEncryptor.Encrypt(LitJson.JsonMapper.ToJson(data)));
+		PlayerPrefs.SetString("data",AesEncryptor.Encrypt(LitJson.JsonMapper.ToJson(_data)));
 	}
 }

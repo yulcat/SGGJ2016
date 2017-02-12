@@ -134,21 +134,22 @@ public class GameState : MonoBehaviour {
 		clearData.score = scoreToSend;
 		clearData.scoreGuid = id;
 		clearData.stars = starCount;
-		if(SaveDataManager.clearRecord.ContainsKey(stage))
+		var stageString = stage.ToString();
+		if(SaveDataManager.clearRecord.ContainsKey(stage.ToString()))
 		{
-			var record = SaveDataManager.clearRecord[stage];
+			var record = SaveDataManager.clearRecord[stageString];
 			if(record.score > scoreToSend)
 			{
 				return;
 			}
 			else
 			{
-				SaveDataManager.clearRecord[stage] = clearData;
+				SaveDataManager.clearRecord[stageString] = clearData;
 			}
 		}
 		else
 		{
-			SaveDataManager.clearRecord.Add(stage,clearData);
+			SaveDataManager.clearRecord.Add(stageString,clearData);
 		}
 		SaveDataManager.Save();
 	}

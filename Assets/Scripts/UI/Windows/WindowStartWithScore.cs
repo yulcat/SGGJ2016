@@ -13,14 +13,15 @@ public class WindowStartWithScore : WindowStart {
 	{
 		stageToLoad = _stageToLoad;
 		base.OpenStartWindow(stageToLoad);
-		if(!SaveDataManager.clearRecord.ContainsKey(stageToLoad))
+		if(!SaveDataManager.clearRecord.ContainsKey(stageToLoad.ToString()))
 			throw new System.Exception("WindowStartWithScore is trying to load stage without clear record");
 		StartCoroutine(ApplyClearData());
 	}
 	IEnumerator ApplyClearData()
 	{
-		var clearData = SaveDataManager.clearRecord[stageToLoad];
+		var clearData = SaveDataManager.clearRecord[stageToLoad.ToString()];
 		highScore.text = clearData.score.ToString();
+		StartCoroutine(LoadWorldRank());
 		yield return new WaitForSeconds(timeToOpenWindow);
 		foreach(var star in stars.Take(clearData.stars))
 		{
@@ -30,7 +31,7 @@ public class WindowStartWithScore : WindowStart {
 	}
 	IEnumerator LoadWorldRank()
 	{
-		var clearData = SaveDataManager.clearRecord[stageToLoad];
+		var clearData = SaveDataManager.clearRecord[stageToLoad.ToString()];
 		var builder = new System.Text.StringBuilder("http://52.78.26.149/api/values/");
 		builder.Append("stage");
 		builder.Append(stageToLoad.ToString());
@@ -38,7 +39,7 @@ public class WindowStartWithScore : WindowStart {
 		builder.Append(clearData.scoreGuid);
 		var www = new WWW(builder.ToString());
 		yield return www;
-		float ranking = (float)System.Convert.ToDouble(www.text);
+		float ranking = (float)System.Convert.ToDouble(www.text) * 100;
 		rank.text = ranking.ToString("0.0") + "%";
 	}
 }

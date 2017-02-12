@@ -6,6 +6,7 @@ using DG.Tweening;
 public class InfiniteScroll : MonoBehaviour
 {
 	public float deltaX = 500;
+    float max = 1280;
     public float xPosition
     {
         get
@@ -36,13 +37,15 @@ public class InfiniteScroll : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
 		buttons = GetComponentsInChildren<LoadStageButton>();
+        if(SaveDataManager.clearRecord.Count > 0)
+            max = SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key)) * 500 + 1280;
     }
 
     // Update is called once per frame
     void Update()
     {
         var size = rect.sizeDelta;
-        size.x = Mathf.Clamp(3000 - rect.anchoredPosition.x, 3000, 20000);
+        size.x = Mathf.Clamp(3000 - rect.anchoredPosition.x, 3000, max);
         rect.sizeDelta = size;
     }
 }

@@ -6,10 +6,11 @@ public class LoadStageButton : MonoBehaviour {
 
 	void OnMouseDown()
 	{
+		if(!enabled) return;
 		if(WindowManager.instance.isWindowOpen) return;
 		var toLoad = index+1;
 		// StageManager.LoadStage(toLoad);
-		if(SaveDataManager.clearRecord.ContainsKey(toLoad))
+		if(SaveDataManager.clearRecord.ContainsKey(toLoad.ToString()))
 		{
 			var startWindow = GameObject.Find("Canvas").GetComponentInChildren<WindowStartWithScore>(true);
 			startWindow.OpenStartWindow(toLoad);
