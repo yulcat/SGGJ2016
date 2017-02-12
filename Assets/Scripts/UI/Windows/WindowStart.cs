@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WindowStart : Window {
 	public Text levelNumber;
-	int toLoad;
+	protected int toLoad;
 	public void OpenStartWindow(int stageToLoad)
 	{
 		levelNumber.text = stageToLoad.ToString();
