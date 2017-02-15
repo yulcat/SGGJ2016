@@ -64,7 +64,16 @@ public class Pyramid : MonoBehaviour
     void PushBlock(Vector3 clickPosition)
     {
         var block = GetBlock(b => IsClicked(b, clickPosition)) as Block;
-        if (block != null) block.ClickListener();
+        if (block != null)
+        {
+            block.ClickListener();
+            var tabEffect = EffectSpawner.GetEffect("Effects/tabEffect");
+            tabEffect.transform.SetParent(transform);
+            var targetPosition = block.transform.localPosition;
+            targetPosition.z = -0.55f;
+            tabEffect.transform.localPosition = targetPosition;
+            tabEffect.gameObject.SetActive(true);
+        }
     }
     bool IsClicked(PyramidComponent obj, Vector3 clickPosition)
     {
