@@ -76,7 +76,6 @@ public class Block : PyramidComponent, ICollidable
         if (character.BlockFallTest(this))
         {
             character.Kill();
-            GameState.Lose(GameState.LoseCause.Crushed);
         }
     }
 

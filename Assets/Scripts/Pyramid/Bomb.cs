@@ -32,7 +32,6 @@ public class Bomb : Block {
 		{
 			var characterTarget = target as CharacterControl;
 			characterTarget.Kill();
-			GameState.Lose(GameState.LoseCause.Crushed); //TODO
 			return;
 		}
 		else if(target is Block)
