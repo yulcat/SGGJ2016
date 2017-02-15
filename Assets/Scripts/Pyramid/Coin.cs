@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : Block
+interface IOverlapLister
+{
+	void Overlap(CharacterControl character);
+}
+
+public class Coin : Block, IOverlapLister
 {
 	public float rotateSpeed = 1f;
 	Transform child;
@@ -21,7 +26,7 @@ public class Coin : Block
 		yRotation += rotateSpeed * Time.deltaTime;
 		child.localRotation = Quaternion.Euler(90,yRotation,0);
 	}
-	public void Activate()
+	public void Overlap(CharacterControl character)
 	{
 		GameState.Accomplished("Coin",1);
 		pyramid.RemoveBlock(this);

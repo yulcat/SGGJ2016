@@ -160,10 +160,10 @@ public class CharacterControl : PyramidComponent {
 	}
 	bool CoinTest(float destination)
 	{
-		var coin = pyramid.GetBlock(c => CheckFlag<Coin>(destination,currentFloor,c));
-		if(coin != null)
+		var overlap = pyramid.GetBlock(c => CheckFlag<IOverlapLister>(destination,currentFloor,c));
+		if(overlap != null)
 		{
-			(coin as Coin).Activate();
+			(overlap as IOverlapLister).Overlap(this);
 			return true;
 		}
 		return false;
@@ -215,10 +215,11 @@ public class CharacterControl : PyramidComponent {
 			if(body != childBody) childBody.isKinematic = true;
 		}
 	}
-	public void Kill()
+	public void Kill(GameState.LoseCause cause = GameState.LoseCause.Crushed)
 	{
 		crushEffect.SetActive(true);
 		anim.gameObject.SetActive(false);
+		GameState.Lose(cause);
 	}
 	IEnumerator WaitForLanding()
 	{
