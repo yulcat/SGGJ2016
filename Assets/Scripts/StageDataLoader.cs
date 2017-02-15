@@ -27,14 +27,21 @@ public static class StageDataLoader {
 		}
 	}
 	static IEnumerable<StageData> _stageData;
+	static List<StageMiddleData> loaded;
 	public static StageData GetStageData(int stage)
 	{
 		if(_stageData == null)
 		{
-			var loaded = CSVLoader.LoadList<StageMiddleData>("Data/stages");
+			loaded = CSVLoader.LoadList<StageMiddleData>("Data/stages");
 			_stageData = loaded.Select(d => new StageData(d));
 		}
 		return _stageData.First(d => d.stageNumber == stage);
+	}
+	public static int GetMaxStage()
+	{
+		if(loaded == null)
+			loaded = CSVLoader.LoadList<StageMiddleData>("Data/stages");
+		return loaded.Max(l => l.stageNumber);
 	}
 }
 public static class ScoreDataLoader
