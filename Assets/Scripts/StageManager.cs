@@ -56,6 +56,7 @@ public class StageManager : MonoBehaviour {
 	{
 		var theme = StageDataLoader.GetStageData(stageToLoad).theme;
 		int sceneNumber = (int)theme;
+		Debug.Log("try loading stage : " + sceneNumber + "(" + theme.ToString() + ")");
 		yield return SceneLoader.LoadScene(sceneNumber);
 		Debug.Log("try loading stage");
 		var builder = FindObjectOfType<PyramidBuilder>();
