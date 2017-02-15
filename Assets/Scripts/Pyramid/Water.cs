@@ -7,6 +7,15 @@ public class Water : Block, IOverlapLister {
 	{
 		character.Kill();
 	}
+    protected override void FallResult()
+    {
+        floating = false;
+        var character = pyramid.GetBlock(c => c is CharacterControl) as CharacterControl;
+        if (character.BlockFallTest(this))
+        {
+            Overlap(character);
+        }
+    }
     public override bool CollideResult
     {
         get
