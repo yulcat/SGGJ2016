@@ -4,18 +4,16 @@ using UnityEngine.UI;
 
 public class ScrolledBlock : ScrolledGameObject
 {
-    StageIndexText button;
+    TextMesh stageNumberText;
     public GameObject[] blocks;
 	int prevIndex = -1;
+	static Color inactiveGrey = new Color(0.42f,0.42f,0.42f,1f);
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
-        var buttonObj = Instantiate<GameObject>(Resources.Load<GameObject>("StageButton"));
-        buttonObj.transform.SetParent(GameObject.Find("IndexCanvas").transform);
-        // buttonObj.transform.localScale = Vector3.one;
-        button = buttonObj.GetComponent<StageIndexText>();
+        stageNumberText = GetComponentInChildren<TextMesh>();
     }
 
     // Update is called once per frame
@@ -27,11 +25,9 @@ public class ScrolledBlock : ScrolledGameObject
         var index = localIndex - ((int)(x / deltaX) * 6);
 		if(index != prevIndex)
 			ResetBlocks(index);
-        button.index = index;
-        var rect = button.GetComponent<RectTransform>();
+        stageNumberText.text = (index+1).ToString();
         pos.z = Mathf.Sin(index) * 0.5f;
         transform.localPosition = pos;
-        button.transform.position = transform.position;
 		prevIndex = index;
     }
 
@@ -47,19 +43,19 @@ public class ScrolledBlock : ScrolledGameObject
 		{
 			loadStageButton.enabled = false;
 			SetBlock(4);
-			button.GetComponent<Button>().interactable = false;
+			stageNumberText.color = inactiveGrey;
 		}
 		else if(stage == maxClearedStage + 1)
 		{
 			loadStageButton.enabled = true;
 			SetBlock(0);
-			button.GetComponent<Button>().interactable = true;
+			stageNumberText.color = Color.white;
 		}
 		else
 		{
 			loadStageButton.enabled = true;
 			SetBlock(SaveDataManager.clearRecord[stage.ToString()].stars);
-			button.GetComponent<Button>().interactable = true;
+			stageNumberText.color = Color.white;
 		}
     }
 	private void SetBlock(int blockNum)
