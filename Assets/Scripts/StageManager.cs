@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class StageManager : MonoBehaviour {
-	public enum Theme { Sand = 3, Ice = 4, Grass = 5 };
+	public enum Theme { Sand = 3, Ice = 4, Grass = 5, Common = -1 };
 	static StageManager _instance;
 	public static StageManager instance
 	{

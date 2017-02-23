@@ -56,7 +56,7 @@
 				fixed2 uv = fixed2(uvTexData.x, uvTexData.y);
 				fixed4 mainTexColor = tex2D(_MainTex, uv);
 				mainTexColor.rgb = mainTexColor.rgb * uvTexData.z;
-				if(uvTexData.b < 0.5)
+				if(uvTexData.b < 0.3)
 				{
 					mainTexColor.a = 0;
 				}
