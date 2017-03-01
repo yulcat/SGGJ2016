@@ -28,6 +28,7 @@
 			{
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
+				float4 color    : COLOR;
 			};
 
 			struct v2f
@@ -35,6 +36,7 @@
 				float2 uv : TEXCOORD0;
 				UNITY_FOG_COORDS(1)
 				float4 vertex : SV_POSITION;
+				fixed4 color    : COLOR;
 			};
 
 			sampler2D _MainTex;
@@ -46,6 +48,7 @@
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				o.color = v.color;
 				return o;
 			}
 			
@@ -56,12 +59,12 @@
 				fixed2 uv = fixed2(uvTexData.x, uvTexData.y);
 				fixed4 mainTexColor = tex2D(_MainTex, uv);
 				mainTexColor.rgb = mainTexColor.rgb * uvTexData.z;
-				if(uvTexData.b < 0.3)
+				if(uvTexData.b < 0.4)
 				{
-					mainTexColor.a = 0;
+					mainTexColor.a = uvTexData.b * 2.5;
 				}
 				// apply fog
-				return mainTexColor;
+				return mainTexColor * i.color;
 			}
 			ENDCG
 		}

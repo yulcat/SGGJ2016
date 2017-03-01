@@ -51,7 +51,7 @@ public class StageManager : MonoBehaviour {
 		instance.stageToLoad ++;
 		instance.StartCoroutine(instance.LoadStageSelectCoroutine());
 	}
-	int stageToLoad = -1;
+	public int stageToLoad = -1;
 	IEnumerator LoadStageCoroutine()
 	{
 		var theme = StageDataLoader.GetStageData(stageToLoad).theme;
