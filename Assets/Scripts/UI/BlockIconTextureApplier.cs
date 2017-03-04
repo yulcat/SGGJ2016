@@ -24,7 +24,10 @@ public class BlockIconTextureApplier : MonoBehaviour {
 	}
 	public void LoadIcon()
 	{
-		var preset = blockIconPresetList[toLoad];
+		LoadIcon(blockIconPresetList[toLoad]);
+	}
+	public void LoadIcon(BlockIconPreset preset)
+	{
 		img = GetComponent<Image>();
 		var material = new Material(img.material);
 		material.SetTexture("_MainTex",preset.texture);
