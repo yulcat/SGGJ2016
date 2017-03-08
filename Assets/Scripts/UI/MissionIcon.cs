@@ -70,7 +70,6 @@ public class MissionIcon : MonoBehaviour {
 		{
 			SetIconComplete();
 		}
-		Debug.Log("Updated!");
 	}
 
     private void SetIconComplete()
