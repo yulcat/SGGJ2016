@@ -139,12 +139,12 @@ MonoBehaviour:
   packs:
   - name: dust
     clips:
-    - {fileID: 8300000, guid: 3a8a84ba10e7045988db4d135b0fec8d, type: 3}
-    - {fileID: 8300000, guid: 5b650c3a0eacc4e558c6436d7f0c21ce, type: 3}
-    - {fileID: 8300000, guid: dba00370f73234604a13cc5971dc4465, type: 3}
-    - {fileID: 8300000, guid: ecc6bc05003e649c194b4be5a88943a5, type: 3}
-    - {fileID: 8300000, guid: 46ba6fbcbb6f3466e900de68cc62d434, type: 3}
-    - {fileID: 8300000, guid: 53c4c0afb515a4bd1bd426509874b052, type: 3}
+    - {fileID: 8300000, guid: 62394b51cf5e74b2893c8f61695f827e, type: 3}
+    - {fileID: 8300000, guid: 38cd109b6464546d0a5d24d5edd1cfcc, type: 3}
+    - {fileID: 8300000, guid: 92461c8ed1e5c446fb3bc4706ff2df84, type: 3}
+    - {fileID: 8300000, guid: 0dcd2c7d60b2a4c06a33f23e75285451, type: 3}
+    - {fileID: 8300000, guid: 72760137b697946829dd941df577268d, type: 3}
+    - {fileID: 8300000, guid: d858902e434d9436b974ec0b2b692b55, type: 3}
 --- !u!114 &114000013894468626
 MonoBehaviour:
   m_ObjectHideFlags: 1

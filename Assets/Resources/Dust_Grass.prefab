@@ -139,12 +139,14 @@ MonoBehaviour:
   packs:
   - name: dust
     clips:
-    - {fileID: 8300000, guid: 3a8a84ba10e7045988db4d135b0fec8d, type: 3}
-    - {fileID: 8300000, guid: 5b650c3a0eacc4e558c6436d7f0c21ce, type: 3}
-    - {fileID: 8300000, guid: dba00370f73234604a13cc5971dc4465, type: 3}
-    - {fileID: 8300000, guid: ecc6bc05003e649c194b4be5a88943a5, type: 3}
-    - {fileID: 8300000, guid: 46ba6fbcbb6f3466e900de68cc62d434, type: 3}
-    - {fileID: 8300000, guid: 53c4c0afb515a4bd1bd426509874b052, type: 3}
+    - {fileID: 8300000, guid: 258805cfdc884423a86e38c4ea17b75e, type: 3}
+    - {fileID: 8300000, guid: 1c5bd678c1c934b7ab57e7b5aaa81237, type: 3}
+    - {fileID: 8300000, guid: 51e489d019aa74fc08d6af3710398d01, type: 3}
+    - {fileID: 8300000, guid: 1b15ea74c11a24804a34fc0208808065, type: 3}
+    - {fileID: 8300000, guid: 68991a99c40a048868bdfaa559fc847c, type: 3}
+    - {fileID: 8300000, guid: ebb65123b4ab743bf96f7d6e165921ae, type: 3}
+    - {fileID: 8300000, guid: da7f69d058e894764ad7f9466ecb4612, type: 3}
+    - {fileID: 8300000, guid: 5bf70106d1cb446c4a1a3c47b5c80e2e, type: 3}
 --- !u!114 &114000013894468626
 MonoBehaviour:
   m_ObjectHideFlags: 1
