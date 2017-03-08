@@ -2,13 +2,16 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Win : Window {
 	public Text score;
 	public Text stageNumber;
+	public Text stageRanking;
 	[System.NonSerializedAttribute]
 	public int finalScore;
 	int scoreShow;
+	double? rankingToShow;
 	override protected void OnEnable()
 	{
 		base.OnEnable();
@@ -23,9 +26,15 @@ public class Win : Window {
 		while(scoreShow != finalScore)
 		{
 			score.text = scoreShow.ToString();
+			if(!rankingToShow.HasValue)
+				stageRanking.text = UnityEngine.Random.Range(0,99).ToString() + "%";
 			yield return null;
 		}
 		score.text = scoreShow.ToString();
+		if(!rankingToShow.HasValue)
+		{
+			stageRanking.text = "??%";
+		}
 	}
 	public void ToNextStage()
 	{
@@ -39,4 +48,10 @@ public class Win : Window {
 	{
 		StageManager.LoadStageSelectScene();
 	}
+
+    public void SetRanking(double v)
+    {
+        rankingToShow = v;
+		stageRanking.text = ((int)(v * 100)).ToString() + "%";
+    }
 }

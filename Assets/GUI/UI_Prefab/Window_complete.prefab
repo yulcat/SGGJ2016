@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 222801755440751332}
   - component: {fileID: 114039886471656408}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: ranking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1451,6 +1451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 114274582287917096}
   stageNumber: {fileID: 114200219039385534}
+  stageRanking: {fileID: 114039886471656408}
 --- !u!114 &114679756910329636
 MonoBehaviour:
   m_ObjectHideFlags: 1
