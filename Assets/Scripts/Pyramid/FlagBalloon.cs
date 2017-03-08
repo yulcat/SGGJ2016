@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System;
 
-public class FlagBalloon : Balloon {
+public class FlagBalloon : Balloon, IOverlapLister {
 	BalloonLine line;
 	void Awake()
 	{
@@ -14,9 +15,20 @@ public class FlagBalloon : Balloon {
             return false;
         }
     }
-	public void Launch(CharacterControl character)
+	public override void FallOff(bool refresh = true)
 	{
-		GameState.EndGame();
+		base.FallOff(refresh);
+		GameState.Lose(GameState.LoseCause.BalloonLost);
+	}
+	public override void ClickListener()
+    {
+    }
+
+    public void Overlap(CharacterControl character)
+    {
+		character.anim.SetBool("GetBalloon",true);
+		character.enabled = false;
+        GameState.EndGame();
 		var joint = gameObject.AddComponent<SpringJoint>();
 		var charBody = character.GetComponent<Rigidbody>();
 		joint.anchor = Vector3.up * 0.5f;
@@ -36,13 +48,5 @@ public class FlagBalloon : Balloon {
 		withPhysics = true;
 		body.constraints = RigidbodyConstraints.None;
 		body.velocity = transform.TransformVector(Vector3.forward * -4f);
-	}
-	public override void FallOff(bool refresh = true)
-	{
-		base.FallOff(refresh);
-		GameState.Lose(GameState.LoseCause.BalloonLost);
-	}
-	public override void ClickListener()
-    {
     }
 }

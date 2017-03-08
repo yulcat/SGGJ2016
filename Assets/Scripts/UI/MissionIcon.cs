@@ -44,6 +44,25 @@ public class MissionIcon : MonoBehaviour {
 		text.text = "0/"+maxCount;
 		iconType = blockType;
 	}
+	public void SetSelectIcon(string blockType, StageManager.Theme theme,  string textToSet)
+	{
+		var icons = blockIcon.blockIconPresetList.Where(b => b.type.ToString() == blockType);
+		if(icons.Any(b => b.theme == theme))
+		{
+			blockIcon.LoadIcon(icons.First(b => b.theme == theme));
+		}
+		else if(icons.Count() > 0)
+		{
+			blockIcon.LoadIcon(icons.First(b => b.theme == StageManager.Theme.Common));
+		}
+		else
+		{
+
+			throw new System.Exception("MissionIcon Cannot Load Icon : "+blockType.ToString());
+		}
+		text.text = textToSet;
+		iconType = blockType;
+	}
 	public void SetCount(int count)
 	{
 		text.text = string.Format("{0}/{1}",Mathf.Min(maxCount,count),maxCount);

@@ -27,9 +27,16 @@ public class MissionView : MonoBehaviour {
 		GameState.instance.AccomplishedListener += UpdateIcon;
 	}
 	
-	void UpdateIcon (string blockType, int count) {
-		Debug.Log(blockType);
-		if(icons.Any(i => i.iconType == blockType))
-			icons.Find(i => i.iconType == blockType).SetCount(count);
+	void UpdateIcon (Dictionary<string,int> accomplished) {
+		foreach(var kvp in accomplished)
+		{
+			if(icons.Any(i => i.iconType == kvp.Key))
+				icons.Find(i => i.iconType == kvp.Key).SetCount(kvp.Value);
+		}
+		if(icons.Any(i => i.iconType == "More"))
+		{
+			var sum = accomplished.Where(ac => ac.Key != "Coin").Sum(ac => ac.Value);
+			icons.Find(i => i.iconType == "More").SetCount(sum);
+		}
 	}
 }
