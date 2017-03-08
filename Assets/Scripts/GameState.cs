@@ -15,7 +15,7 @@ public class GameState : MonoBehaviour {
 	Pyramid pyramid;
 	int scoreToSend;
 	int starCount;
-	public Action<string, int> AccomplishedListener;
+	public Action<Dictionary<string,int>> AccomplishedListener;
 	
 	public static GameState instance
 	{
@@ -96,7 +96,7 @@ public class GameState : MonoBehaviour {
 			instance.accomplished[key] += value;
 		if(instance.AccomplishedListener!=null)
 		{
-			instance.AccomplishedListener(key,instance.accomplished[key]);
+			instance.AccomplishedListener(instance.accomplished);
 		}
 	}
 	void calculateScore()

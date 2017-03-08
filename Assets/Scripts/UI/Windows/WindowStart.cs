@@ -10,6 +10,7 @@ public class WindowStart : Window {
 	{
 		levelNumber.text = stageToLoad.ToString();
 		toLoad = stageToLoad;
+		GetComponentInChildren<MissionViewStageSelect>().SetIcons(stageToLoad);
 		OpenWindow();
 	}
 	public void StartStage()
