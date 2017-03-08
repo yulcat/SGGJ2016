@@ -2,18 +2,21 @@
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 public class GameState : MonoBehaviour {
 	public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective }
 	public bool isGameEnd = false;
 	public Win winMessage;
 	public Lose loseMessage;
-	Dictionary<string,int> mission;
+	public Dictionary<string,int> mission;
 	Dictionary<string,int> accomplished = new Dictionary<string,int>();
 	static GameState _instance;
 	Pyramid pyramid;
 	int scoreToSend;
 	int starCount;
+	public Action<string, int> AccomplishedListener;
+	
 	public static GameState instance
 	{
 		get
@@ -44,7 +47,7 @@ public class GameState : MonoBehaviour {
 	void Initialize()
 	{
 		var builder = FindObjectOfType<PyramidBuilder>();
-		int stage = builder.stageToLoad;
+		int stage = StageManager.instance.stageToLoad;
 		Debug.Log("stage : " + stage);
 		var stageData = StageDataLoader.GetStageData(stage);
 		mission = stageData.mission;
@@ -91,6 +94,10 @@ public class GameState : MonoBehaviour {
 			instance.accomplished.Add(key,value);
 		else
 			instance.accomplished[key] += value;
+		if(instance.AccomplishedListener!=null)
+		{
+			instance.AccomplishedListener(key,instance.accomplished[key]);
+		}
 	}
 	void calculateScore()
 	{
