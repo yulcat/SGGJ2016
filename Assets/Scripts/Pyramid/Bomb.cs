@@ -24,6 +24,9 @@ public class Bomb : Block {
 		var onRight = pyramid.GetBlock(b => CheckSide(position, b, 1));
 		ThrowAway(onLeft);
 		ThrowAway(onRight);
+		var effect = EffectSpawner.GetEffect("Effects/Explosion");
+		effect.transform.position = transform.position;
+		effect.SetActive(true);
 	}
 
     private void ThrowAway(PyramidComponent target)

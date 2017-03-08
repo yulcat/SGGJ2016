@@ -71,6 +71,7 @@ public class Pyramid : MonoBehaviour
             var targetPosition = block.transform.localPosition;
             targetPosition.z = -0.55f;
             tabEffect.transform.localPosition = targetPosition;
+            tabEffect.transform.localRotation = Quaternion.identity;
             tabEffect.gameObject.SetActive(true);
             block.ClickListener();
         }
