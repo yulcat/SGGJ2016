@@ -11,7 +11,8 @@ public class CharacterControl : PyramidComponent {
 	[RangeAttribute(0f,1f)]
 	public float counterTorqueMultiplier = 1f;
 	public GameObject crushEffect;
-	Animator anim;
+	[System.NonSerializedAttribute]
+	public Animator anim;
 
 	public override void SetPyramid(Pyramid m)
 	{
@@ -34,7 +35,7 @@ public class CharacterControl : PyramidComponent {
 			pyramid.RemoveBlock(this);
 			FallOff();
 		}
-		else if(pyramid.HasBlocks(c => CheckFeet(x,y,c)))
+		else if(pyramid.HasBlocks(c => CheckFeet(x,y,c)) || OverlapTest(x,y) != null)
 		{
 			if(currentFloor == y) return;
 			FallTo(currentFloor, y);
@@ -115,7 +116,6 @@ public class CharacterControl : PyramidComponent {
 			if(floating) yield return StartCoroutine(WaitForLanding());
 			var currentX = transform.localPosition.x;
 			var direction = Input.GetAxis("Horizontal");
-			// Debug.Log(InControl.InputManager.ActiveDevice.GetControl(InControl.InputControlType.LeftStickX).Value);
 			var touchDirection = InControl
 				.InputManager
 				.ActiveDevice
@@ -132,8 +132,10 @@ public class CharacterControl : PyramidComponent {
 			anim.SetBool("IsTrace",true);
 			float dx = direction * moveSpeed * Time.deltaTime;
 			float destination = currentX + dx;
-			if(FlagTest(destination)) yield break;
-			CoinTest(destination);
+			var overlap = OverlapTest(destination, currentFloor);
+			if(overlap != null)
+				overlap.Overlap(this);
+			if(!enabled) yield break;
 			if(pyramid.HasBlocks(c => CheckCollideOverlap(destination,currentFloor,c)))
 				continue; //Blocked by block
 			
@@ -147,26 +149,14 @@ public class CharacterControl : PyramidComponent {
 			}
 		}
 	}
-	bool FlagTest(float destination)
+	IOverlapLister OverlapTest(float x, int floor)
 	{
-		var flag = pyramid.GetBlock(c => CheckFlag<FlagBalloon>(destination,currentFloor,c));
-		if(flag != null)
-		{
-			anim.SetBool("GetBalloon",true);
-			(flag as FlagBalloon).Launch(this);
-			return true;
-		}
-		return false;
-	}
-	bool CoinTest(float destination)
-	{
-		var overlap = pyramid.GetBlock(c => CheckFlag<IOverlapLister>(destination,currentFloor,c));
+		var overlap = pyramid.GetBlock(c => CheckFlag<IOverlapLister>(x,floor,c));
 		if(overlap != null)
 		{
-			(overlap as IOverlapLister).Overlap(this);
-			return true;
+			return overlap as IOverlapLister;
 		}
-		return false;
+		return null;
 	}
 	float GetMoveMomentum(float vx)
 	{
@@ -230,11 +220,10 @@ public class CharacterControl : PyramidComponent {
 			{
 				GetComponent<AudioList>().Play("step");
 				anim.SetTrigger("Land");
-				if(FlagTest(transform.localPosition.x))
-				{
-					yield break; //Reached Goal
-				}
-				CoinTest(transform.localPosition.x);
+				var overlap = OverlapTest(transform.localPosition.x, currentFloor);
+				if(overlap != null)
+					overlap.Overlap(this);
+				pyramid.RefreshBlocks();
 				yield break;
 			}
 		}
