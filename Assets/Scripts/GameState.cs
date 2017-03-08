@@ -7,7 +7,9 @@ using System;
 public class GameState : MonoBehaviour {
 	public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective }
 	public bool isGameEnd = false;
+	[System.NonSerializedAttribute]
 	public Win winMessage;
+	[System.NonSerializedAttribute]
 	public Lose loseMessage;
 	public Dictionary<string,int> mission;
 	Dictionary<string,int> accomplished = new Dictionary<string,int>();
@@ -46,6 +48,8 @@ public class GameState : MonoBehaviour {
 	}
 	void Initialize()
 	{
+		winMessage = GetComponentInChildren<Win>(true);
+		loseMessage = GetComponentInChildren<Lose>(true);
 		var builder = FindObjectOfType<PyramidBuilder>();
 		int stage = StageManager.instance.stageToLoad;
 		Debug.Log("stage : " + stage);

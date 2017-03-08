@@ -141,7 +141,7 @@ public class Block : PyramidComponent, ICollidable
     }
     void OnCollisionEnter(Collision col)
     {
-        if (col.collider.GetComponent<Terrain>() == null) return;
+        if (col.gameObject.tag != "Ground") return;
         var contact = col.contacts[0].point;
         var effect = EffectSpawner.GetEffect("Dust");
         effect.transform.position = contact;
