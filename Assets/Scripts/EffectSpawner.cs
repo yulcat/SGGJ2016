@@ -10,7 +10,7 @@ public class EffectSpawner : MonoBehaviour {
 		{
 			if(_instance == null)
 			{
-				var obj = new GameObject();
+				var obj = new GameObject("Effect Spawner");
 				_instance = obj.AddComponent<EffectSpawner>();
 			}
 			return _instance;

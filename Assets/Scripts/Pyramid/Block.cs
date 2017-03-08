@@ -143,7 +143,8 @@ public class Block : PyramidComponent, ICollidable
     {
         if (col.gameObject.tag != "Ground") return;
         var contact = col.contacts[0].point;
-        var effect = EffectSpawner.GetEffect("Dust");
+        var theme = pyramid.GetComponent<PyramidBuilder>().currentTheme;
+        var effect = EffectSpawner.GetEffect("Dust_"+theme);
         effect.transform.position = contact;
         effect.SetActive(true);
     }
