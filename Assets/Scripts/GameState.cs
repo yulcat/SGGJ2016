@@ -138,6 +138,7 @@ public class GameState : MonoBehaviour {
 			Debug.LogWarning(www.error);
 		}
 		Debug.Log(www.text);
+		winMessage.SetRanking(Convert.ToDouble(www.text));
 	}
 	void CheckAndUpdateHighscore(string id, int stage)
 	{
