@@ -228,4 +228,8 @@ public class CharacterControl : PyramidComponent {
 			}
 		}
 	}
+	public void SetFloating(bool isFloating)
+	{
+		floating = isFloating;
+	}
 }
