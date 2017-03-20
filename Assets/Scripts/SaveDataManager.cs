@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using AvoEx;
+using System;
 
 public static class SaveDataManager {
 	public class ClearData
@@ -12,6 +13,10 @@ public static class SaveDataManager {
 	public class SaveData
 	{
 		public Dictionary<string,ClearData> clearRecord = new Dictionary<string,ClearData>();
+		public DateTime lastHeartLocalTime;
+		public DateTime lastHeartServerTime;
+		public bool timeInitialized = false;
+		public int heartLeft;
 	}
 	private static SaveData _data;
 	public static SaveData data
