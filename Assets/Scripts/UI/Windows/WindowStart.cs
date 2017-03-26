@@ -15,6 +15,12 @@ public class WindowStart : Window {
 	}
 	public void StartStage()
 	{
+		if(HeartManager.heartLeft <= 0)
+		{
+			WindowHeartInsufficient.Open();
+			return;
+		}
+		HeartManager.SpendHeart();
 		StageManager.LoadStage(toLoad);
 	}
 }

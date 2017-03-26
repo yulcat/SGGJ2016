@@ -116,6 +116,7 @@ public class GameState : MonoBehaviour {
 	void ShowWinGameMessage()
 	{
 		winMessage.finalScore = scoreToSend;
+		winMessage.WinGame();
 		WindowManager.instance.OpenWindow(winMessage);
 	}
 	void ShowLoseGameMessage()

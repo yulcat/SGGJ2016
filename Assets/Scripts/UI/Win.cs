@@ -15,8 +15,12 @@ public class Win : Window {
 	override protected void OnEnable()
 	{
 		base.OnEnable();
-		StartCoroutine(ShowScoreUp());
 		stageNumber.text = FindObjectOfType<PyramidBuilder>().stageToLoad.ToString();
+	}
+	public void WinGame()
+	{
+		StartCoroutine(ShowScoreUp());
+		HeartManager.AddHeart();
 	}
 	IEnumerator ShowScoreUp()
 	{
@@ -42,6 +46,12 @@ public class Win : Window {
 	}
 	public void ReloadCurrentStage()
 	{
+		if(HeartManager.heartLeft <= 0)
+		{
+			WindowHeartInsufficient.Open();
+			return;
+		}
+		HeartManager.SpendHeart();
 		StageManager.ReloadCurrentStage();
 	}
 	public void ToStageSelect()

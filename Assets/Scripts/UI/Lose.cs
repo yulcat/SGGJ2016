@@ -7,6 +7,12 @@ public class Lose : Window {
 	public GameState.LoseCause cause;
 	public void ReloadCurrentStage()
 	{
+		if(HeartManager.heartLeft <= 0)
+		{
+			WindowHeartInsufficient.Open();
+			return;
+		}
+		HeartManager.SpendHeart();
 		StageManager.ReloadCurrentStage();
 	}
 	public void SetMessage(GameState.LoseCause cause)
