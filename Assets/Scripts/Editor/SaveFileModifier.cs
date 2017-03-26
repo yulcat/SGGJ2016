@@ -23,4 +23,9 @@ public class SaveFileModifier : Editor {
 		SaveDataManager.clearRecord.Clear();
 		SaveDataManager.Save();
 	}
+
+	[MenuItem("Tools/Edit Hearts/Zero Heart")]
+	static void ZeroHeart () {
+		SaveDataManager.data.heartLeft = 0;
+	}
 }

@@ -23,8 +23,14 @@ public class HeartDisplay : MonoBehaviour
     void Update()
     {
 		if(!SaveDataManager.data.timeInitialized) return;
+		if(HeartManager.heartIsMax)
+		{
+			heartCount.text = SaveDataManager.data.heartLeft.ToString();
+			timeLeft.text = "MAX";
+			return;
+		}
         var timeNow = DateTime.Now;
-        var timeToNewHeart = SaveDataManager.data.lastHeartLocalTime.AddSeconds(10).Subtract(timeNow);
+        var timeToNewHeart = SaveDataManager.data.lastHeartLocalTime.AddMinutes(HeartManager.heartRefillMinutes).Subtract(timeNow);
 		if(timeToNewHeart.CompareTo(TimeSpan.Zero) <= 0)
 		{
 			timeLeft.text = "0:00";

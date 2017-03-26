@@ -7,7 +7,9 @@ using System;
 public class HeartManager : MonoBehaviour
 {
 	static HeartManager _instance;
-	const int MaxHeart = 10;
+	const int maxHeart = 30;
+	public const double heartRefillMinutes = 5;
+	const int heartRefillCount = 5;
 	bool initialized = false;
 	public static HeartManager instance
 	{
@@ -22,10 +24,44 @@ public class HeartManager : MonoBehaviour
 			return _instance;
 		}
 	}
-	public static void RefreshHeart()
+	public static int heartLeft
 	{
-		if(instance.refreshProcessing) return;
-		instance.StartCoroutine("RefreshHeartCount");
+		get
+		{
+			return SaveDataManager.data.heartLeft;
+		}
+	}
+	public static bool heartIsMax
+	{
+		get
+		{
+			return heartLeft >= maxHeart;
+		}
+	}
+	public static void SpendHeart()
+	{
+		if(heartLeft <= 0)
+		{
+			throw new System.Exception("Spending Heart when Heart is zero!");
+		}
+		if(heartIsMax)
+		{
+			instance.StartCoroutine("SpendHeartFromMax");
+			return;
+		}
+		SaveDataManager.data.heartLeft--;
+		RefreshHeart();
+	}
+	public static void AddHeart()
+	{
+		SaveDataManager.data.heartLeft++;
+		RefreshHeart();
+	}
+
+	public static Coroutine RefreshHeart()
+	{
+		if(instance.refreshProcessing) return null;
+		return instance.StartCoroutine("RefreshHeartCount");
 	}
 	public void Initialize()
 	{
@@ -33,9 +69,15 @@ public class HeartManager : MonoBehaviour
 		if(!SaveDataManager.data.timeInitialized)
 		{
 			StartCoroutine(InitializeFromServerTime());
+			SaveDataManager.data.heartLeft = maxHeart;
 		}
 		StartCoroutine(RefreshHeartCount());
 		initialized = true;
+	}
+	IEnumerator SpendHeartFromMax()
+	{
+		yield return StartCoroutine(InitializeFromServerTime());
+		SaveDataManager.data.heartLeft--;
 	}
 	IEnumerator InitializeFromServerTime()
 	{
@@ -49,7 +91,6 @@ public class HeartManager : MonoBehaviour
 		SaveDataManager.data.lastHeartServerTime = DateTime.FromBinary(long.Parse(www.text));
 		SaveDataManager.data.lastHeartLocalTime = DateTime.Now;
 		SaveDataManager.data.timeInitialized = true;
-		SaveDataManager.data.heartLeft = 0;
 		Debug.Log("initialized time from server");
 	}
 	bool refreshProcessing = false;
@@ -66,19 +107,19 @@ public class HeartManager : MonoBehaviour
 		var serverTime = DateTime.FromBinary(long.Parse(www.text));
 		Debug.Log("ServerTime : " + serverTime.ToLongTimeString());
 		var savedServerTime = SaveDataManager.data.lastHeartServerTime;
-		var targetServerTime = savedServerTime.AddSeconds(9);
+		var targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes - 0.05);
 		while(serverTime.CompareTo(targetServerTime)>0)
 		{
-			savedServerTime = SaveDataManager.data.lastHeartServerTime.AddSeconds(10);
+			savedServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(heartRefillMinutes);
 			SaveDataManager.data.lastHeartServerTime = savedServerTime;
-			targetServerTime = savedServerTime.AddSeconds(9);
-			if(SaveDataManager.data.heartLeft >= MaxHeart)
+			targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes - 0.05);
+			if(heartIsMax)
 			{
 				break;
 			}
 			else
 			{
-				SaveDataManager.data.heartLeft++;
+				SaveDataManager.data.heartLeft += heartRefillCount;
 			}
 		}
 		var timeNow = DateTime.Now;
@@ -86,5 +127,12 @@ public class HeartManager : MonoBehaviour
 		SaveDataManager.data.lastHeartLocalTime = timeNow.Subtract(timeDiff);
 		yield return null;
 		refreshProcessing = false;
+	}
+	/// <summary>
+	/// This function is called when the MonoBehaviour will be destroyed.
+	/// </summary>
+	void OnDestroy()
+	{
+		SaveDataManager.Save();
 	}
 }
