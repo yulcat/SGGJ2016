@@ -20,7 +20,7 @@ public class Win : Window {
 	public void WinGame()
 	{
 		StartCoroutine(ShowScoreUp());
-		HeartManager.AddHeart();
+		// HeartManager.AddHeart();
 	}
 	IEnumerator ShowScoreUp()
 	{
