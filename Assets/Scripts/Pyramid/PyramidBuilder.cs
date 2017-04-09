@@ -20,7 +20,8 @@ public enum BlockType
 	Barrel,
     Gift,
     Wood,
-    More
+    More,
+    Snow
 }
 public struct BlockData
 {
