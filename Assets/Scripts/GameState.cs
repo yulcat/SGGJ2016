@@ -51,7 +51,11 @@ public class GameState : MonoBehaviour {
 		winMessage = GetComponentInChildren<Win>(true);
 		loseMessage = GetComponentInChildren<Lose>(true);
 		var builder = FindObjectOfType<PyramidBuilder>();
-		int stage = StageManager.instance.stageToLoad;
+		int stage;
+		if(StageManager.IsInitialized())
+			stage = StageManager.instance.stageToLoad;
+		else
+			stage = builder.stageToLoad;
 		Debug.Log("stage : " + stage);
 		var stageData = StageDataLoader.GetStageData(stage);
 		mission = stageData.mission;
@@ -116,8 +120,8 @@ public class GameState : MonoBehaviour {
 	void ShowWinGameMessage()
 	{
 		winMessage.finalScore = scoreToSend;
-		winMessage.WinGame();
 		WindowManager.instance.OpenWindow(winMessage);
+		winMessage.WinGame();
 	}
 	void ShowLoseGameMessage()
 	{
