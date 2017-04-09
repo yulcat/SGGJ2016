@@ -7,9 +7,9 @@ using System;
 public class HeartManager : MonoBehaviour
 {
 	static HeartManager _instance;
-	const int maxHeart = 30;
+	const int maxHeart = 24;
 	public const double heartRefillMinutes = 5;
-	const int heartRefillCount = 5;
+	const int heartRefillCount = 4;
 	bool initialized = false;
 	public static HeartManager instance
 	{
