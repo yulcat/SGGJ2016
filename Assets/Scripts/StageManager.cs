@@ -14,6 +14,10 @@ public class StageManager : MonoBehaviour {
 			return _instance;
 		}
 	}
+	public static bool IsInitialized()
+	{
+		return _instance != null;
+	}
 	void Awake()
 	{
 		if(_instance != null)
