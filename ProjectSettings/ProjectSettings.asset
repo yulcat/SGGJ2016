@@ -529,7 +529,7 @@ PlayerSettings:
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
-    UNet: 1
+    UNet: 0
     Unity_Ads: 0
   cloudProjectId: e566c162-4b4a-4673-8182-f640c1f53b3a
   projectName: nabla
