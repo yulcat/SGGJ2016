@@ -5,10 +5,10 @@ using UnityEngine.Advertisements;
 
 public class WindowHeartInsufficient : Window
 {
+    static WindowHeartInsufficient instanciated;
     public static void Open()
     {
         var canvas = FindObjectOfType<Canvas>();
-        var instanciated = canvas.GetComponentInChildren<WindowHeartInsufficient>(true);
         if (instanciated != null)
         {
             instanciated.OpenWindow();
@@ -16,7 +16,8 @@ public class WindowHeartInsufficient : Window
         }
         var heartWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_notice_Heart"));
         heartWindow.transform.SetParent(canvas.transform, false);
-        heartWindow.GetComponent<WindowHeartInsufficient>().OpenWindow();
+        instanciated = heartWindow.GetComponent<WindowHeartInsufficient>();
+        instanciated.OpenWindow();
     }
 
     public void ShowRewardedAd()

@@ -81,14 +81,12 @@ public class HeartManager : MonoBehaviour
 	}
 	IEnumerator InitializeFromServerTime()
 	{
-		Debug.Log("trying to get time from server...");
-		var www = new WWW("http://52.78.26.149/api/timer");
+		var www = new WWW("http://google.com/robots.txt");
+		Debug.Log("trying to refresh time from server...");
 		yield return www;
-		if(!string.IsNullOrEmpty(www.error))
-		{
-			Debug.LogWarning(www.error);
-		}
-		SaveDataManager.data.lastHeartServerTime = DateTime.FromBinary(long.Parse(www.text));
+		var time = www.responseHeaders["DATE"];
+		var strings = time.Split(',');
+		SaveDataManager.data.lastHeartServerTime = System.Convert.ToDateTime(strings[strings.Length - 1]);
 		SaveDataManager.data.lastHeartLocalTime = DateTime.Now;
 		SaveDataManager.data.timeInitialized = true;
 		Debug.Log("initialized time from server");
@@ -97,22 +95,20 @@ public class HeartManager : MonoBehaviour
 	IEnumerator RefreshHeartCount()
 	{
 		refreshProcessing = true;
-		var www = new WWW("http://52.78.26.149/api/timer");
+		var www = new WWW("http://google.com/robots.txt");
 		Debug.Log("trying to refresh time from server...");
 		yield return www;
-		if(!string.IsNullOrEmpty(www.error))
-		{
-			Debug.LogWarning(www.error);
-		}
-		var serverTime = DateTime.FromBinary(long.Parse(www.text));
+		var time = www.responseHeaders["DATE"];
+		var strings = time.Split(',');
+		var serverTime = System.Convert.ToDateTime(strings[strings.Length - 1]);
 		Debug.Log("ServerTime : " + serverTime.ToLongTimeString());
 		var savedServerTime = SaveDataManager.data.lastHeartServerTime;
-		var targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes - 0.05);
+		var targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes * 0.99);
 		while(serverTime.CompareTo(targetServerTime)>0)
 		{
 			savedServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(heartRefillMinutes);
 			SaveDataManager.data.lastHeartServerTime = savedServerTime;
-			targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes - 0.05);
+			targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes * 0.99);
 			if(heartIsMax)
 			{
 				break;
