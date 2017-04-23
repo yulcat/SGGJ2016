@@ -37,6 +37,10 @@ charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)
 itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
 diaBuy_confirm,(캐릭터이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
 ,,
+heart_get,하트를 {0}개 받았어요!,
+ad_skipped,광고가 중단되어서 하트를 {0}개만 받았어요!,
+ad_failed,광고를 보는 데 실패했어요!,
+,,
 Coin,코인,블럭 이름들
 Light,가벼운 블럭,
 Medium,중간 블럭,

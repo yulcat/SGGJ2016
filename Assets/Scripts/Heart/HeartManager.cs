@@ -57,6 +57,11 @@ public class HeartManager : MonoBehaviour
 		SaveDataManager.data.heartLeft++;
 		RefreshHeart();
 	}
+	public static void AddHeart(int count)
+	{
+		SaveDataManager.data.heartLeft+=count;
+		RefreshHeart();
+	}
 
 	public static Coroutine RefreshHeart()
 	{
