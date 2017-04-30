@@ -1,13 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
 public class HeartAdvertise {
+    public TimeSpan? TimeLeftToShowAd()
+    {
+        if(HeartManager.adAvailable) return null;
+        var now = DateTime.Now;
+        var last = SaveDataManager.data.lastRefillLocalTime;
+        var target = last.AddMinutes(HeartManager.adRefillMinutes);
+        if(target < now)
+        {
+            HeartManager.CheckAd();
+        }
+        return target.Subtract(now);
+    }
 	public void ShowRewardedAd()
     {
         if (Advertisement.IsReady("rewardedVideo"))
         {
+            HeartManager.AdShowed();
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);
         }
