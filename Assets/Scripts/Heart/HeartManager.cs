@@ -83,7 +83,7 @@ public class HeartManager : MonoBehaviour
 		if(initialized) return;
 		if(!SaveDataManager.data.timeInitialized)
 		{
-			StartCoroutine(InitializeFromServerTime());
+			StartCoroutine(InitializeFromServerTime(true));
 			SaveDataManager.data.heartLeft = maxHeart;
 		}
 		StartCoroutine(RefreshHeartCount());
@@ -91,10 +91,10 @@ public class HeartManager : MonoBehaviour
 	}
 	IEnumerator SpendHeartFromMax()
 	{
-		yield return StartCoroutine(InitializeFromServerTime());
+		yield return StartCoroutine(InitializeFromServerTime(false));
 		SaveDataManager.data.heartLeft--;
 	}
-	IEnumerator InitializeFromServerTime()
+	IEnumerator InitializeFromServerTime(bool resetAdRefill)
 	{
 		var www = new WWW("http://google.com/robots.txt");
 		Debug.Log("trying to refresh time from server...");
@@ -103,8 +103,11 @@ public class HeartManager : MonoBehaviour
 		var strings = time.Split(',');
 		SaveDataManager.data.lastHeartServerTime = System.Convert.ToDateTime(strings[strings.Length - 1]);
 		SaveDataManager.data.lastHeartLocalTime = DateTime.Now;
-		SaveDataManager.data.lastRefillServerTime = SaveDataManager.data.lastHeartServerTime;
-		SaveDataManager.data.lastRefillLocalTime = SaveDataManager.data.lastHeartLocalTime;
+		if(resetAdRefill)
+		{
+			SaveDataManager.data.lastRefillServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(-adRefillMinutes);
+			SaveDataManager.data.lastRefillLocalTime = SaveDataManager.data.lastHeartLocalTime.AddMinutes(-adRefillMinutes);
+		}
 		SaveDataManager.data.timeInitialized = true;
 		Debug.Log("initialized time from server");
 	}
