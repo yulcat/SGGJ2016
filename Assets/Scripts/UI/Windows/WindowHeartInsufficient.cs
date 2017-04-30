@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class WindowHeartInsufficient : Window
 {
+    public Button showAdButton;
+    public Text showAdText;
     static WindowHeartInsufficient instanciated;
+    HeartAdvertise advertise = new HeartAdvertise();
     public static void Open()
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -22,29 +26,29 @@ public class WindowHeartInsufficient : Window
 
     public void ShowRewardedAd()
     {
-        if (Advertisement.IsReady("rewardedVideo"))
-        {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("rewardedVideo", options);
-        }
+        advertise.ShowRewardedAd();
     }
-
-    private void HandleShowResult(ShowResult result)
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
     {
-        switch (result)
+        var timeLeft = advertise.TimeLeftToShowAd();
+        if(!timeLeft.HasValue)
         {
-            case ShowResult.Finished:
-                Debug.Log("The ad was successfully shown.");
-                //
-                // YOUR CODE TO REWARD THE GAMER
-                // Give coins etc.
-                break;
-            case ShowResult.Skipped:
-                Debug.Log("The ad was skipped before reaching the end.");
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
-                break;
+            showAdButton.interactable = true;
+            showAdText.text = string.Empty;
+            return;
+        }
+        var timevalue = timeLeft.Value;
+        showAdButton.interactable = false;
+        if(timevalue.CompareTo(TimeSpan.Zero) <= 0)
+        {
+            showAdText.text = "0:00";
+        }
+        else
+        {
+            showAdText.text = string.Format("{0}:{1}", timevalue.Minutes, timevalue.Seconds.ToString("00"));
         }
     }
 }

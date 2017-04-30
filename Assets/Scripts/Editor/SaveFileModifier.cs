@@ -26,6 +26,10 @@ public class SaveFileModifier : Editor {
 
 	[MenuItem("Tools/Edit Hearts/Zero Heart")]
 	static void ZeroHeart () {
-		SaveDataManager.data.heartLeft = 0;
+		var hearts = SaveDataManager.data.heartLeft;
+		for(int i=0; i<hearts; i++)
+		{
+			HeartManager.SpendHeart();
+		}
 	}
 }

@@ -9,7 +9,7 @@ public class Window : MonoBehaviour {
 	{
 		WindowManager.instance.OpenWindow(this);
 	}
-	public void CloseAllWindow()
+	public virtual void CloseAllWindow()
 	{
 		var rect = GetComponent<RectTransform>();
 		rect.DOScale(Vector2.zero, 0.3f)
