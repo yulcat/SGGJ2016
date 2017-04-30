@@ -15,6 +15,8 @@ public static class SaveDataManager {
 		public Dictionary<string,ClearData> clearRecord = new Dictionary<string,ClearData>();
 		public DateTime lastHeartLocalTime;
 		public DateTime lastHeartServerTime;
+		public DateTime lastRefillLocalTime;
+		public DateTime lastRefillServerTime;
 		public bool timeInitialized = false;
 		public int heartLeft;
 	}
