@@ -105,8 +105,8 @@ public class HeartManager : MonoBehaviour
 		SaveDataManager.data.lastHeartLocalTime = DateTime.Now;
 		if(resetAdRefill)
 		{
-			SaveDataManager.data.lastRefillServerTime = SaveDataManager.data.lastHeartServerTime;
-			SaveDataManager.data.lastRefillLocalTime = SaveDataManager.data.lastHeartLocalTime;
+			SaveDataManager.data.lastRefillServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(-adRefillMinutes);
+			SaveDataManager.data.lastRefillLocalTime = SaveDataManager.data.lastHeartLocalTime.AddMinutes(-adRefillMinutes);
 		}
 		SaveDataManager.data.timeInitialized = true;
 		Debug.Log("initialized time from server");
