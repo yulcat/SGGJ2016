@@ -39,5 +39,6 @@ public class Water : Block, IOverlapLister {
             overlapCharacter.SetFloating(false);
             overlapCharacter.anim.SetBool("InWater",false);
         }
+        Destroy(gameObject);
     }
 }
