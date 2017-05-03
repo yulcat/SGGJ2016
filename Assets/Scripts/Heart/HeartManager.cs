@@ -184,4 +184,22 @@ public class HeartManager : MonoBehaviour
 	{
 		SaveDataManager.Save();
 	}
+	/// <summary>
+	/// Callback sent to all game objects when the player gets or loses focus.
+	/// </summary>
+	/// <param name="focusStatus">The focus state of the application.</param>
+	void OnApplicationFocus(bool focusStatus)
+	{
+		if(focusStatus) return;
+		SaveDataManager.Save();
+	}
+	/// <summary>
+	/// Callback sent to all game objects when the player pauses.
+	/// </summary>
+	/// <param name="pauseStatus">The pause state of the application.</param>
+	void OnApplicationPause(bool pauseStatus)
+	{
+		if(!pauseStatus) return;
+		SaveDataManager.Save();
+	}
 }
