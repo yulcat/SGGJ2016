@@ -7,6 +7,7 @@ public class Snow : Block, IOverlapLister
 {
     public void Overlap(CharacterControl character)
     {
+		GameState.Accomplished("Snow",1);
         pyramid.RemoveBlock(this);
 		Destroy(gameObject);
     }
