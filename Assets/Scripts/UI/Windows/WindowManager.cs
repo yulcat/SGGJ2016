@@ -42,7 +42,7 @@ public class WindowManager : MonoBehaviour {
 			}
 			else if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StageSelect")
 			{
-				WindowPop.OpenYNPop(
+				WindowYNPop.OpenYNPop(
 					MessageData.dictionary["exitGame"],
 					()=>Application.Quit(),
 					null);
