@@ -29,6 +29,23 @@ public class WindowManager : MonoBehaviour {
 		}
 		_instance = this;
 	}
+	/// <summary>
+	/// Update is called every frame, if the MonoBehaviour is enabled.
+	/// </summary>
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Backspace))
+		{
+			if(windows.Count > 0)
+			{
+				windows.Peek().BackToPrevWindow();
+			}
+			else
+			{
+				Pause.Open();
+			}
+		}
+	}
 
 	Stack<Window> windows = new Stack<Window>();
 	public void OpenWindow(Window newWindow)
