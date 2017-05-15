@@ -61,7 +61,16 @@ public class WindowManager : MonoBehaviour {
 			windows.Peek().gameObject.SetActive(false);
 		if(windows.Contains(newWindow))
 		{
-			//remove old window in stack. how?
+			var tempWindows = new Stack<Window>();
+			while(windows.Peek() != newWindow)
+			{
+				tempWindows.Push(windows.Pop());
+			}
+			windows.Pop();
+			while(tempWindows.Count > 0)
+			{
+				windows.Push(tempWindows.Pop());
+			}
 		}
 		windows.Push(newWindow);
 		newWindow.gameObject.SetActive(true);
