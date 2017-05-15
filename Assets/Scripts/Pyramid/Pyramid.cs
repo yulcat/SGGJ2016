@@ -41,6 +41,8 @@ public class Pyramid : MonoBehaviour
     }
     void Update()
     {
+        if(Pause.paused) return;
+        
         foreach (var t in Input.touches)
         {
             if (t.phase != TouchPhase.Began) continue;
