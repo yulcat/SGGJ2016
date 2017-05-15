@@ -19,6 +19,8 @@ public class WindowPop : Window {
 		}
 	}
 	static WindowPop instanciated;
+	System.Action onSelect;
+	System.Action onCancel;
 	public static void Open(string message)
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -33,6 +35,32 @@ public class WindowPop : Window {
         instanciated.OpenWindow();
 		instanciated.Message = message;
     }
+	public static void OpenYNPop(string message, System.Action select, System.Action cancel = null)
+    {
+        var canvas = FindObjectOfType<Canvas>();
+        if (instanciated != null)
+        {
+            instanciated.OpenWindow();
+            return;
+        }
+        var heartWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_YNPop"));
+        heartWindow.transform.SetParent(canvas.transform, false);
+        instanciated = heartWindow.GetComponent<WindowPop>();
+        instanciated.OpenWindow();
+		instanciated.Message = message;
+		instanciated.onSelect = select;
+		instanciated.onCancel = cancel;
+    }
+	public void Select()
+	{
+		base.BackToPrevWindow();
+		if(onSelect != null) onSelect();
+	}
+	public override void BackToPrevWindow()
+	{
+		base.BackToPrevWindow();
+		if(onCancel != null) onCancel();
+	}
 	protected override void OnEnable()
 	{
 		window.localScale = Vector3.one;

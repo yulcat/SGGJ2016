@@ -40,6 +40,13 @@ public class WindowManager : MonoBehaviour {
 			{
 				windows.Peek().BackToPrevWindow();
 			}
+			else if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StageSelect")
+			{
+				WindowPop.OpenYNPop(
+					MessageData.dictionary["exitGame"],
+					()=>Application.Quit(),
+					null);
+			}
 			else
 			{
 				Pause.Open();

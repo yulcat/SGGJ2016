@@ -18,6 +18,7 @@ fail_objective,목표를 달성하지 못했어요!,
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족
+exitGame,게임을 종료할까요?,게임종료
 ,,
 mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
 special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
