@@ -34,15 +34,4 @@ public class WindowYNPop : WindowPop {
 		base.BackToPrevWindow();
 		if(onCancel != null) onCancel();
 	}
-	protected override void OnEnable()
-	{
-		window.localScale = Vector3.one;
-		window.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack);
-	}
-	public override void CloseAllWindow()
-	{
-		window.DOScale(Vector2.zero, 0.3f)
-			.SetEase(Ease.InBack)
-			.OnComplete(() => WindowManager.instance.CloseAllWindow());
-	}
 }

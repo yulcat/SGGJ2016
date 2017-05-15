@@ -29,13 +29,6 @@ public class Pause : Window {
         instanciated = newWindow.GetComponent<Pause>();
         instanciated.OpenWindow();
     }
-    public override void BackToPrevWindow()
-    {
-        transform.DOScale(Vector2.zero, 0.3f)
-			.SetEase(Ease.InBack)
-            .SetUpdate(true)
-			.OnComplete(() => base.BackToPrevWindow());
-    }
     public void ReloadCurrentStage()
 	{
         BackToPrevWindow();
@@ -59,6 +52,10 @@ public class Pause : Window {
     public void SetSFXVolume(UnityEngine.UI.Slider slider)
     {
         
+    }
+    public void ShowCredit()
+    {
+        WindowCredit.OpenCredit();
     }
     /// <summary>
     /// This function is called when the object becomes enabled and active.
