@@ -112,6 +112,7 @@ public class CharacterControl : PyramidComponent {
 		while(true)
 		{
 			yield return null;
+			if(Pause.paused) continue;
 			if(pyramid == null) continue;
 			if(floating) yield return StartCoroutine(WaitForLanding());
 			var currentX = transform.localPosition.x;

@@ -16,7 +16,7 @@ public class Window : MonoBehaviour {
 			.SetEase(Ease.InBack)
 			.OnComplete(() => WindowManager.instance.CloseAllWindow());
 	}
-	public void BackToPrevWindow()
+	public virtual void BackToPrevWindow()
 	{
 		WindowManager.instance.BackToPrevWindow();
 	}
@@ -24,6 +24,6 @@ public class Window : MonoBehaviour {
 	{
 		var rect = GetComponent<RectTransform>();
 		rect.localScale = Vector3.one;
-		rect.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack);
+		rect.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack).SetUpdate(true);
 	}
 }
