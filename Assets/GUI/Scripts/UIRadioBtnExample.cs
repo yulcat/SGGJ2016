@@ -17,9 +17,9 @@ public class UIRadioBtnExample : MonoBehaviour
 	{
 		for(int i=0; i<points.Length; i++){
 			if(index == i){
-				points[i].FindChild("color").GetComponent<Image>().color = onColor;
+				points[i].Find("color").GetComponent<Image>().color = onColor;
 			}else{
-				points[i].FindChild("color").GetComponent<Image>().color = offColor;
+				points[i].Find("color").GetComponent<Image>().color = offColor;
 			}
 		}
 	}
