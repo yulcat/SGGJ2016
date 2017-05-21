@@ -7,14 +7,14 @@ mission_max,(블럭이미지)블럭은 최대 (n)개만 제거해야해요!,특�
 share_normal,금메달 수집률 : (n/m)*100 %,노말자랑내용
 reward_normal,100다이아가 지급됩니다!,노말자랑혜택
 ,,
-fail,실패,ui-3(ingame)
 failAd_reward,(아이템이미지)를 드릴게요! 광고를 시청하시겠어요?,특수광고혜택
+,,
 fail_default,아깝네요!,실패기본
 fail_nablaFalled,나블라가 무너졌어요!,실패1
 fail_bearFalled,바닥으로 떨어졌어요!,실패2
 fail_balloonLost,풍선을 놓쳤어요!,실패3
 fail_crushed,블럭에 깔렸어요!,실패4
-fail_objective,목표를 달성하지 못했어요!,실패5
+fail_objective,목표를 달성하지 못했어요!,
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족
@@ -35,7 +35,7 @@ exit_description,게임을 종료하시겠습니까?,종료확인
 ,,
 charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)원,캐릭터구매확인
 itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
-diaBuy_confirm,(다이아이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
+diaBuy_confirm,(캐릭터이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
 ,,
 heart_get,하트를 {0}개 받았어요!,
 ad_skipped,광고가 중단되어서 하트를 {0}개만 받았어요!,
@@ -50,19 +50,3 @@ Water,물 블럭,
 Barrel,폭탄 블럭,
 Gift,선물 상자,
 Wood,나무 블럭,
-,,
-gameStart,시작하기,ui-1(intro)
-,,
-level,레벨,ui-2(main)
-mission_desc,미션내용,ui-2(main)
-item,아이템,ui-2(main)
-score,획득 점수,ui-2(main)
-ranking,랭킹,ui-2(main)
-menu,메뉴,ui-2(main)
-continue,계속하기,ui-2(main)
-replay,다시하기,ui-2(main)
-stop,그만하기,ui-2(main)
-,,
-moreHeart,하트를 더 모을래요?,ui-2(heart)
-buyHeart,충전하기,ui-2(heart)
-watchAd,광고보기,ui-2(heart)
