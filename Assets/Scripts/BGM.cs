@@ -3,16 +3,21 @@ using System.Collections;
 
 public class BGM : MonoBehaviour {
 	static BGM instance;
-
+	AudioSource source;
 	// Use this for initialization
 	void Start () {
+		source = GetComponent<AudioSource>();
 		if(instance != null)
-			Destroy(gameObject);
-		else
 		{
-			instance = this;
-			DontDestroyOnLoad(gameObject);
+			if(instance.source.clip == source.clip)
+			{
+				Destroy(gameObject);
+				return;
+			}
+			Destroy(instance.gameObject);
 		}
+		instance = this;
+		DontDestroyOnLoad(gameObject);
 	}
 	
 	// Update is called once per frame

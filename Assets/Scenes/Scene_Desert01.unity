@@ -6657,6 +6657,48 @@ Texture3D:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &425955063
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.35733825
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9339751
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144814190072390, guid: 3f989d671822740948262b0860d24129, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3f989d671822740948262b0860d24129, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &440312812
 Prefab:
   m_ObjectHideFlags: 0
@@ -7629,6 +7671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b777c9b7b10d14eb4a077ba178090abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowOpenSound: openWindow
 --- !u!114 &495307269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19930,7 +19973,7 @@ Prefab:
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}
