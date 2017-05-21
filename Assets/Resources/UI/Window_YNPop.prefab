@@ -320,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf47f96c4f0dd486c8644d9b7e12ac77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowOpenSound: popMessage
   text: {fileID: 114338662098623196}
   window: {fileID: 224459300845449696}
 --- !u!114 &114324803314415778

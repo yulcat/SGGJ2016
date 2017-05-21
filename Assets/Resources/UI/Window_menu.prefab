@@ -1194,6 +1194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b777c9b7b10d14eb4a077ba178090abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowOpenSound: pause
 --- !u!114 &114729372265995202
 MonoBehaviour:
   m_ObjectHideFlags: 1
