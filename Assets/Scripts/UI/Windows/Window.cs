@@ -4,11 +4,12 @@ using UnityEngine;
 using DG.Tweening;
 
 public class Window : UIWithSound {
+	public string windowOpenSound = "openWindow";
 	protected const float timeToOpenWindow = 0.3f;
 	public void OpenWindow()
 	{
 		WindowManager.instance.OpenWindow(this);
-		PlaySound("openWindow");
+		PlaySound(windowOpenSound);
 	}
 	public virtual void CloseAllWindow()
 	{
