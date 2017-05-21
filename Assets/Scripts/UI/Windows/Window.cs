@@ -16,14 +16,17 @@ public class Window : MonoBehaviour {
 			.SetEase(Ease.InBack)
 			.OnComplete(() => WindowManager.instance.CloseAllWindow());
 	}
-	public void BackToPrevWindow()
-	{
-		WindowManager.instance.BackToPrevWindow();
-	}
+	public virtual void BackToPrevWindow()
+    {
+        transform.DOScale(Vector2.zero, 0.3f)
+			.SetEase(Ease.InBack)
+            .SetUpdate(true)
+			.OnComplete(() => WindowManager.instance.BackToPrevWindow());
+    }
 	protected virtual void OnEnable()
 	{
 		var rect = GetComponent<RectTransform>();
 		rect.localScale = Vector3.one;
-		rect.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack);
+		rect.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack).SetUpdate(true);
 	}
 }

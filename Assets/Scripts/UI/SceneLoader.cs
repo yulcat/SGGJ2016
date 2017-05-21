@@ -23,22 +23,33 @@ public class SceneLoader : MonoBehaviour
     {
         if (instance.loadingScene) return null;
         instance.gameObject.SetActive(true);
-        instance.targetScene = sceneNumber;
-        return instance.StartCoroutine(instance.LoadSceneInstance());
+        return instance.StartCoroutine(instance.LoadSceneInstance(null, sceneNumber));
+    }
+    public static Coroutine LoadSceneByName(string sceneName)
+    {
+        if (instance.loadingScene) return null;
+        instance.gameObject.SetActive(true);
+        return instance.StartCoroutine(instance.LoadSceneInstance(sceneName));
     }
     [UnityEngine.HideInInspector]
     public bool loadingScene = false;
     public float fadeTime = 1.5f;
-    int targetScene;
     Image img;
-    IEnumerator LoadSceneInstance()
+    IEnumerator LoadSceneInstance(string targetScene, int? targetIndex = null)
     {
         loadingScene = true;
         img.color = Color.clear;
         complete = false;
         img.DOColor(Color.black, fadeTime).OnComplete(() => complete = true);
         yield return StartCoroutine(WaitForFade());
-        operation = SceneManager.LoadSceneAsync(targetScene);
+        if(targetIndex.HasValue)
+        {
+            operation = SceneManager.LoadSceneAsync(targetIndex.Value);
+        }
+        else
+        {
+            operation = SceneManager.LoadSceneAsync(targetScene);
+        }
         yield return StartCoroutine(WaitForLoad());
 		StartCoroutine(LoadSceneFinish());
 	}

@@ -27,9 +27,9 @@ public class WindowPop : Window {
             instanciated.OpenWindow();
             return;
         }
-        var heartWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_Pop"));
-        heartWindow.transform.SetParent(canvas.transform, false);
-        instanciated = heartWindow.GetComponent<WindowPop>();
+        var newWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_Pop"));
+        newWindow.transform.SetParent(canvas.transform, false);
+        instanciated = newWindow.GetComponent<WindowPop>();
         instanciated.OpenWindow();
 		instanciated.Message = message;
     }
@@ -38,10 +38,10 @@ public class WindowPop : Window {
 		window.localScale = Vector3.one;
 		window.DOScale(Vector3.one * 0.5f, timeToOpenWindow).From().SetEase(Ease.OutBack);
 	}
-	public override void CloseAllWindow()
+	public override void BackToPrevWindow()
 	{
 		window.DOScale(Vector2.zero, 0.3f)
 			.SetEase(Ease.InBack)
-			.OnComplete(() => WindowManager.instance.CloseAllWindow());
+			.OnComplete(() => WindowManager.instance.BackToPrevWindow());
 	}
 }

@@ -31,10 +31,14 @@ public class Water : Block, IOverlapLister {
     public override void Remove()
     {
         base.Remove();
+        var effect = EffectSpawner.GetEffect("Effects/FX_Water01");
+		effect.transform.position = transform.position;
+		effect.SetActive(true);
         if(overlapCharacter != null)
         {
             overlapCharacter.SetFloating(false);
             overlapCharacter.anim.SetBool("InWater",false);
         }
+        Destroy(gameObject);
     }
 }

@@ -27,6 +27,7 @@ public class Bomb : Block {
 		var effect = EffectSpawner.GetEffect("Effects/Explosion");
 		effect.transform.position = transform.position;
 		effect.SetActive(true);
+		Destroy(gameObject);
 	}
 
     private void ThrowAway(PyramidComponent target)
