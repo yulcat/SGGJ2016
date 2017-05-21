@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Window : MonoBehaviour {
+public class Window : UIWithSound {
 	protected const float timeToOpenWindow = 0.3f;
 	public void OpenWindow()
 	{
 		WindowManager.instance.OpenWindow(this);
+		PlaySound("openWindow");
 	}
 	public virtual void CloseAllWindow()
 	{
@@ -15,6 +16,7 @@ public class Window : MonoBehaviour {
 		rect.DOScale(Vector2.zero, 0.3f)
 			.SetEase(Ease.InBack)
 			.OnComplete(() => WindowManager.instance.CloseAllWindow());
+		PlaySound("closeWindow");
 	}
 	public virtual void BackToPrevWindow()
     {
@@ -22,6 +24,7 @@ public class Window : MonoBehaviour {
 			.SetEase(Ease.InBack)
             .SetUpdate(true)
 			.OnComplete(() => WindowManager.instance.BackToPrevWindow());
+		PlaySound("closeWindow");
     }
 	protected virtual void OnEnable()
 	{

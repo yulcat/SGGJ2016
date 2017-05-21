@@ -22,5 +22,6 @@ public class WindowStart : Window {
 		}
 		HeartManager.SpendHeart();
 		StageManager.LoadStage(toLoad);
+		PlaySound("startStage");
 	}
 }

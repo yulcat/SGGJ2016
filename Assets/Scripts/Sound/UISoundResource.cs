@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenuAttribute(menuName="Content/SoundResource")]
 public class UISoundResource : ScriptableObject {
@@ -22,5 +23,9 @@ public class UISoundResource : ScriptableObject {
 			}
 			return instance;
 		}
+	}
+	public static AudioClip GetClip(string clipName)
+	{
+		return resource.clips.First(p => p.name == clipName).clip;
 	}
 }
