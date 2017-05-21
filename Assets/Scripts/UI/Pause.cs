@@ -20,18 +20,14 @@ public class Pause : Window {
             instanciated.OpenWindow();
             return;
         }
-        var heartWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_menu"));
-        heartWindow.transform.SetParent(canvas.transform, false);
-        instanciated = heartWindow.GetComponent<Pause>();
+        GameObject newWindow;
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StageSelect")
+            newWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_setting"));
+        else
+            newWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_menu"));
+        newWindow.transform.SetParent(canvas.transform, false);
+        instanciated = newWindow.GetComponent<Pause>();
         instanciated.OpenWindow();
-    }
-    public override void BackToPrevWindow()
-    {
-        transform.DOScale(Vector2.zero, 0.3f)
-			.SetEase(Ease.InBack)
-			.OnComplete(() => base.BackToPrevWindow());
-        Time.timeScale = 1f;
-        gamePaused = false;
     }
     public void ReloadCurrentStage()
 	{
@@ -49,6 +45,18 @@ public class Pause : Window {
         BackToPrevWindow();
 		StageManager.LoadStageSelectScene();
 	}
+    public void SetBGVolume(UnityEngine.UI.Slider slider)
+    {
+        Debug.Log(slider.value);
+    }
+    public void SetSFXVolume(UnityEngine.UI.Slider slider)
+    {
+        
+    }
+    public void ShowCredit()
+    {
+        WindowCredit.OpenCredit();
+    }
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
@@ -59,13 +67,11 @@ public class Pause : Window {
         gamePaused = true;
     }
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// This function is called when the behaviour becomes disabled or inactive.
     /// </summary>
-    void Update()
+    void OnDisable()
     {
-        if(Input.GetKeyDown(KeyCode.Backspace))
-        {
-            BackToPrevWindow();
-        }
+        Time.timeScale = 1f;
+        gamePaused = false;
     }
 }

@@ -17,9 +17,12 @@ public class Window : MonoBehaviour {
 			.OnComplete(() => WindowManager.instance.CloseAllWindow());
 	}
 	public virtual void BackToPrevWindow()
-	{
-		WindowManager.instance.BackToPrevWindow();
-	}
+    {
+        transform.DOScale(Vector2.zero, 0.3f)
+			.SetEase(Ease.InBack)
+            .SetUpdate(true)
+			.OnComplete(() => WindowManager.instance.BackToPrevWindow());
+    }
 	protected virtual void OnEnable()
 	{
 		var rect = GetComponent<RectTransform>();
