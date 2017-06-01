@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public static class VolumeControl {
 	static List<AudioSource> activeSESources = new List<AudioSource>();
@@ -47,4 +48,15 @@ public static class VolumeControl {
 		BGM.SetVolume(vol);
 		SaveDataManager.data.bgmVolume = vol;
 	}
+
+    internal static void SetBGVolumeFromLoad(float vol)
+    {
+        seVolume = vol;
+		BGM.SetVolume(vol);
+    }
+
+    internal static void SetSEVolumeFromLoad(float vol)
+    {
+        bgVolume = vol;
+    }
 }

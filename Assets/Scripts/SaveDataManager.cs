@@ -52,8 +52,8 @@ public static class SaveDataManager {
         	var loadedString = PlayerPrefs.GetString("data");
 			var decrypted = AesEncryptor.DecryptString(loadedString);
 			var data = LitJson.JsonMapper.ToObject<SaveData>(decrypted);
-			VolumeControl.SetBGVolume(data.bgmVolume);
-			VolumeControl.SetSEVolume(data.seVolume);
+			VolumeControl.SetBGVolumeFromLoad(data.bgmVolume);
+			VolumeControl.SetSEVolumeFromLoad(data.seVolume);
 			return data;
 		}
 		catch
