@@ -10,6 +10,8 @@ public class Pause : Window {
             return gamePaused;
         }
     }
+    public UnityEngine.UI.Slider BGMSlider;
+    public UnityEngine.UI.Slider SFXSlider;
     static Pause instanciated;
     static bool gamePaused;
     public static void Open()
@@ -47,11 +49,11 @@ public class Pause : Window {
 	}
     public void SetBGVolume(UnityEngine.UI.Slider slider)
     {
-        Debug.Log(slider.value);
+        VolumeControl.SetBGVolume(slider.value);
     }
     public void SetSFXVolume(UnityEngine.UI.Slider slider)
     {
-        
+        VolumeControl.SetSEVolume(slider.value);
     }
     public void ShowCredit()
     {
@@ -65,6 +67,8 @@ public class Pause : Window {
         base.OnEnable();
         Time.timeScale = 0f;
         gamePaused = true;
+        if(BGMSlider != null) BGMSlider.value = VolumeControl.bgVol;
+        if(SFXSlider != null) SFXSlider.value = VolumeControl.seVol;
     }
     /// <summary>
     /// This function is called when the behaviour becomes disabled or inactive.

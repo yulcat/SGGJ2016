@@ -9634,6 +9634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowOpenSound: openWindow
+  BGMSlider: {fileID: 0}
+  SFXSlider: {fileID: 0}
 --- !u!114 &495307269
 MonoBehaviour:
   m_ObjectHideFlags: 0

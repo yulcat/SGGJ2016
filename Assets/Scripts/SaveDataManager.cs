@@ -19,6 +19,8 @@ public static class SaveDataManager {
 		public DateTime lastRefillServerTime;
 		public bool timeInitialized = false;
 		public int heartLeft;
+		public float bgmVolume = 1f;
+		public float seVolume = 1f;
 	}
 	private static SaveData _data;
 	public static SaveData data
@@ -49,7 +51,10 @@ public static class SaveDataManager {
 		{
         	var loadedString = PlayerPrefs.GetString("data");
 			var decrypted = AesEncryptor.DecryptString(loadedString);
-			return LitJson.JsonMapper.ToObject<SaveData>(decrypted);
+			var data = LitJson.JsonMapper.ToObject<SaveData>(decrypted);
+			VolumeControl.SetBGVolume(data.bgmVolume);
+			VolumeControl.SetSEVolume(data.seVolume);
+			return data;
 		}
 		catch
 		{
