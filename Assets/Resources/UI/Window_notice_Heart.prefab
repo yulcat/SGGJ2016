@@ -1026,6 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1465288ca8bf546ac91ee1d21a169e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windowOpenSound: openWindow
   showAdButton: {fileID: 114062432611253572}
   showAdText: {fileID: 114217420024473302}
 --- !u!114 &114853527252470892
