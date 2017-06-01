@@ -17,6 +17,7 @@ public class BGM : MonoBehaviour {
 			Destroy(instance.gameObject);
 		}
 		instance = this;
+		source.volume = VolumeControl.bgVol;
 		DontDestroyOnLoad(gameObject);
 	}
 	
@@ -24,5 +25,9 @@ public class BGM : MonoBehaviour {
 	void Update () {
 		var c = Camera.main;
 		if(c != null) transform.position = c.transform.position;
+	}
+	public static void SetVolume(float vol)
+	{
+		instance.source.volume = vol;
 	}
 }

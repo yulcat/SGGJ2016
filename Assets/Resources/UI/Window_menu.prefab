@@ -1195,6 +1195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowOpenSound: pause
+  BGMSlider: {fileID: 114474377294381112}
+  SFXSlider: {fileID: 114171933254741558}
 --- !u!114 &114729372265995202
 MonoBehaviour:
   m_ObjectHideFlags: 1

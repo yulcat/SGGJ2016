@@ -14,6 +14,7 @@ public class AudioList : MonoBehaviour {
 	void Awake()
 	{
 		source = GetComponent<AudioSource>();
+		VolumeControl.AddSE(source);
 	}
 	void OnEnable()
 	{
@@ -29,5 +30,12 @@ public class AudioList : MonoBehaviour {
 		var clip = pack.clips.OrderBy(c => Random.Range(0f,1f)).First();
 		source.clip = clip;
 		source.Play();
+	}
+	/// <summary>
+	/// This function is called when the MonoBehaviour will be destroyed.
+	/// </summary>
+	void OnDestroy()
+	{
+		VolumeControl.RemoveSE(source);
 	}
 }

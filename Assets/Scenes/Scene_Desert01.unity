@@ -7672,6 +7672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowOpenSound: openWindow
+  BGMSlider: {fileID: 0}
+  SFXSlider: {fileID: 0}
 --- !u!114 &495307269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8412,31 +8414,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224148386274226014, guid: dc0d6751dea29454ca62c4623608cdf9,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224148386274226014, guid: dc0d6751dea29454ca62c4623608cdf9,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224534021811501186, guid: dc0d6751dea29454ca62c4623608cdf9,
         type: 2}
       propertyPath: m_AnchorMax.x
@@ -8458,6 +8435,31 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224708647601957154, guid: dc0d6751dea29454ca62c4623608cdf9,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224148386274226014, guid: dc0d6751dea29454ca62c4623608cdf9,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224148386274226014, guid: dc0d6751dea29454ca62c4623608cdf9,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224424866029896654, guid: dc0d6751dea29454ca62c4623608cdf9,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
