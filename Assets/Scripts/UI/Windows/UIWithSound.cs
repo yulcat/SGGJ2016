@@ -11,6 +11,7 @@ public class UIWithSound : MonoBehaviour
 			audioSource.playOnAwake = false;
 		}
 		audioSource.clip = UISoundResource.GetClip(clipName);
+		audioSource.volume = VolumeControl.seVol;
 		audioSource.Play();
 	}
 }

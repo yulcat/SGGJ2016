@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public static class VolumeControl {
-	static List<AudioSource> activeSESources;
+	static List<AudioSource> activeSESources = new List<AudioSource>();
 	static float seVolume = 1f;
 	static float bgVolume = 1f;
 	public static float seVol
@@ -36,6 +36,7 @@ public static class VolumeControl {
 	}
 	public static void SetSEVolume(float vol)
 	{
+		seVolume = vol;
 		activeSESources.RemoveAll(s => s==null);
 		activeSESources.ForEach(se => se.volume = vol);
 		SaveDataManager.data.seVolume = vol;
