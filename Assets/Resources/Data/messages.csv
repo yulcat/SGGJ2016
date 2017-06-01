@@ -18,7 +18,6 @@ fail_objective,목표를 달성하지 못했어요!,실패5
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족
-exitGame,게임을 종료할까요?,게임종료
 ,,
 mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
 special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
@@ -67,3 +66,13 @@ stop,그만하기,ui-2(main)
 moreHeart,하트를 더 모을래요?,ui-2(heart)
 buyHeart,충전하기,ui-2(heart)
 watchAd,광고보기,ui-2(heart)
+,,
+createdBy,제작,ui-3(credit)
+creator1,박정수,ui-3(credit)
+creator2,이종원,ui-3(credit)
+creator3,진승범,ui-3(credit)
+music,음악,ui-3(credit)
+,,
+tutorial_move,스틱으로 ‘곰’을 좌우로 움직일 수 있어요!,
+tutorial_touch,터치하여 블럭을 밀어내야해요!,
+tutorial_balloon,풍선을 잡아 피라미드를 탈출해야해요!,
