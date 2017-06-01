@@ -10,14 +10,14 @@ reward_normal,100다이아가 지급됩니다!,노말자랑혜택
 fail,실패,ui-3(ingame)
 failAd_reward,(아이템이미지)를 드릴게요! 광고를 시청하시겠어요?,특수광고혜택
 fail_default,아깝네요!,실패기본
-fail_nablaFalled,나블라가 무너졌어요!,실패1
-fail_bearFalled,바닥으로 떨어졌어요!,실패2
-fail_balloonLost,풍선을 놓쳤어요!,실패3
-fail_crushed,블럭에 깔렸어요!,실패4
-fail_objective,목표를 달성하지 못했어요!,실패5
+fail_nablaFalled,Nabla has Fallen!,실패1
+fail_bearFalled,'the Bear’ has Fallen!,실패2
+fail_balloonLost,Lost the Balloon!,실패3
+fail_crushed,Crushed under blocks!,실패4
+fail_objective,Mission Objective not accomplished!,실패5
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
-heartLack,하트가 부족해요!,입장권 부족
+heartLack,Need more Hearts!,입장권 부족
 ,,
 mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
 special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
@@ -31,7 +31,7 @@ ad_description,입장권이 10개 지급됩니다!,광고 시청 시 혜택설�
 share_default,금메달 수집률 : (n/m)*100 %,설정자랑내용
 reward_default,100다이아가 지급됩니다!,설정자랑혜택
 ,,
-exit_description,게임을 종료하시겠습니까?,종료확인
+exit_description,You are attempting to exit. Are you sure?,종료확인
 ,,
 charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)원,캐릭터구매확인
 itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
@@ -51,24 +51,30 @@ Barrel,폭탄 블럭,
 Gift,선물 상자,
 Wood,나무 블럭,
 ,,
-gameStart,시작하기,ui-1(intro)
+gameStart,Click to Start,ui-1(intro)
 ,,
-level,레벨,ui-2(main)
-mission_desc,미션내용,ui-2(main)
-item,아이템,ui-2(main)
-score,획득 점수,ui-2(main)
-ranking,랭킹,ui-2(main)
-menu,메뉴,ui-2(main)
-continue,계속하기,ui-2(main)
-replay,다시하기,ui-2(main)
-stop,그만하기,ui-2(main)
+level,Level,ui-2(main)
+mission_desc,Mission Objective,ui-2(main)
+item,Item,ui-2(main)
+score,Score,ui-2(main)
+ranking,Ranking,ui-2(main)
+menu,Menu,ui-2(main)
+continue,Continue,ui-2(main)
+replay,Play Again?,ui-2(main)
+stop,Exit,ui-2(main)
 ,,
-moreHeart,하트를 더 모을래요?,ui-2(heart)
-buyHeart,충전하기,ui-2(heart)
-watchAd,광고보기,ui-2(heart)
+moreHeart,Do you need more Heart?,ui-2(heart)
+buyHeart,Buy Heart,ui-2(heart)
+watchAd,Watch Ads,ui-2(heart)
 ,,
-createdBy,제작,ui-3(credit)
-creator1,박정수,ui-3(credit)
-creator2,이종원,ui-3(credit)
-creator3,진승범,ui-3(credit)
-music,음악,ui-3(credit)
+createdBy,Creators,ui-3(credit)
+creator1,"Jungsoo, PARK",ui-3(credit)
+creator2,"Jongwon, LEE",ui-3(credit)
+creator3,"Seungbeom, JIN",ui-3(credit)
+music,Music,ui-3(credit)
+,,
+danger,Danger,ui-4(ingame)
+,,
+tutorial_move,Move ‘the Bear’ left and right with the Stick!,
+tutorial_touch,Push the Blocks by touching them!,
+tutorial_balloon,Escape from the Nabla by catching the Balloon!,

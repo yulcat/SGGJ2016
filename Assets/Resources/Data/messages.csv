@@ -73,6 +73,8 @@ creator2,이종원,ui-3(credit)
 creator3,진승범,ui-3(credit)
 music,음악,ui-3(credit)
 ,,
+danger,위험,ui-4(ingame)
+,,
 tutorial_move,스틱으로 ‘곰’을 좌우로 움직일 수 있어요!,
 tutorial_touch,터치하여 블럭을 밀어내야해요!,
-tutorial_balloon,풍선을 잡아 피라미드를 탈출해야해요!,
+tutorial_balloon,풍선을 잡아 나블라를 탈출해야해요!,
