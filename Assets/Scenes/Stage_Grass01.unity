@@ -12036,6 +12036,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 639667043}
+  - component: {fileID: 639667045}
   - component: {fileID: 639667044}
   m_Layer: 5
   m_Name: Interact
@@ -12073,6 +12074,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cafdb7e523514bdda2c5e74e84c89f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
   OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -12089,6 +12093,12 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!222 &639667045
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 639667042}
 --- !u!1001 &641025812
 Prefab:
   m_ObjectHideFlags: 0
