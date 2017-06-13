@@ -21,7 +21,8 @@ public enum BlockType
     Gift,
     Wood,
     More,
-    Snow
+    Snow,
+    TutorialBase
 }
 public struct BlockData
 {
