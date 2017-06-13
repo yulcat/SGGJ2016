@@ -6,13 +6,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ClickArea : Graphic, IPointerClickHandler
+public class ClickArea : Graphic, IPointerDownHandler
 {
     public UnityEvent OnClick;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Click");
         OnClick.Invoke();
     }
 
