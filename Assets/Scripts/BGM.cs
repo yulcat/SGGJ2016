@@ -7,6 +7,7 @@ public class BGM : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		source = GetComponent<AudioSource>();
+		Debug.Log(source.clip.name);
 		if(instance != null)
 		{
 			if(instance.source.clip == source.clip)
@@ -28,6 +29,7 @@ public class BGM : MonoBehaviour {
 	}
 	public static void SetVolume(float vol)
 	{
-		instance.source.volume = vol;
+		if(instance != null)
+			instance.source.volume = vol;
 	}
 }
