@@ -38,7 +38,7 @@ public class FBHolder : MonoBehaviour {
                 toId: "",
                 link: null,
                 linkName: "Nabla",
-                linkCaption: "Share my score and get 100 Gold!",
+                linkCaption: "Share my score and get 10 Hearts!",
                 linkDescription: "I scored " + 123124.ToString () + " in Nabla.",
                 picture: new System.Uri ("https://s3.ap-northeast-2.amazonaws.com/jongwonnet/jongwon/nabla.jpeg"),
                 mediaSource: "",
