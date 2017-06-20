@@ -9,6 +9,10 @@ public class Pause : Window {
         {
             return gamePaused;
         }
+        set
+        {
+            gamePaused = value;
+        }
     }
     public UnityEngine.UI.Slider BGMSlider;
     public UnityEngine.UI.Slider SFXSlider;
