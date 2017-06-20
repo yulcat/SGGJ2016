@@ -11,6 +11,7 @@ public class WindowCredit : WindowPop {
         var canvas = FindObjectOfType<Canvas>();
         if (instanciated != null)
         {
+            instanciated.transform.localScale = Vector3.one;
             instanciated.OpenWindow();
             return;
         }
