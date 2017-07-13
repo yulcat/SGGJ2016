@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using DG.Tweening;
+using System;
 
 public class CharacterControl : PyramidComponent {
 	Vector3 moveTarget;
@@ -103,6 +104,9 @@ public class CharacterControl : PyramidComponent {
 		else return false;
 	}
 
+	public bool automatic = true;
+	FlagBalloon balloon;
+
 	IEnumerator Start () {
 		var bodies = GetComponentsInChildren<Rigidbody>();
 		foreach(var childBody in bodies)
@@ -123,6 +127,7 @@ public class CharacterControl : PyramidComponent {
 				.GetControl(InControl.InputControlType.LeftStickX)
 				.Value;
 			if(Mathf.Abs(direction) < 0.3f) direction = touchDirection;
+			if(automatic && Mathf.Abs(touchDirection) < 0.3f) direction = GetAutomaticDirection();
 			if(Mathf.Abs(direction) < 0.3f)
 			{
 				anim.SetBool("IsTrace",false);
@@ -150,7 +155,20 @@ public class CharacterControl : PyramidComponent {
 			}
 		}
 	}
-	IOverlapLister OverlapTest(float x, int floor)
+
+    private float GetAutomaticDirection()
+    {
+        if(balloon == null)
+		{
+			balloon = FindObjectOfType<FlagBalloon>();
+		}
+		var balloonPos = pyramid.transform.parent.InverseTransformPoint(balloon.transform.position);
+		var myPos = pyramid.transform.parent.InverseTransformPoint(transform.position);
+		if(Mathf.Abs(myPos.x - balloonPos.x) < 0.1f) return 0;
+		else return Mathf.Clamp(balloonPos.x - myPos.x, -1f, 1f);
+    }
+
+    IOverlapLister OverlapTest(float x, int floor)
 	{
 		var overlap = pyramid.GetBlock(c => CheckFlag<IOverlapLister>(x,floor,c));
 		if(overlap != null)
