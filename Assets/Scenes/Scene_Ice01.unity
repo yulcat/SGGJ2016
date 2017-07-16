@@ -5276,6 +5276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowOpenSound: openWindow
+  BGMSlider: {fileID: 0}
+  SFXSlider: {fileID: 0}
 --- !u!114 &495307269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9955,7 +9957,7 @@ Prefab:
     - target: {fileID: 224886458226243136, guid: 59f4ca34922bd423eabe1ef22d83537f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -4.5374
+      value: -4.5373993
       objectReference: {fileID: 0}
     - target: {fileID: 224886458226243136, guid: 59f4ca34922bd423eabe1ef22d83537f,
         type: 2}
@@ -11030,6 +11032,7 @@ MonoBehaviour:
   moveSpeed: 1
   counterTorqueMultiplier: 1
   crushEffect: {fileID: 1353742809}
+  automatic: 0
 --- !u!54 &1296996449
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20950,6 +20953,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224385068366595808, guid: 7f275e6a60c084c41a4f410cd719ebbd,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 875.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1608974459999078, guid: 7f275e6a60c084c41a4f410cd719ebbd, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -23024,7 +23032,7 @@ Prefab:
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}

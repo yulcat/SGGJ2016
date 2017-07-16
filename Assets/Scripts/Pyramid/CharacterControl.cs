@@ -105,7 +105,7 @@ public class CharacterControl : PyramidComponent
         else return false;
     }
 
-    public bool automatic = true;
+    public bool automatic = false;
     FlagBalloon balloon;
 
     IEnumerator Start()
