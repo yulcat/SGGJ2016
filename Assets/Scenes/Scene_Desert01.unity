@@ -1376,11 +1376,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012515523406, guid: c02be5cb999b544e6adedac4783af62e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.6209917
+      value: -6.8917546
       objectReference: {fileID: 0}
     - target: {fileID: 4000012515523406, guid: c02be5cb999b544e6adedac4783af62e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -3.0028653
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c02be5cb999b544e6adedac4783af62e, type: 2}
@@ -14901,6 +14901,7 @@ MonoBehaviour:
   moveSpeed: 1
   counterTorqueMultiplier: 1
   crushEffect: {fileID: 398617818}
+  automatic: 0
 --- !u!54 &883188036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27898,7 +27899,7 @@ Prefab:
     - target: {fileID: 224385068366595808, guid: 7f275e6a60c084c41a4f410cd719ebbd,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 875.2001
+      value: 875.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7f275e6a60c084c41a4f410cd719ebbd, type: 2}
