@@ -15,6 +15,7 @@ fail_bearFalled,바닥으로 떨어졌어요!,실패2
 fail_balloonLost,풍선을 놓쳤어요!,실패3
 fail_crushed,블럭에 깔렸어요!,실패4
 fail_objective,목표를 달성하지 못했어요!,실패5
+fail_boomed,폭발에 날아가버렸어요!,실패6
 item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족

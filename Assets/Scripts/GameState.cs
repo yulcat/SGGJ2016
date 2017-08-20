@@ -6,7 +6,7 @@ using System;
 
 public class GameState : MonoBehaviour
 {
-    public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective }
+    public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective, Boomed }
     public bool isGameEnd = false;
     [System.NonSerializedAttribute]
     public Win winMessage;
