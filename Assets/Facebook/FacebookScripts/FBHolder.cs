@@ -37,13 +37,14 @@ public class FBHolder : MonoBehaviour {
             FB.FeedShare (
                 toId: "",
                 link: null,
-                linkName: "Nabla",
+                linkName: "Nablagame",
                 linkCaption: "Share my score and get 10 Hearts!",
                 linkDescription: "I scored " + 123124.ToString () + " in Nabla.",
                 picture: new System.Uri ("https://s3.ap-northeast-2.amazonaws.com/jongwonnet/jongwon/nabla.jpeg"),
                 mediaSource: "",
                 callback: ShareCallback
             );
+            Debug.Log ("Gave 10 Hearts to user");
         }
     }
 

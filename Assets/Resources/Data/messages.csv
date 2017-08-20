@@ -1,11 +1,5 @@
 키값,텍스트 내용,비고
-mission_default,나블라가 무너지기 전에 풍선을 잡아야 해요!,기본미션표시
-mission_coin,코인을 먹고 풍선을 잡으세요!,코인먹기
-mission_min,블럭을 최소 (n)개 제거해야해요!,최소 n개 제거
-mission_max,(블럭이미지)블럭은 최대 (n)개만 제거해야해요!,특정 최대 n개 제거
-,,
-share_normal,금메달 수집률 : (n/m)*100 %,노말자랑내용
-reward_normal,100다이아가 지급됩니다!,노말자랑혜택
+reward_normal,5하트가 지급됩니다!,노말자랑혜택
 ,,
 fail,실패,ui-3(ingame)
 failAd_reward,(아이템이미지)를 드릴게요! 광고를 시청하시겠어요?,특수광고혜택
@@ -79,3 +73,17 @@ danger,위험,ui-4(ingame)
 tutorial_move,스틱으로 ‘곰’을 좌우로 움직일 수 있어요!,
 tutorial_touch,터치하여 블럭을 밀어내야해요!,
 tutorial_balloon,풍선을 잡아 나블라를 탈출해야해요!,
+,,
+tip_coin,코인을 획득할수록 높은 점수를 받아요,
+tip_equilibrium,나블라의 균형을 유지할 수록 높은 점수를 받아요,
+tip_break,블럭을 많이 깰수록 높은 점수를 받아요,
+tip_facebook,페이스북에 점수를 공유하면 하트를 받을 수 있어요,
+tip_ad,광고를 시청하면 하트를 받을 수 있어요,
+tip_star,스타를 모아서 캐릭터를 얻을 수 있어요,
+tip_water,물 블럭에 캐릭터가 빠지면 움직일 수 없어요,
+tip_drum,드럼통 블럭은 양 옆 블럭과 함께 폭발해요,
+tip_snow,눈 블럭을 밟으면 녹아 없어져요,
+tip_volcano,용암 블럭에 닿으면 다쳐서 추락해요,
+tip_weight,각 블럭은 무게가 달라요,
+tip_mission,스테이지 시작 전 미션내용을 확인하세요,
+,,
