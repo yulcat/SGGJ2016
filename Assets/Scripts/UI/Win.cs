@@ -10,7 +10,7 @@ public class Win : Window
     public Text stageNumber;
     public Text stageRanking;
     [System.NonSerializedAttribute]
-    public int finalScore;
+    public Score finalScore;
     int scoreShow;
     double? rankingToShow;
     override protected void OnEnable()
@@ -26,9 +26,9 @@ public class Win : Window
     IEnumerator ShowScoreUp()
     {
         scoreShow = 0;
-        DOTween.To(() => (float)scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore, 2)
+        DOTween.To(() => (float)scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore.score, 2)
             .SetEase(Ease.OutExpo);
-        while (scoreShow != finalScore)
+        while (scoreShow != finalScore.score)
         {
             score.text = scoreShow.ToString();
             if (!rankingToShow.HasValue)
