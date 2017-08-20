@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class InfiniteScroll : MonoBehaviour
 {
-	public float deltaX = 500;
+    public float deltaX = 500;
     float max = 1280;
     public float xPosition
     {
@@ -15,20 +15,26 @@ public class InfiniteScroll : MonoBehaviour
         }
     }
     int delta;
+    bool jumpingToStage = false;
     RectTransform rect;
-	LoadStageButton[] buttons;
+    LoadStageButton[] buttons;
     public void JumpToStage(int index, bool openStartWindow)
     {
-        if(openStartWindow)
+        jumpingToStage = true;
+        if (openStartWindow)
         {
             GetComponent<RectTransform>().DOAnchorPosX((index - 1) * -500, 2f)
                 .SetEase(Ease.OutCubic)
-                .OnComplete(() => GameObject.Find("Canvas").GetComponentInChildren<WindowStart>(true).OpenStartWindow(index));
+                .OnComplete(() =>
+                {
+                    GameObject.Find("Canvas").GetComponentInChildren<WindowStart>(true).OpenStartWindow(index);
+                    jumpingToStage = false;
+                });
         }
         else
         {
             GetComponent<RectTransform>().DOAnchorPosX((index - 1) * -500, 2f)
-                .SetEase(Ease.OutCubic);
+                .SetEase(Ease.OutCubic).OnComplete(() => jumpingToStage = false);
         }
     }
 
@@ -36,9 +42,12 @@ public class InfiniteScroll : MonoBehaviour
     void Start()
     {
         rect = GetComponent<RectTransform>();
-		buttons = GetComponentsInChildren<LoadStageButton>();
-        if(SaveDataManager.clearRecord.Count > 0)
-            max = SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key)) * 500 + 1280;
+        buttons = GetComponentsInChildren<LoadStageButton>();
+        var maxStage = SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key));
+        if (SaveDataManager.clearRecord.Count > 0)
+            max = maxStage * 500 + 1280;
+        if (!jumpingToStage)
+            JumpToStage(maxStage + 1, false);
     }
 
     // Update is called once per frame
