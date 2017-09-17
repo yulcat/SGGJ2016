@@ -1,16 +1,10 @@
 키값,텍스트 내용,비고
-reward_normal,5하트가 지급됩니다!,노말자랑혜택
-,,
 fail,실패,ui-3(ingame)
-failAd_reward,(아이템이미지)를 드릴게요! 광고를 시청하시겠어요?,특수광고혜택
-fail_default,아깝네요!,실패기본
 fail_nablaFalled,나블라가 무너졌어요!,실패1
 fail_bearFalled,바닥으로 떨어졌어요!,실패2
 fail_balloonLost,풍선을 놓쳤어요!,실패3
 fail_crushed,블럭에 깔렸어요!,실패4
 fail_objective,목표를 달성하지 못했어요!,실패5
-fail_boomed,폭발에 날아가버렸어요!,실패6
-item_offer,*아이템을 사용하시면 보다 쉽게 클리어할 수 있어요!,실패시아이템권유
 ,,
 heartLack,하트가 부족해요!,입장권 부족
 exitGame,게임을 종료할까요?,게임종료
@@ -85,6 +79,9 @@ tip_water,물 블럭에 캐릭터가 빠지면 움직일 수 없어요,
 tip_drum,드럼통 블럭은 양 옆 블럭과 함께 폭발해요,
 tip_snow,눈 블럭을 밟으면 녹아 없어져요,
 tip_volcano,용암 블럭에 닿으면 다쳐서 추락해요,
+tip_space,자석 블럭은 주변 블럭을 고정해요,
 tip_weight,각 블럭은 무게가 달라요,
 tip_mission,스테이지 시작 전 미션내용을 확인하세요,
+tip_score1,나블라의 균형을 유지할 수록 높은 점수를 획득해요,
+tip_score2,블럭을 많이 깰 수록 높은 점수를 받을 수 있어요,
 ,,
