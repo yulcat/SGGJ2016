@@ -142,7 +142,7 @@ public class GameState : MonoBehaviour
         form.AddField("stage", "stage" + stage.ToString());
         form.AddField("id", id);
         form.AddField("score", scoreToSend.score);
-        var www = new WWW("http://52.78.26.149/api/values", form);
+        var www = new WWW("http://13.124.225.49/api/values", form);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
         {
