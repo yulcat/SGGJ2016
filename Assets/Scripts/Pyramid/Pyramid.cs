@@ -103,7 +103,7 @@ public class Pyramid : MonoBehaviour
     }
     public void RefreshBlocks()
     {
-        blocks.ForEach(b => b.RefreshPosition());
+        blocks.Do(b => b.RefreshPosition());
     }
 
     public bool HasBlocks(Func<PyramidComponent, bool> func)

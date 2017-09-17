@@ -89,7 +89,14 @@ public abstract class DictionaryData<TValue, TSelf> :
     }
 
     public bool ContainsKey(string key)
-        => dic.ContainsKey(key);
+    {
+        if (dic == null)
+        {
+            var read = System.IO.File.ReadAllText(path);
+            dic = CSVToDictionary(read);
+        }
+        return dic.ContainsKey(key);
+    }
 
     protected virtual Dictionary<string, TValue> CSVToDictionary(string csv)
     {
