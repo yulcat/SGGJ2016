@@ -16,8 +16,7 @@ public class GameState : MonoBehaviour
     Dictionary<string, int> accomplished = new Dictionary<string, int>();
     static GameState _instance;
     Pyramid pyramid;
-    int scoreToSend;
-    int starCount;
+    Score scoreToSend;
     public Action<Dictionary<string, int>> AccomplishedListener;
 
     public static GameState instance
@@ -111,12 +110,18 @@ public class GameState : MonoBehaviour
     void calculateScore()
     {
         Debug.Log("MaxRotation : " + pyramid.maxRotation);
-        var rotationScore = Mathf.Cos(pyramid.maxRotation * Mathf.Deg2Rad) - 0.9f;
-        var primeScore = Mathf.FloorToInt(ScoreDataLoader.GetScore("size" + pyramid.maxY) * rotationScore);
-        Debug.Log(string.Format("{0} : {1}", "size" + pyramid.maxY, primeScore));
+        var rotationMultiplier = Mathf.Cos(pyramid.maxRotation * Mathf.Deg2Rad) - 0.9f;
+        var primeScore = ScoreDataLoader.GetScore("size" + pyramid.maxY);
+        var rotationScore = Mathf.FloorToInt(primeScore * rotationMultiplier);
+        Debug.Log(string.Format("{0} : {1}", "size" + pyramid.maxY, rotationScore));
         var blockScore = accomplished.Sum(a => ScoreDataLoader.GetScore(a.Key) * a.Value);
-        scoreToSend = primeScore + blockScore;
-        starCount = 3;
+        var totalScore = rotationScore + blockScore;
+        var gotCoin = accomplished.ContainsKey("Coin") ? accomplished["Coin"] == pyramid.coinCount : true;
+        var scoreOverPrime = primeScore < totalScore;
+        var stars = 3;
+        if (!gotCoin) stars--;
+        if (!scoreOverPrime) stars--;
+        scoreToSend = new Score(rotationScore + blockScore, stars);
     }
     void ShowWinGameMessage()
     {
@@ -136,8 +141,8 @@ public class GameState : MonoBehaviour
         var form = new WWWForm();
         form.AddField("stage", "stage" + stage.ToString());
         form.AddField("id", id);
-        form.AddField("score", scoreToSend);
-        var www = new WWW("http://52.78.26.149/api/values", form);
+        form.AddField("score", scoreToSend.score);
+        var www = new WWW("http://13.124.225.49/api/values", form);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
         {
@@ -149,14 +154,14 @@ public class GameState : MonoBehaviour
     void CheckAndUpdateHighscore(string id, int stage)
     {
         var clearData = new SaveDataManager.ClearData();
-        clearData.score = scoreToSend;
+        clearData.score = scoreToSend.score;
         clearData.scoreGuid = id;
-        clearData.stars = starCount;
+        clearData.stars = scoreToSend.stars;
         var stageString = stage.ToString();
         if (SaveDataManager.clearRecord.ContainsKey(stage.ToString()))
         {
             var record = SaveDataManager.clearRecord[stageString];
-            if (record.score > scoreToSend)
+            if (record.score > scoreToSend.score)
             {
                 return;
             }

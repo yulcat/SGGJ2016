@@ -17,6 +17,8 @@ public class Pyramid : MonoBehaviour
     public float maxRotation;
     [System.NonSerializedAttribute]
     public int maxY;
+    [System.NonSerialized]
+    public int coinCount;
     private Plane inputPlane;
     private Vector3 recentClick;
     private bool initializedByBuilder = false;
@@ -30,6 +32,7 @@ public class Pyramid : MonoBehaviour
         }
         inputPlane = new Plane(transform.forward, transform.position + (transform.forward * -0.5f));
         maxY = GetMaxY();
+        coinCount = GetCoinCount();
     }
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
     {
@@ -41,8 +44,8 @@ public class Pyramid : MonoBehaviour
     }
     void Update()
     {
-        if(Pause.paused) return;
-        
+        if (Pause.paused) return;
+
         foreach (var t in Input.touches)
         {
             if (t.phase != TouchPhase.Began) continue;
@@ -159,7 +162,7 @@ public class Pyramid : MonoBehaviour
         var dc = angularVelocity * Time.fixedDeltaTime;
         var nextRot = currentRot + dc;
         transform.localRotation = Quaternion.Euler(0, 0, nextRot);
-        maxRotation = Mathf.Max(maxRotation, Mathf.Abs(Mathf.DeltaAngle(0,nextRot)));
+        maxRotation = Mathf.Max(maxRotation, Mathf.Abs(Mathf.DeltaAngle(0, nextRot)));
         if (Mathf.Cos(nextRot * Mathf.Deg2Rad) < 0.9f)
         {
             GameState.Lose(GameState.LoseCause.Collapsed);
@@ -171,5 +174,9 @@ public class Pyramid : MonoBehaviour
         return blocks
             .Where(block => block.BlockType != BlockType.Character)
             .Max(block => (new XY(block.transform.localPosition).y + 1) / 2);
+    }
+    int GetCoinCount()
+    {
+        return blocks.Count(block => block.BlockType == BlockType.Coin);
     }
 }
