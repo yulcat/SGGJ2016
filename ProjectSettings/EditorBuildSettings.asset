@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
-  - enabled: 1
     path: Assets/Scenes/StageSelect.unity
+    guid: 8fe4c707d9c8248a9b0236596ba685aa
   - enabled: 1
     path: Assets/Scenes/StageMake.unity
+    guid: cb64df5452b13417db024a61798bd742
   - enabled: 1
     path: Assets/Scenes/Scene_Desert01.unity
+    guid: 24504012ca6b542789a726f366132caa
   - enabled: 1
     path: Assets/Scenes/Scene_Ice01.unity
+    guid: afadc15c9a8604e7aa47284f61a324e4
   - enabled: 1
     path: Assets/Scenes/Stage_Grass01.unity
+    guid: d4fcc161384fe49d4975885f0b70507f
