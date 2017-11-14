@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
+public enum CharacterType { Bear = 0, Owl, Cat }
 public class GameState : MonoBehaviour
 {
     public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective, Boomed }
@@ -18,6 +19,7 @@ public class GameState : MonoBehaviour
     Pyramid pyramid;
     Score scoreToSend;
     public Action<Dictionary<string, int>> AccomplishedListener;
+    public static CharacterType SelectedCharacter = CharacterType.Owl;
 
     public static GameState instance
     {
