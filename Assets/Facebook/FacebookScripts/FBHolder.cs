@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Facebook.Unity;
 
-public class FBHolder : MonoBehaviour {
+public class FBHolder : MonoBehaviour
+{
 
-    void Awake ()
+    void Awake()
     {
         FB.Init(OnInitComplete, OnHideUnity);
     }
@@ -13,60 +14,65 @@ public class FBHolder : MonoBehaviour {
     private void OnInitComplete()
     {
         if (FB.IsInitialized)
-            FB.ActivateApp ();
+            FB.ActivateApp();
         else
-            Debug.Log ("FB Init Fail");
+            Debug.Log("FB Init Fail");
     }
 
-    private void OnHideUnity (bool isGameShown)
+    private void OnHideUnity(bool isGameShown)
     {
-        if (!isGameShown) {
+        if (!isGameShown)
+        {
             Time.timeScale = 0f;
         }
-        else {
+        else
+        {
             Time.timeScale = 1f;
         }
     }
 
     public void ShareLink()
     {
-        if (!FB.IsLoggedIn) {
-            FBlogin ();
+        if (!FB.IsLoggedIn)
+        {
+            FBlogin();
         }
-        else {
-            FB.FeedShare (
+        else
+        {
+            FB.FeedShare(
                 toId: "",
                 link: null,
                 linkName: "Nablagame",
                 linkCaption: "Share my score and get 10 Hearts!",
-                linkDescription: "I scored " + 123124.ToString () + " in Nabla.",
-                picture: new System.Uri ("https://s3.ap-northeast-2.amazonaws.com/jongwonnet/jongwon/nabla.jpeg"),
+                linkDescription: "I scored " + 123124.ToString() + " in Nabla.",
+                picture: new System.Uri("https://s3.ap-northeast-2.amazonaws.com/jongwonnet/jongwon/nabla.jpeg"),
                 mediaSource: "",
                 callback: ShareCallback
             );
-            Debug.Log ("Gave 10 Hearts to user");
+            Debug.Log("Gave 10 Hearts to user");
         }
     }
 
     public void FBloginforpublish()
     {
-        FB.LogInWithPublishPermissions (new List<string> () { "public_actions" }, AuthCallback);
+        FB.LogInWithPublishPermissions(new List<string>() { "public_actions" }, AuthCallback);
     }
 
     public void FBloginAndLoad()
     {
-        FB.LogInWithReadPermissions (new List<string> () { "email", "public_profile", "user_friends" }, null);
-        SceneLoader.LoadScene(1);
+        FB.LogInWithReadPermissions(new List<string>() { "email", "public_profile", "user_friends" }, null);
+        SceneLoader.LoadScene(0);
     }
 
     public void FBlogin()
     {
-        FB.LogInWithReadPermissions (new List<string> () { "email", "public_profile", "user_friends" }, null);
+        FB.LogInWithReadPermissions(new List<string>() { "email", "public_profile", "user_friends" }, null);
     }
 
     private void AuthCallback(ILoginResult result)
     {
-        if (FB.IsLoggedIn) {
+        if (FB.IsLoggedIn)
+        {
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
         }
     }

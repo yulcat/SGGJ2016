@@ -128,7 +128,7 @@ Prefab:
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -11.500198
       objectReference: {fileID: 0}
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
@@ -1199,7 +1199,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2521,7 +2521,7 @@ Prefab:
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 110
+      value: 25.000122
       objectReference: {fileID: 0}
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
@@ -3348,7 +3348,7 @@ Prefab:
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -110
+      value: -124.999954
       objectReference: {fileID: 0}
     - target: {fileID: 224004127824800420, guid: 3c653f4dd06204d00a334a2e3fcbebda,
         type: 2}
@@ -4905,7 +4905,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1692124801939654, guid: d084b8c9ac95f45928d2363cd1c5f4ce, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224450722440688842, guid: d084b8c9ac95f45928d2363cd1c5f4ce,
         type: 2}
@@ -4915,12 +4915,12 @@ Prefab:
     - target: {fileID: 224298076124620852, guid: d084b8c9ac95f45928d2363cd1c5f4ce,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224298076124620852, guid: d084b8c9ac95f45928d2363cd1c5f4ce,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -233
       objectReference: {fileID: 0}
     - target: {fileID: 224567392748363168, guid: d084b8c9ac95f45928d2363cd1c5f4ce,
         type: 2}
@@ -5385,7 +5385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1425893031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5818,7 +5818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1755880676
 RectTransform:
   m_ObjectHideFlags: 0

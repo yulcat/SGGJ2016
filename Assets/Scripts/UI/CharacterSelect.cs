@@ -7,6 +7,14 @@ public class CharacterSelect : MonoBehaviour
 {
     public GameObject[] characters;
     public GameObject cursor;
+    void OnEnable()
+    {
+        for (int i = 0; i < characters.Length; i++)
+        {
+            if (!SaveDataManager.IsCharacterAvailable(i)) continue;
+        }
+    }
+
     public void SelectCharacter(int index)
     {
         GameState.SelectedCharacter = (CharacterType)index;
