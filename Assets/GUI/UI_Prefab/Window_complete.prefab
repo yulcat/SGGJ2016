@@ -1027,9 +1027,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114687901898426140, guid: f8999f9903f33429c8a7b53860d50a4d,
-          type: 2}
-        m_MethodName: ShareLink
+      - m_Target: {fileID: 0}
+        m_MethodName: FacebookShare
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
