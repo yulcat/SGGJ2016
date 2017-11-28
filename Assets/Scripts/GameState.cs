@@ -19,7 +19,7 @@ public class GameState : MonoBehaviour
     Pyramid pyramid;
     Score scoreToSend;
     public Action<Dictionary<string, int>> AccomplishedListener;
-    public static CharacterType SelectedCharacter = CharacterType.Owl;
+    public static CharacterType SelectedCharacter;
 
     public static GameState instance
     {
