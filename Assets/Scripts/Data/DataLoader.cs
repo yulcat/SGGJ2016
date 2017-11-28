@@ -8,7 +8,7 @@ using System.Linq;
 [ExecuteInEditMode]
 public class DataLoader : MonoBehaviour
 {
-    Dictionary<string, int> downloadTime;
+    Dictionary<string, int> downloadTime = new Dictionary<string, int>();
     static DataLoader _instance;
     static DataLoader instance
     {
