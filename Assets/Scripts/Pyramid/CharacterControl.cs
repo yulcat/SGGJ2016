@@ -13,6 +13,7 @@ public class CharacterControl : PyramidComponent
     [RangeAttribute(0f, 1f)]
     public float counterTorqueMultiplier = 1f;
     public GameObject crushEffect;
+    public Animator[] characterAnimators;
     [System.NonSerializedAttribute]
     public Animator anim;
 
@@ -21,7 +22,15 @@ public class CharacterControl : PyramidComponent
         base.SetPyramid(m);
         var floatPos = transform.localPosition * 2f;
         currentFloor = Mathf.RoundToInt(transform.localPosition.y * 2f);
-        anim = GetComponentInChildren<Animator>(true);
+        try
+        {
+            anim = characterAnimators[(int)GameState.SelectedCharacter];
+        }
+        catch { return; }
+        foreach (var a in characterAnimators)
+        {
+            a.gameObject.SetActive(a == anim);
+        }
     }
 
     public override void RefreshPosition()

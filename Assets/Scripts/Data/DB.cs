@@ -5,9 +5,10 @@ using UnityEngine;
 
 public static class DB
 {
-    public static StageDB StageDB = new StageDB();
-    public static ScoreDB ScoreDB = new ScoreDB();
-    public static MessageDB MessageDB = new MessageDB();
+    public readonly static StageDB StageDB = new StageDB();
+    public readonly static ScoreDB ScoreDB = new ScoreDB();
+    public readonly static MessageDB MessageDB = new MessageDB();
+    public readonly static CharacterDB characterDB = new CharacterDB();
 }
 
 public class StageDB : ListData<StageDataLoader.StageData, StageDB>
@@ -27,4 +28,15 @@ public class ScoreDB : DictionaryData<int, ScoreDB>
 public class MessageDB : DictionaryData<string, MessageDB>
 {
     public MessageDB() { dataPath = "messageDB.txt"; Load(1681149424); }
+}
+
+public class CharacterDB : ListData<CharacterData, CharacterDB>
+{
+    public CharacterDB() { dataPath = "characterDB.txt"; Load(167980508); }
+}
+
+public class CharacterData
+{
+    public string name;
+    public int price;
 }
