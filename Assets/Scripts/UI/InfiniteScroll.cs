@@ -43,7 +43,7 @@ public class InfiniteScroll : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         buttons = GetComponentsInChildren<LoadStageButton>();
-        var maxStage = SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key));
+        var maxStage = SaveDataManager.clearRecord.Count > 0 ? SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key)) : 0;
         if (SaveDataManager.clearRecord.Count > 0)
             max = maxStage * 500 + 1280;
         if (!jumpingToStage)
