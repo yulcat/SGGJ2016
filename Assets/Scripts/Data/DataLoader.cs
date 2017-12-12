@@ -73,7 +73,7 @@ public abstract class DictionaryData<TValue, TSelf> :
 {
     private Dictionary<string, TValue> dic;
     protected string dataPath;
-    private string path => $"{Application.persistentDataPath}/{dataPath}";
+    private string path => System.IO.Path.Combine(Application.persistentDataPath, dataPath);
 
     public TValue this[string key]
     {
@@ -81,7 +81,6 @@ public abstract class DictionaryData<TValue, TSelf> :
         {
             if (dic != null) return dic[key];
             var appPath = Application.persistentDataPath;
-            if (!System.IO.Directory.Exists(appPath)) System.IO.Directory.CreateDirectory(appPath);
             var read = System.IO.File.ReadAllText(path);
             dic = CSVToDictionary(read);
             return dic[key];
@@ -106,6 +105,8 @@ public abstract class DictionaryData<TValue, TSelf> :
     public void SetData(string value)
     {
         dic = CSVToDictionary(value);
+        Debug.Log($"Writing File By : {this.GetType().Name} At : {Application.persistentDataPath}");
+        if (!System.IO.Directory.Exists(Application.persistentDataPath)) System.IO.Directory.CreateDirectory(Application.persistentDataPath);
         System.IO.File.WriteAllText(path, value);
     }
 
@@ -137,14 +138,13 @@ public abstract class ListData<TValue, TSelf> : IDataStorage, IEnumerable<TValue
 {
     private List<TValue> list;
     protected string dataPath;
-    private string path => $"{Application.persistentDataPath}/{dataPath}";
+    private string path => System.IO.Path.Combine(Application.persistentDataPath, dataPath);
     public TValue this[int index]
     {
         get
         {
             if (list != null) return list[index];
             var appPath = Application.persistentDataPath;
-            if (!System.IO.Directory.Exists(appPath)) System.IO.Directory.CreateDirectory(appPath);
             var read = System.IO.File.ReadAllText(path);
             list = CSVToTValue(read);
             return list[index];
@@ -159,6 +159,8 @@ public abstract class ListData<TValue, TSelf> : IDataStorage, IEnumerable<TValue
     public void SetData(string value)
     {
         list = CSVToTValue(value);
+        Debug.Log($"Writing File By : {this.GetType().Name} At : {Application.persistentDataPath}");
+        if (!System.IO.Directory.Exists(Application.persistentDataPath)) System.IO.Directory.CreateDirectory(Application.persistentDataPath);
         System.IO.File.WriteAllText(path, value);
     }
 

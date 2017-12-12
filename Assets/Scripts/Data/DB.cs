@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,12 @@ public static class DB
     public readonly static StageDB StageDB = new StageDB();
     public readonly static ScoreDB ScoreDB = new ScoreDB();
     public readonly static MessageDB MessageDB = new MessageDB();
+
+    internal static void LoadAll()
+    {
+        Debug.Log("do nothing");
+    }
+
     public readonly static CharacterDB characterDB = new CharacterDB();
 }
 
