@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage_Grass01.unity
     guid: d4fcc161384fe49d4975885f0b70507f
+  - enabled: 1
+    path: Assets/Scenes/Scene_Rocks01.unity
+    guid: 878abcfda813348cb9659d8999b2023e

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class StageManager : MonoBehaviour
 {
-    public enum Theme { Sand = 0, Ice = 1, Grass = 2, Common = -1 };
-    string[] sceneNames = { "Scene_Desert01", "Scene_Ice01", "Stage_Grass01" };
+    public enum Theme { Sand = 0, Ice = 1, Grass = 2, Rock = 3, Common = -1 };
+    string[] sceneNames = { "Scene_Desert01", "Scene_Ice01", "Stage_Grass01", "Scene_Rocks01" };
     static StageManager _instance;
     public static StageManager instance
     {
