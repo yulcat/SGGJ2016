@@ -1,30 +1,28 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;   
-using System.Collections;
 
 public class TwitterShare : MonoBehaviour
 {
-//    public Text stageNumber;
-//    public Text stageRanking;
     /* TWITTER VARIABLES*/
 
     //Twitter Share Link
-    string TWITTER_ADDRESS = "http://twitter.com/intent/tweet";
+    const string TwitterAddress = "http://twitter.com/intent/tweet";
 
     //Language
-    string TWEET_LANGUAGE = "en";
+    const string TweetLanguage = "en";
 
     //This is the text which you want to show
-    string textToDisplaybeg="[Playing Nabla] https://www.facebook.com/nablagame // I scored ";
-    string textToDisplayend="% at stage";
+    const string TextToDisplaybeg = "[Playing Nabla] https://www.facebook.com/nablagame // I scored ";
+
+    const string TextToDisplayend = "% at stage";
 
     /*END OF TWITTER VARIABLES*/
 
     // Twitter Share Button 
-    public void shareScoreOnTwitter (Text stageNumber, Text stageRanking) 
-//    public void shareScoreOnTwitter () 
+    public void ShareScoreOnTwitter(string stageNumber, string stageRanking)
     {
         Debug.Log("Tweet");
-        Application.OpenURL (TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(textToDisplaybeg) + stageNumber + WWW.EscapeURL(textToDisplayend) + stageRanking + "&amp;lang=" + WWW.EscapeURL(TWEET_LANGUAGE));
+        Application.OpenURL(TwitterAddress + "?text=" + WWW.EscapeURL(TextToDisplaybeg) + stageNumber +
+                            WWW.EscapeURL(TextToDisplayend) + stageRanking + "&amp;lang=" +
+                            WWW.EscapeURL(TweetLanguage));
     }
 }

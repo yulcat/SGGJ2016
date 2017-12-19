@@ -86,6 +86,15 @@ public class Win : Window
         StageManager.LoadStageSelectScene();
     }
 
+    [UsedImplicitly]
+    public void ShareTwitter()
+    {
+        var twitter = GetComponent<TwitterShare>();
+        if (rankingToShow == null) return;
+        var rankString = (rankingToShow.Value * 100).ToString("0.0") + "%";
+        twitter.ShareScoreOnTwitter(stageNumber.text, rankString);
+    }
+
     public void SetRanking(double v)
     {
         rankingToShow = v;
