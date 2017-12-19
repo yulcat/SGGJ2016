@@ -36,7 +36,7 @@ public class Pause : Window
     public void ReloadCurrentStage()
     {
         BackToPrevWindow();
-        if (HeartManager.heartLeft <= 0)
+        if (HeartManager.HeartLeft <= 0)
         {
             WindowHeartInsufficient.Open();
             return;

@@ -18,7 +18,7 @@ public class WindowStart : Window
 
     public void StartStage()
     {
-        if (HeartManager.heartLeft <= 0)
+        if (HeartManager.HeartLeft <= 0)
         {
             WindowHeartInsufficient.Open();
             return;

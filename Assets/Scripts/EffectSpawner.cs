@@ -4,40 +4,38 @@ using System.Linq;
 
 public class EffectSpawner : MonoBehaviour
 {
-    static EffectSpawner _instance;
+    static EffectSpawner instance;
 
-    public static EffectSpawner instance
+    public static EffectSpawner Instance
     {
         get
         {
-            if (_instance == null)
-            {
-                var obj = new GameObject("Effect Spawner");
-                _instance = obj.AddComponent<EffectSpawner>();
-            }
-            return _instance;
+            if (instance != null) return instance;
+            var obj = new GameObject("Effect Spawner");
+            instance = obj.AddComponent<EffectSpawner>();
+            return instance;
         }
     }
 
-    Dictionary<string, List<GameObject>> dic = new Dictionary<string, List<GameObject>>();
+    readonly Dictionary<string, List<GameObject>> dic = new Dictionary<string, List<GameObject>>();
 
     public static GameObject GetEffect(string name)
     {
-        return instance.GetEffectInstance(name);
+        return Instance.GetEffectInstance(name);
     }
 
-    GameObject GetEffectInstance(string name)
+    GameObject GetEffectInstance(string effectName)
     {
-        if (!dic.ContainsKey(name))
+        if (!dic.ContainsKey(effectName))
         {
-            dic.Add(name, new List<GameObject>());
+            dic.Add(effectName, new List<GameObject>());
         }
-        var idle = dic[name].FirstOrDefault(o => !o.activeSelf);
+        var idle = dic[effectName].FirstOrDefault(o => !o.activeSelf);
         if (idle == null)
         {
-            var original = Resources.Load<GameObject>(name);
-            var obj = Instantiate<GameObject>(original);
-            dic[name].Add(obj);
+            var original = Resources.Load<GameObject>(effectName);
+            var obj = Instantiate(original);
+            dic[effectName].Add(obj);
             obj.transform.SetParent(transform);
             return obj;
         }

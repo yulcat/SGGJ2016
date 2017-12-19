@@ -74,7 +74,7 @@ public class MissionIcon : MonoBehaviour
         }
     }
 
-    private void SetIconComplete()
+    void SetIconComplete()
     {
         bgImg.color = completeColor;
         text.color = fontCompleteColor;

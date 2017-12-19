@@ -19,7 +19,7 @@ public class ScrolledBlock : ScrolledGameObject
     // Update is called once per frame
     protected override void Update()
     {
-        float x = scroll.xPosition * scrollRatio + initialX;
+        var x = scroll.xPosition * scrollRatio + initialX;
         var pos = transform.position;
         pos.x = x % deltaX;
         var index = localIndex - ((int) (x / deltaX) * 6);
@@ -31,12 +31,12 @@ public class ScrolledBlock : ScrolledGameObject
         prevIndex = index;
     }
 
-    private void ResetBlocks(int index)
+    void ResetBlocks(int index)
     {
-        int stage = index + 1;
+        var stage = index + 1;
         var loadStageButton = GetComponent<LoadStageButton>();
         loadStageButton.index = index;
-        int maxClearedStage = 0;
+        var maxClearedStage = 0;
         if (SaveDataManager.clearRecord.Count > 0)
             maxClearedStage = SaveDataManager.clearRecord.Max(kvp => System.Convert.ToInt32(kvp.Key));
         if (stage > maxClearedStage + 1)
@@ -66,9 +66,9 @@ public class ScrolledBlock : ScrolledGameObject
         }
     }
 
-    private void SetBlock(int blockNum)
+    void SetBlock(int blockNum)
     {
-        for (int i = 0; i < blocks.Length; i++)
+        for (var i = 0; i < blocks.Length; i++)
         {
             blocks[i].SetActive(i == blockNum);
         }

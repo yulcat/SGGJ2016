@@ -21,7 +21,7 @@ public class ScrolledGameObject : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        float x = scroll.xPosition * scrollRatio + initialX;
+        var x = scroll.xPosition * scrollRatio + initialX;
         var pos = transform.position;
         pos.x = x % deltaX;
         var index = localIndex - ((int) (x / deltaX) * 6);

@@ -51,7 +51,7 @@ public class WindowStartWithScore : WindowStart
         yield return www;
         try
         {
-            float ranking = (float) System.Convert.ToDouble(www.text) * 100;
+            var ranking = (float) System.Convert.ToDouble(www.text) * 100;
             rank.text = ranking.ToString("0.0") + "%";
         }
         catch

@@ -1,65 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 public class HeartManager : MonoBehaviour
 {
-    static HeartManager _instance;
-    const int maxHeart = 24;
-    public const double heartRefillMinutes = 5;
-    const int heartRefillCount = 4;
-    public const double adRefillMinutes = 5;
-    bool initialized = false;
-    public static bool adAvailable = false;
+    static HeartManager instance;
+    const int MaxHeart = 24;
+    public const double HeartRefillMinutes = 5;
+    const int HeartRefillCount = 4;
+    public const double AdRefillMinutes = 5;
+    bool initialized;
+    public static bool adAvailable;
 
-    public static HeartManager instance
+    public static HeartManager Instance
     {
         get
         {
-            if (_instance == null)
-            {
-                var go = new GameObject("HeartManager");
-                DontDestroyOnLoad(go);
-                _instance = go.AddComponent<HeartManager>();
-            }
-            return _instance;
+            if (instance != null) return instance;
+            var go = new GameObject("HeartManager");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<HeartManager>();
+            return instance;
         }
     }
 
-    public static int heartLeft
-    {
-        get { return SaveDataManager.data.heartLeft; }
-    }
+    public static int HeartLeft => SaveDataManager.data.heartLeft;
 
-    public static bool heartIsMax
-    {
-        get { return heartLeft >= maxHeart; }
-    }
+    public static bool HeartIsMax => HeartLeft >= MaxHeart;
 
     public static void SpendHeart()
     {
-        if (heartLeft <= 0)
+        var heartCost = DB.characterDB[(int) GameState.SelectedCharacter].heartCost;
+        SpendHeart(heartCost);
+    }
+
+    public static void SpendHeart(int count)
+    {
+        if (HeartLeft < count)
         {
-            throw new System.Exception("Spending Heart when Heart is zero!");
+            throw new Exception("Spending Heart when Heart is zero!");
         }
-        if (heartIsMax)
+        if (HeartIsMax)
         {
-            instance.StartCoroutine("SpendHeartFromMax");
+            Instance.StartCoroutine(Instance.SpendHeartFromMax(count));
             return;
         }
-        SaveDataManager.data.heartLeft--;
+        SaveDataManager.data.heartLeft -= count;
         RefreshHeart();
     }
 
-    public static void AddHeart()
-    {
-        SaveDataManager.data.heartLeft++;
-        RefreshHeart();
-    }
-
-    public static void AddHeart(int count)
+    public static void AddHeart(int count = 1)
     {
         SaveDataManager.data.heartLeft += count;
         RefreshHeart();
@@ -67,18 +57,17 @@ public class HeartManager : MonoBehaviour
 
     public static Coroutine AdShowed()
     {
-        return instance.StartCoroutine("AfterAdShowed");
+        return Instance.StartCoroutine(nameof(AfterAdShowed));
     }
 
     public static Coroutine CheckAd()
     {
-        return instance.StartCoroutine("CheckAdAvailable");
+        return Instance.StartCoroutine(nameof(CheckAdAvailable));
     }
 
     public static Coroutine RefreshHeart()
     {
-        if (instance.refreshProcessing) return null;
-        return instance.StartCoroutine("RefreshHeartCount");
+        return Instance.refreshProcessing ? null : Instance.StartCoroutine(nameof(RefreshHeartCount));
     }
 
     public void Initialize()
@@ -87,16 +76,16 @@ public class HeartManager : MonoBehaviour
         if (!SaveDataManager.data.timeInitialized)
         {
             StartCoroutine(InitializeFromServerTime(true));
-            SaveDataManager.data.heartLeft = maxHeart;
+            SaveDataManager.data.heartLeft = MaxHeart;
         }
         StartCoroutine(RefreshHeartCount());
         initialized = true;
     }
 
-    IEnumerator SpendHeartFromMax()
+    IEnumerator SpendHeartFromMax(int count)
     {
         yield return StartCoroutine(InitializeFromServerTime(false));
-        SaveDataManager.data.heartLeft--;
+        SaveDataManager.data.heartLeft -= count;
     }
 
     IEnumerator InitializeFromServerTime(bool resetAdRefill)
@@ -106,20 +95,20 @@ public class HeartManager : MonoBehaviour
         yield return www;
         var time = www.responseHeaders["DATE"];
         var strings = time.Split(',');
-        SaveDataManager.data.lastHeartServerTime = System.Convert.ToDateTime(strings[strings.Length - 1]);
+        SaveDataManager.data.lastHeartServerTime = Convert.ToDateTime(strings[strings.Length - 1]);
         SaveDataManager.data.lastHeartLocalTime = DateTime.Now;
         if (resetAdRefill)
         {
             SaveDataManager.data.lastRefillServerTime =
-                SaveDataManager.data.lastHeartServerTime.AddMinutes(-adRefillMinutes);
+                SaveDataManager.data.lastHeartServerTime.AddMinutes(-AdRefillMinutes);
             SaveDataManager.data.lastRefillLocalTime =
-                SaveDataManager.data.lastHeartLocalTime.AddMinutes(-adRefillMinutes);
+                SaveDataManager.data.lastHeartLocalTime.AddMinutes(-AdRefillMinutes);
         }
         SaveDataManager.data.timeInitialized = true;
         Debug.Log("initialized time from server");
     }
 
-    bool refreshProcessing = false;
+    bool refreshProcessing;
 
     IEnumerator RefreshHeartCount()
     {
@@ -130,20 +119,17 @@ public class HeartManager : MonoBehaviour
         var serverTime = ParseResponse(www);
         Debug.Log("ServerTime : " + serverTime.ToLongTimeString());
         var savedServerTime = SaveDataManager.data.lastHeartServerTime;
-        var targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes * 0.99);
+        var targetServerTime = savedServerTime.AddMinutes(HeartRefillMinutes * 0.99);
         while (serverTime.CompareTo(targetServerTime) > 0)
         {
-            savedServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(heartRefillMinutes);
+            savedServerTime = SaveDataManager.data.lastHeartServerTime.AddMinutes(HeartRefillMinutes);
             SaveDataManager.data.lastHeartServerTime = savedServerTime;
-            targetServerTime = savedServerTime.AddMinutes(heartRefillMinutes * 0.99);
-            if (heartIsMax)
+            targetServerTime = savedServerTime.AddMinutes(HeartRefillMinutes * 0.99);
+            if (HeartIsMax)
             {
                 break;
             }
-            else
-            {
-                SaveDataManager.data.heartLeft += heartRefillCount;
-            }
+            SaveDataManager.data.heartLeft += HeartRefillCount;
         }
         var timeNow = DateTime.Now;
         var timeDiff = serverTime.Subtract(savedServerTime);
@@ -152,7 +138,7 @@ public class HeartManager : MonoBehaviour
         refreshProcessing = false;
     }
 
-    bool checkingAd = false;
+    bool checkingAd;
 
     IEnumerator CheckAdAvailable()
     {
@@ -162,12 +148,12 @@ public class HeartManager : MonoBehaviour
         Debug.Log("trying to refresh time from server...");
         yield return www;
         var serverTime = ParseResponse(www);
-        var targetTime = SaveDataManager.data.lastRefillServerTime.AddMinutes(adRefillMinutes);
+        var targetTime = SaveDataManager.data.lastRefillServerTime.AddMinutes(AdRefillMinutes);
         adAvailable = serverTime > targetTime;
         if (!adAvailable)
         {
             var timeDiff = targetTime.Subtract(serverTime);
-            SaveDataManager.data.lastRefillLocalTime = DateTime.Now.AddMinutes(-adRefillMinutes).Add(timeDiff);
+            SaveDataManager.data.lastRefillLocalTime = DateTime.Now.AddMinutes(-AdRefillMinutes).Add(timeDiff);
         }
         checkingAd = false;
     }
@@ -187,7 +173,7 @@ public class HeartManager : MonoBehaviour
     {
         var time = response.responseHeaders["DATE"];
         var strings = time.Split(',');
-        return System.Convert.ToDateTime(strings[strings.Length - 1]);
+        return Convert.ToDateTime(strings[strings.Length - 1]);
     }
 
     /// <summary>

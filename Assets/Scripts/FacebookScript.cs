@@ -7,7 +7,7 @@ public class FacebookScript : MonoBehaviour
 {
     public Text FriendsText;
 
-    private void Awake()
+    void Awake()
     {
         if (!FB.IsInitialized)
         {

@@ -16,7 +16,7 @@ public class BlockIconTextureApplier : MonoBehaviour
 
     public BlockIconPreset[] blockIconPresetList;
     public int toLoad;
-    private Image img;
+    Image img;
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.

@@ -9,7 +9,7 @@ public class BlockRain : MonoBehaviour
     public float radius = 10f;
     public float height = 30f;
     public float bps = 10f;
-    List<GameObject> spawnedBlocks = new List<GameObject>();
+    readonly List<GameObject> spawnedBlocks = new List<GameObject>();
 
     void SpawnBlock()
     {

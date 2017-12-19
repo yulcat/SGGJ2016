@@ -31,10 +31,7 @@ public class SaveFileModifier : Editor
     static void ZeroHeart()
     {
         var hearts = SaveDataManager.data.heartLeft;
-        for (int i = 0; i < hearts; i++)
-        {
-            HeartManager.SpendHeart();
-        }
+        HeartManager.SpendHeart(hearts);
     }
 
     [MenuItem("Tools/Edit Save File/Enable all Characters")]

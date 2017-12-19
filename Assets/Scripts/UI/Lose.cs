@@ -9,7 +9,7 @@ public class Lose : Window
 
     public void ReloadCurrentStage()
     {
-        if (HeartManager.heartLeft <= 0)
+        if (HeartManager.HeartLeft <= 0)
         {
             WindowHeartInsufficient.Open();
             return;

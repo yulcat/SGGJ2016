@@ -16,21 +16,21 @@ public class HeartDisplay : MonoBehaviour
     /// </summary>
     void Start()
     {
-        HeartManager.instance.Initialize();
+        HeartManager.Instance.Initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!SaveDataManager.data.timeInitialized) return;
-        if (HeartManager.heartIsMax)
+        if (HeartManager.HeartIsMax)
         {
             heartCount.text = SaveDataManager.data.heartLeft.ToString();
             timeLeft.text = "MAX";
             return;
         }
         var timeNow = DateTime.Now;
-        var timeToNewHeart = SaveDataManager.data.lastHeartLocalTime.AddMinutes(HeartManager.heartRefillMinutes)
+        var timeToNewHeart = SaveDataManager.data.lastHeartLocalTime.AddMinutes(HeartManager.HeartRefillMinutes)
             .Subtract(timeNow);
         if (timeToNewHeart.CompareTo(TimeSpan.Zero) <= 0)
         {

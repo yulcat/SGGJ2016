@@ -11,7 +11,7 @@ public class HeartAdvertise
         if (HeartManager.adAvailable) return null;
         var now = DateTime.Now;
         var last = SaveDataManager.data.lastRefillLocalTime;
-        var target = last.AddMinutes(HeartManager.adRefillMinutes);
+        var target = last.AddMinutes(HeartManager.AdRefillMinutes);
         if (target < now)
         {
             HeartManager.CheckAd();
