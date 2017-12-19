@@ -7,7 +7,7 @@ public class Bomb : Block
 {
     public override void ClickListener()
     {
-        if (pyramid == null || GameState.instance.isGameEnd) return;
+        if (pyramid == null || GameState.Instance.isGameEnd) return;
         Remove();
     }
 

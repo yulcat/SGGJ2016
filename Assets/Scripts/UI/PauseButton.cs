@@ -10,7 +10,7 @@ public class PauseButton : MonoBehaviour
 
     public void OpenPauseWindow()
     {
-        if (Pause.paused) return;
+        if (Pause.Paused) return;
         Pause.Open();
     }
 
@@ -27,7 +27,7 @@ public class PauseButton : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Pause.paused) button.interactable = false;
+        if (Pause.Paused) button.interactable = false;
         else button.interactable = true;
     }
 }

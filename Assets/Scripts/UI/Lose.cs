@@ -1,15 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine.UI;
 
 public class Lose : Window
 {
     public Text text;
-    public GameState.LoseCause cause;
 
+    [UsedImplicitly]
     public void ReloadCurrentStage()
     {
-        if (HeartManager.HeartLeft <= 0)
+        if (HeartManager.HeartLeft < GameState.GetHeartCost())
         {
             WindowHeartInsufficient.Open();
             return;
@@ -40,9 +40,12 @@ public class Lose : Window
             case GameState.LoseCause.Boomed:
                 text.text = MessageData.dictionary["fail_boomed"];
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(cause), cause, null);
         }
     }
 
+    [UsedImplicitly]
     public void ToStageSelect()
     {
         StageManager.LoadStageSelectScene();

@@ -122,7 +122,7 @@ public class Block : PyramidComponent, ICollidable
 
     public virtual void ClickListener()
     {
-        if (pyramid == null || GameState.instance.isGameEnd) return;
+        if (pyramid == null || GameState.Instance.isGameEnd) return;
         if (++currentClickCount == ClickCount)
         {
             Remove();

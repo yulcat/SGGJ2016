@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using JetBrains.Annotations;
 using UnityEngine.UI;
 
 public class WindowStart : Window
@@ -16,9 +14,10 @@ public class WindowStart : Window
         OpenWindow();
     }
 
+    [UsedImplicitly]
     public void StartStage()
     {
-        if (HeartManager.HeartLeft <= 0)
+        if (HeartManager.HeartLeft < GameState.GetHeartCost())
         {
             WindowHeartInsufficient.Open();
             return;

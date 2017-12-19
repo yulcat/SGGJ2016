@@ -30,7 +30,7 @@ public class HeartManager : MonoBehaviour
 
     public static void SpendHeart()
     {
-        var heartCost = DB.characterDB[(int) GameState.SelectedCharacter].heartCost;
+        var heartCost = DB.characterDB[(int) GameState.selectedCharacter].heartCost;
         SpendHeart(heartCost);
     }
 

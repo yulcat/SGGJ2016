@@ -27,7 +27,7 @@ public class TutorialStarter : MonoBehaviour
 
     IEnumerator GameEndCheck()
     {
-        while (!GameState.instance.isGameEnd)
+        while (!GameState.Instance.isGameEnd)
         {
             yield return null;
         }

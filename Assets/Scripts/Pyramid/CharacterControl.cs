@@ -26,7 +26,7 @@ public class CharacterControl : PyramidComponent
         currentFloor = Mathf.RoundToInt(transform.localPosition.y * 2f);
         try
         {
-            anim = characterAnimators[(int) GameState.SelectedCharacter];
+            anim = characterAnimators[(int) GameState.selectedCharacter];
         }
         catch
         {
@@ -112,7 +112,7 @@ public class CharacterControl : PyramidComponent
         while (true)
         {
             yield return null;
-            if (Pause.paused) continue;
+            if (Pause.Paused) continue;
             if (pyramid == null) continue;
             if (floating) yield return StartCoroutine(WaitForLanding());
             var currentX = transform.localPosition.x;

@@ -10,7 +10,7 @@ public class TutorialPause : MonoBehaviour
     void OnEnable()
     {
         Time.timeScale = 0f;
-        Pause.paused = true;
+        Pause.Paused = true;
     }
 
     /// <summary>
@@ -19,6 +19,6 @@ public class TutorialPause : MonoBehaviour
     void OnDisable()
     {
         Time.timeScale = 1f;
-        Pause.paused = false;
+        Pause.Paused = false;
     }
 }

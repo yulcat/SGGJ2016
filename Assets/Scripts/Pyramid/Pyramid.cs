@@ -45,7 +45,7 @@ public class Pyramid : MonoBehaviour
 
     void Update()
     {
-        if (Pause.paused) return;
+        if (Pause.Paused) return;
 
         foreach (var t in Input.touches)
         {

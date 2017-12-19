@@ -4,18 +4,19 @@ using System.Collections;
 using UnityEngine;
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 
 public class Win : Window
 {
     public Text score;
     public Text stageNumber;
     public Text stageRanking;
-    [System.NonSerializedAttribute] public Score finalScore;
+    [NonSerializedAttribute] public Score finalScore;
     public GameObject[] stars;
     int scoreShow;
     double? rankingToShow;
 
-    override protected void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         foreach (var star in stars)
@@ -61,14 +62,16 @@ public class Win : Window
         }
     }
 
+    [UsedImplicitly]
     public void ToNextStage()
     {
         StageManager.LoadNextStageSelectScene();
     }
 
+    [UsedImplicitly]
     public void ReloadCurrentStage()
     {
-        if (HeartManager.HeartLeft <= 0)
+        if (HeartManager.HeartLeft < GameState.GetHeartCost())
         {
             WindowHeartInsufficient.Open();
             return;
@@ -77,6 +80,7 @@ public class Win : Window
         StageManager.ReloadCurrentStage();
     }
 
+    [UsedImplicitly]
     public void ToStageSelect()
     {
         StageManager.LoadStageSelectScene();

@@ -37,7 +37,7 @@ public class CharacterSelect : MonoBehaviour
             TryUnlockCharacter(index);
             return;
         }
-        GameState.SelectedCharacter = (CharacterType) index;
+        GameState.selectedCharacter = (CharacterType) index;
         cursor.transform.DOMove(characters[index].transform.position, 0.3f, true).SetEase(Ease.OutBack);
     }
 

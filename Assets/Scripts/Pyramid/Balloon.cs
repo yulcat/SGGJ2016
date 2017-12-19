@@ -45,7 +45,7 @@ public class Balloon : Block
 
     public override void ClickListener()
     {
-        if (GameState.instance.isGameEnd) return;
+        if (GameState.Instance.isGameEnd) return;
         Remove();
     }
 }

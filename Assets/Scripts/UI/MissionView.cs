@@ -11,12 +11,12 @@ public class MissionView : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (GameState.instance.mission == null || GameState.instance.mission.Count == 0)
+        if (GameState.Instance.mission == null || GameState.Instance.mission.Count == 0)
         {
             gameObject.SetActive(false);
             return;
         }
-        foreach (var kvp in GameState.instance.mission)
+        foreach (var kvp in GameState.Instance.mission)
         {
             var instanciated = Instantiate<GameObject>(missionIconPrefab);
             instanciated.transform.SetParent(transform, false);
@@ -26,7 +26,7 @@ public class MissionView : MonoBehaviour
             icons.Add(icon);
             icon.SetIcon(kvp.Key, theme, kvp.Value);
         }
-        GameState.instance.AccomplishedListener += UpdateIcon;
+        GameState.Instance.accomplishedListener += UpdateIcon;
     }
 
     void UpdateIcon(Dictionary<string, int> accomplished)
