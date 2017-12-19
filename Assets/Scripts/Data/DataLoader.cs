@@ -10,6 +10,7 @@ public class DataLoader : MonoBehaviour
 {
     Dictionary<string, int> downloadTime = new Dictionary<string, int>();
     static DataLoader _instance;
+
     static DataLoader instance
     {
         get
@@ -22,12 +23,15 @@ public class DataLoader : MonoBehaviour
     }
 
     public static void RequestLoad(IDataStorage db, int sheetId)
-    => instance.StartCoroutine(instance.LoadFromWeb(db, sheetId));
+        => instance.StartCoroutine(instance.LoadFromWeb(db, sheetId));
 
     IEnumerator LoadFromWeb(IDataStorage db, int sheetId)
     {
         if (!IsDownloadNeeded(sheetId)) yield break;
-        var www = new WWW($@"https://docs.google.com/spreadsheets/d/1gXAkxrZYqdVe9ALyeMdLY1Umd1jW3QWtPiA9FBF40GA/export?format=csv&gid={sheetId}");
+        var www = new WWW(
+            $@"https://docs.google.com/spreadsheets/d/1gXAkxrZYqdVe9ALyeMdLY1Umd1jW3QWtPiA9FBF40GA/export?format=csv&gid={
+                    sheetId
+                }");
         yield return www;
         db.SetData(www.text);
         downloadTime[sheetId.ToString()] = GetUnixEpoch(DateTime.UtcNow);
@@ -56,9 +60,9 @@ public class DataLoader : MonoBehaviour
     private static int GetUnixEpoch(DateTime dateTime)
     {
         var unixTime = dateTime.ToUniversalTime() -
-            new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                       new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        return (int)unixTime.TotalSeconds;
+        return (int) unixTime.TotalSeconds;
     }
 }
 
@@ -106,7 +110,8 @@ public abstract class DictionaryData<TValue, TSelf> :
     {
         dic = CSVToDictionary(value);
         Debug.Log($"Writing File By : {this.GetType().Name} At : {Application.persistentDataPath}");
-        if (!System.IO.Directory.Exists(Application.persistentDataPath)) System.IO.Directory.CreateDirectory(Application.persistentDataPath);
+        if (!System.IO.Directory.Exists(Application.persistentDataPath))
+            System.IO.Directory.CreateDirectory(Application.persistentDataPath);
         System.IO.File.WriteAllText(path, value);
     }
 
@@ -134,11 +139,13 @@ public abstract class DictionaryData<TValue, TSelf> :
     }
 }
 
-public abstract class ListData<TValue, TSelf> : IDataStorage, IEnumerable<TValue> where TSelf : ListData<TValue, TSelf>, new()
+public abstract class ListData<TValue, TSelf> : IDataStorage, IEnumerable<TValue>
+    where TSelf : ListData<TValue, TSelf>, new()
 {
     private List<TValue> list;
     protected string dataPath;
     private string path => System.IO.Path.Combine(Application.persistentDataPath, dataPath);
+
     public TValue this[int index]
     {
         get
@@ -160,7 +167,8 @@ public abstract class ListData<TValue, TSelf> : IDataStorage, IEnumerable<TValue
     {
         list = CSVToTValue(value);
         Debug.Log($"Writing File By : {this.GetType().Name} At : {Application.persistentDataPath}");
-        if (!System.IO.Directory.Exists(Application.persistentDataPath)) System.IO.Directory.CreateDirectory(Application.persistentDataPath);
+        if (!System.IO.Directory.Exists(Application.persistentDataPath))
+            System.IO.Directory.CreateDirectory(Application.persistentDataPath);
         System.IO.File.WriteAllText(path, value);
     }
 

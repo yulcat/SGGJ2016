@@ -6,6 +6,7 @@ public class Lose : Window
 {
     public Text text;
     public GameState.LoseCause cause;
+
     public void ReloadCurrentStage()
     {
         if (HeartManager.heartLeft <= 0)
@@ -16,6 +17,7 @@ public class Lose : Window
         HeartManager.SpendHeart();
         StageManager.ReloadCurrentStage();
     }
+
     public void SetMessage(GameState.LoseCause cause)
     {
         switch (cause)
@@ -40,6 +42,7 @@ public class Lose : Window
                 break;
         }
     }
+
     public void ToStageSelect()
     {
         StageManager.LoadStageSelectScene();

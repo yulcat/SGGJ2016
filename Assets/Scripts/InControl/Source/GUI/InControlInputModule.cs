@@ -422,7 +422,8 @@ namespace InControl
 			ProcessDrag( mousePointerEventData.GetButtonState( PointerEventData.InputButton.Middle ).eventData.buttonData );
 			if (!Mathf.Approximately( eventData.buttonData.scrollDelta.sqrMagnitude, 0 ))
 			{
-				var eventHandler = ExecuteEvents.GetEventHandler<IScrollHandler>( eventData.buttonData.pointerCurrentRaycast.gameObject );
+				var eventHandler =
+ExecuteEvents.GetEventHandler<IScrollHandler>( eventData.buttonData.pointerCurrentRaycast.gameObject );
 				ExecuteEvents.ExecuteHierarchy<IScrollHandler>( eventHandler, eventData.buttonData, ExecuteEvents.scrollHandler );
 			}
 		}
@@ -441,7 +442,8 @@ namespace InControl
 				buttonData.pressPosition = buttonData.position;
 				buttonData.pointerPressRaycast = buttonData.pointerCurrentRaycast;
 				DeselectIfSelectionChanged( gameObject, buttonData );
-				var gameObject2 = ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>( gameObject, buttonData, ExecuteEvents.pointerDownHandler );
+				var gameObject2 =
+ExecuteEvents.ExecuteHierarchy<IPointerDownHandler>( gameObject, buttonData, ExecuteEvents.pointerDownHandler );
 				if (gameObject2 == null)
 				{
 					gameObject2 = ExecuteEvents.GetEventHandler<IPointerClickHandler>( gameObject );
@@ -517,4 +519,3 @@ namespace InControl
 	}
 }
 #endif
-

@@ -5,122 +5,126 @@ using System.Collections.Generic;
 
 namespace InControl.iOS.Xcode
 {
+    class PBXElement
+    {
+        protected PBXElement()
+        {
+        }
 
-	class PBXElement
-	{
-		protected PBXElement()
-		{
-		}
+        // convenience methods
+        public string AsString()
+        {
+            return ((PBXElementString) this).value;
+        }
 
-		// convenience methods
-		public string AsString()
-		{
-			return ((PBXElementString) this).value;
-		}
-		public PBXElementArray AsArray()
-		{
-			return (PBXElementArray) this;
-		}
-		public PBXElementDict AsDict()
-		{
-			return (PBXElementDict) this;
-		}
+        public PBXElementArray AsArray()
+        {
+            return (PBXElementArray) this;
+        }
 
-		public PBXElement this[ string key ]
-		{
-			get { return AsDict()[key]; }
-			set { AsDict()[key] = value; }
-		}
-	}
+        public PBXElementDict AsDict()
+        {
+            return (PBXElementDict) this;
+        }
 
-	class PBXElementString : PBXElement
-	{
-		public PBXElementString( string v )
-		{
-			value = v;
-		}
+        public PBXElement this[string key]
+        {
+            get { return AsDict()[key]; }
+            set { AsDict()[key] = value; }
+        }
+    }
 
-		public string value;
-	}
+    class PBXElementString : PBXElement
+    {
+        public PBXElementString(string v)
+        {
+            value = v;
+        }
 
-	class PBXElementDict : PBXElement
-	{
-		public PBXElementDict() : base()
-		{
-		}
+        public string value;
+    }
 
-		private Dictionary<string, PBXElement> m_PrivateValue = new Dictionary<string, PBXElement>();
-		public IDictionary<string, PBXElement> values { get { return m_PrivateValue; } }
+    class PBXElementDict : PBXElement
+    {
+        public PBXElementDict() : base()
+        {
+        }
 
-		new public PBXElement this[ string key ]
-		{
-			get
-			{
-				if (values.ContainsKey( key ))
-					return values[key];
-				return null;
-			}
-			set { this.values[key] = value; }
-		}
+        private Dictionary<string, PBXElement> m_PrivateValue = new Dictionary<string, PBXElement>();
 
-		public bool Contains( string key )
-		{
-			return values.ContainsKey( key );
-		}
+        public IDictionary<string, PBXElement> values
+        {
+            get { return m_PrivateValue; }
+        }
 
-		public void Remove( string key )
-		{
-			values.Remove( key );
-		}
+        new public PBXElement this[string key]
+        {
+            get
+            {
+                if (values.ContainsKey(key))
+                    return values[key];
+                return null;
+            }
+            set { this.values[key] = value; }
+        }
 
-		public void SetString( string key, string val )
-		{
-			values[key] = new PBXElementString( val );
-		}
+        public bool Contains(string key)
+        {
+            return values.ContainsKey(key);
+        }
 
-		public PBXElementArray CreateArray( string key )
-		{
-			var v = new PBXElementArray();
-			values[key] = v;
-			return v;
-		}
+        public void Remove(string key)
+        {
+            values.Remove(key);
+        }
 
-		public PBXElementDict CreateDict( string key )
-		{
-			var v = new PBXElementDict();
-			values[key] = v;
-			return v;
-		}
-	}
+        public void SetString(string key, string val)
+        {
+            values[key] = new PBXElementString(val);
+        }
 
-	class PBXElementArray : PBXElement
-	{
-		public PBXElementArray() : base()
-		{
-		}
-		public List<PBXElement> values = new List<PBXElement>();
+        public PBXElementArray CreateArray(string key)
+        {
+            var v = new PBXElementArray();
+            values[key] = v;
+            return v;
+        }
 
-		// convenience methods
-		public void AddString( string val )
-		{
-			values.Add( new PBXElementString( val ) );
-		}
+        public PBXElementDict CreateDict(string key)
+        {
+            var v = new PBXElementDict();
+            values[key] = v;
+            return v;
+        }
+    }
 
-		public PBXElementArray AddArray()
-		{
-			var v = new PBXElementArray();
-			values.Add( v );
-			return v;
-		}
+    class PBXElementArray : PBXElement
+    {
+        public PBXElementArray() : base()
+        {
+        }
 
-		public PBXElementDict AddDict()
-		{
-			var v = new PBXElementDict();
-			values.Add( v );
-			return v;
-		}
-	}
+        public List<PBXElement> values = new List<PBXElement>();
 
+        // convenience methods
+        public void AddString(string val)
+        {
+            values.Add(new PBXElementString(val));
+        }
+
+        public PBXElementArray AddArray()
+        {
+            var v = new PBXElementArray();
+            values.Add(v);
+            return v;
+        }
+
+        public PBXElementDict AddDict()
+        {
+            var v = new PBXElementDict();
+            values.Add(v);
+            return v;
+        }
+    }
 }
 // namespace UnityEditor.iOS.Xcode
-

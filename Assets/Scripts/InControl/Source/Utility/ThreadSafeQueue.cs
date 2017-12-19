@@ -1,9 +1,9 @@
 ﻿namespace InControl
 {
-	using System.Collections.Generic;
+    using System.Collections.Generic;
 
 
-	internal class ThreadSafeQueue<T>
+    internal class ThreadSafeQueue<T>
     {
         object sync;
         Queue<T> data;
@@ -24,7 +24,7 @@
 
 
         public void Enqueue(T item)
-        { 
+        {
             lock (sync)
             {
                 data.Enqueue(item);
@@ -42,7 +42,7 @@
                     return true;
                 }
             }
-					
+
             item = default(T);
             return false;
         }
@@ -75,4 +75,3 @@
         }
     }
 }
-

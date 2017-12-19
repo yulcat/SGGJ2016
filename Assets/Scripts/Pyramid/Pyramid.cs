@@ -13,15 +13,14 @@ public class Pyramid : MonoBehaviour
     public float torqueSum;
     public float inertia;
     public bool calculate = false;
-    [System.NonSerializedAttribute]
-    public float maxRotation;
-    [System.NonSerializedAttribute]
-    public int maxY;
-    [System.NonSerialized]
-    public int coinCount;
+    [System.NonSerializedAttribute] public float maxRotation;
+    [System.NonSerializedAttribute] public int maxY;
+    [System.NonSerialized] public int coinCount;
     private Plane inputPlane;
     private Vector3 recentClick;
+
     private bool initializedByBuilder = false;
+
     // Use this for initialization
     void Start()
     {
@@ -34,6 +33,7 @@ public class Pyramid : MonoBehaviour
         maxY = GetMaxY();
         coinCount = GetCoinCount();
     }
+
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
     {
         // blocks.ForEach(b => Destroy(b.gameObject));
@@ -42,6 +42,7 @@ public class Pyramid : MonoBehaviour
         blocks.ForEach(b => b.SetPyramid(this));
         initializedByBuilder = true;
     }
+
     void Update()
     {
         if (Pause.paused) return;
@@ -56,6 +57,7 @@ public class Pyramid : MonoBehaviour
             RayCheck(Input.mousePosition);
         }
     }
+
     void RayCheck(Vector3 position)
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
@@ -66,6 +68,7 @@ public class Pyramid : MonoBehaviour
             PushBlock(transform.InverseTransformPoint(recentClick));
         }
     }
+
     void PushBlock(Vector3 clickPosition)
     {
         var block = GetBlock(b => IsClicked(b, clickPosition)) as Block;
@@ -81,14 +84,15 @@ public class Pyramid : MonoBehaviour
             block.ClickListener();
         }
     }
+
     bool IsClicked(PyramidComponent obj, Vector3 clickPosition)
     {
         var block = obj as Block;
         if (block == null) return false;
         var y = Mathf.FloorToInt(clickPosition.y) * 2 + 1;
         return block.position.y == y
-            && block.position.x + 1 >= clickPosition.x * 2
-            && block.position.x - 1 <= clickPosition.x * 2;
+               && block.position.x + 1 >= clickPosition.x * 2
+               && block.position.x - 1 <= clickPosition.x * 2;
     }
 
     public void RemoveBlock(PyramidComponent block, bool refresh = true)
@@ -101,6 +105,7 @@ public class Pyramid : MonoBehaviour
         if (refresh)
             RefreshBlocks();
     }
+
     public void RefreshBlocks()
     {
         blocks.Do(b => b.RefreshPosition());
@@ -110,10 +115,12 @@ public class Pyramid : MonoBehaviour
     {
         return blocks.Any(func);
     }
+
     public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
     {
         return blocks.FirstOrDefault(func);
     }
+
     public void CollapseAll()
     {
         blocks.ForEach(b => b.FallOff(false));
@@ -145,6 +152,7 @@ public class Pyramid : MonoBehaviour
         ApplyAngularVelocity();
         angularVelocity *= 1 - angularDamp;
     }
+
     float GetInertiaSum(float inertia, PyramidComponent comp)
     {
         var mass = comp.GetComponent<Rigidbody>().mass;
@@ -152,10 +160,12 @@ public class Pyramid : MonoBehaviour
         var multiplier = comp is Balloon ? 0 : 1;
         return (mass * r * r * multiplier) + inertia;
     }
+
     public void ApplyMomentum(float momentum)
     {
         angularVelocity += momentum * Time.deltaTime / inertia;
     }
+
     void ApplyAngularVelocity()
     {
         var currentRot = transform.localRotation.eulerAngles.z;
@@ -169,12 +179,14 @@ public class Pyramid : MonoBehaviour
             CollapseAll();
         }
     }
+
     int GetMaxY()
     {
         return blocks
             .Where(block => block.BlockType != BlockType.Character)
             .Max(block => (new XY(block.transform.localPosition).y + 1) / 2);
     }
+
     int GetCoinCount()
     {
         return blocks.Count(block => block.BlockType == BlockType.Coin);

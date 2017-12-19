@@ -10,6 +10,7 @@ public class CharacterSelect : MonoBehaviour
     public GameObject[] characters;
     public GameObject cursor;
     Action unlockResult;
+
     void OnEnable()
     {
         for (int i = 1; i < characters.Length; i++)
@@ -38,13 +39,15 @@ public class CharacterSelect : MonoBehaviour
             TryUnlockCharacter(index);
             return;
         }
-        GameState.SelectedCharacter = (CharacterType)index;
+        GameState.SelectedCharacter = (CharacterType) index;
         cursor.transform.DOMove(characters[index].transform.position, 0.3f, true).SetEase(Ease.OutBack);
     }
 
     private void TryUnlockCharacter(int index)
     {
-        WindowYNPop.OpenYNPop(string.Format(DB.MessageDB["charBuy_confirm"], DB.characterDB[index].name, DB.characterDB[index].price), () => UnlockSuccess(index));
+        WindowYNPop.OpenYNPop(
+            string.Format(DB.MessageDB["charBuy_confirm"], DB.characterDB[index].name, DB.characterDB[index].price),
+            () => UnlockSuccess(index));
     }
 
     private void UnlockSuccess(int index)

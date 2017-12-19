@@ -7,7 +7,8 @@ namespace UnityStandardAssets.ImageEffects
     [AddComponentMenu("")]
     public class ImageEffects
     {
-        public static void RenderDistortion(Material material, RenderTexture source, RenderTexture destination, float angle, Vector2 center, Vector2 radius)
+        public static void RenderDistortion(Material material, RenderTexture source, RenderTexture destination,
+            float angle, Vector2 center, Vector2 radius)
         {
             bool invertY = source.texelSize.y < 0.0f;
             if (invertY)
@@ -20,7 +21,7 @@ namespace UnityStandardAssets.ImageEffects
 
             material.SetMatrix("_RotationMatrix", rotationMatrix);
             material.SetVector("_CenterRadius", new Vector4(center.x, center.y, radius.x, radius.y));
-            material.SetFloat("_Angle", angle*Mathf.Deg2Rad);
+            material.SetFloat("_Angle", angle * Mathf.Deg2Rad);
 
             Graphics.Blit(source, destination, material);
         }

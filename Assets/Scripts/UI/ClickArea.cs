@@ -15,8 +15,16 @@ public class ClickArea : Graphic, IPointerDownHandler
         OnClick.Invoke();
     }
 
-    public override void SetMaterialDirty() { return; }
-    public override void SetVerticesDirty() { return; }
+    public override void SetMaterialDirty()
+    {
+        return;
+    }
+
+    public override void SetVerticesDirty()
+    {
+        return;
+    }
+
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();

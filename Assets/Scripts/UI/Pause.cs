@@ -2,22 +2,19 @@
 using System.Collections;
 using DG.Tweening;
 
-public class Pause : Window {
+public class Pause : Window
+{
     public static bool paused
     {
-        get
-        {
-            return gamePaused;
-        }
-        set
-        {
-            gamePaused = value;
-        }
+        get { return gamePaused; }
+        set { gamePaused = value; }
     }
+
     public UnityEngine.UI.Slider BGMSlider;
     public UnityEngine.UI.Slider SFXSlider;
     static Pause instanciated;
     static bool gamePaused;
+
     public static void Open()
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -27,7 +24,7 @@ public class Pause : Window {
             return;
         }
         GameObject newWindow;
-        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StageSelect")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StageSelect")
             newWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_setting"));
         else
             newWindow = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Window_menu"));
@@ -35,34 +32,40 @@ public class Pause : Window {
         instanciated = newWindow.GetComponent<Pause>();
         instanciated.OpenWindow();
     }
+
     public void ReloadCurrentStage()
-	{
+    {
         BackToPrevWindow();
-		if(HeartManager.heartLeft <= 0)
-		{
-			WindowHeartInsufficient.Open();
-			return;
-		}
-		HeartManager.SpendHeart();
-		StageManager.ReloadCurrentStage();
-	}
+        if (HeartManager.heartLeft <= 0)
+        {
+            WindowHeartInsufficient.Open();
+            return;
+        }
+        HeartManager.SpendHeart();
+        StageManager.ReloadCurrentStage();
+    }
+
     public void ToStageSelect()
-	{
+    {
         BackToPrevWindow();
-		StageManager.LoadStageSelectScene();
-	}
+        StageManager.LoadStageSelectScene();
+    }
+
     public void SetBGVolume(UnityEngine.UI.Slider slider)
     {
         VolumeControl.SetBGVolume(slider.value);
     }
+
     public void SetSFXVolume(UnityEngine.UI.Slider slider)
     {
         VolumeControl.SetSEVolume(slider.value);
     }
+
     public void ShowCredit()
     {
         WindowCredit.OpenCredit();
     }
+
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>
@@ -71,9 +74,10 @@ public class Pause : Window {
         base.OnEnable();
         Time.timeScale = 0f;
         gamePaused = true;
-        if(BGMSlider != null) BGMSlider.value = VolumeControl.bgVol;
-        if(SFXSlider != null) SFXSlider.value = VolumeControl.seVol;
+        if (BGMSlider != null) BGMSlider.value = VolumeControl.bgVol;
+        if (SFXSlider != null) SFXSlider.value = VolumeControl.seVol;
     }
+
     /// <summary>
     /// This function is called when the behaviour becomes disabled or inactive.
     /// </summary>

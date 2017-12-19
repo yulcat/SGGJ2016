@@ -10,23 +10,28 @@ public class Win : Window
     public Text score;
     public Text stageNumber;
     public Text stageRanking;
-    [System.NonSerializedAttribute]
-    public Score finalScore;
+    [System.NonSerializedAttribute] public Score finalScore;
     public GameObject[] stars;
     int scoreShow;
     double? rankingToShow;
+
     override protected void OnEnable()
     {
         base.OnEnable();
-        foreach (var star in stars) { star.SetActive(false); }
+        foreach (var star in stars)
+        {
+            star.SetActive(false);
+        }
         stageNumber.text = FindObjectOfType<PyramidBuilder>().stageToLoad.ToString();
     }
+
     public void WinGame()
     {
         StartCoroutine(ShowScoreUp());
         StartCoroutine(ShowStars(finalScore.stars));
         // HeartManager.AddHeart();
     }
+
     IEnumerator ShowStars(int starCount)
     {
         foreach (var star in stars.Take(starCount))
@@ -36,10 +41,11 @@ public class Win : Window
             yield return new WaitForSeconds(0.1333f);
         }
     }
+
     IEnumerator ShowScoreUp()
     {
         scoreShow = 0;
-        DOTween.To(() => (float)scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore.score, 2)
+        DOTween.To(() => (float) scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore.score, 2)
             .SetEase(Ease.OutExpo);
         while (scoreShow != finalScore.score)
         {
@@ -54,10 +60,12 @@ public class Win : Window
             stageRanking.text = "??%";
         }
     }
+
     public void ToNextStage()
     {
         StageManager.LoadNextStageSelectScene();
     }
+
     public void ReloadCurrentStage()
     {
         if (HeartManager.heartLeft <= 0)
@@ -68,6 +76,7 @@ public class Win : Window
         HeartManager.SpendHeart();
         StageManager.ReloadCurrentStage();
     }
+
     public void ToStageSelect()
     {
         StageManager.LoadStageSelectScene();

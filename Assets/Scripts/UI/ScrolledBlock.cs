@@ -22,7 +22,7 @@ public class ScrolledBlock : ScrolledGameObject
         float x = scroll.xPosition * scrollRatio + initialX;
         var pos = transform.position;
         pos.x = x % deltaX;
-        var index = localIndex - ((int)(x / deltaX) * 6);
+        var index = localIndex - ((int) (x / deltaX) * 6);
         if (index != prevIndex)
             ResetBlocks(index);
         stageNumberText.text = (index + 1).ToString();
@@ -65,6 +65,7 @@ public class ScrolledBlock : ScrolledGameObject
             stageNumberText.color = Color.white;
         }
     }
+
     private void SetBlock(int blockNum)
     {
         for (int i = 0; i < blocks.Length; i++)

@@ -8,18 +8,15 @@ public class WindowPop : Window
 {
     public Text text;
     public RectTransform window;
+
     public string Message
     {
-        get
-        {
-            return text.text;
-        }
-        set
-        {
-            text.text = value;
-        }
+        get { return text.text; }
+        set { text.text = value; }
     }
+
     static WindowPop instanciated;
+
     public static void Open(string message)
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -36,6 +33,7 @@ public class WindowPop : Window
         }
         instanciated.Message = message;
     }
+
     protected override void OnEnable()
     {
         window.localScale = Vector3.one;

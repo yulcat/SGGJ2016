@@ -4,15 +4,28 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-public enum CharacterType { Bear = 0, Owl, Cat }
+public enum CharacterType
+{
+    Bear = 0,
+    Owl,
+    Cat
+}
+
 public class GameState : MonoBehaviour
 {
-    public enum LoseCause { CharacterLost = 0, BalloonLost, Crushed, Collapsed, Objective, Boomed }
+    public enum LoseCause
+    {
+        CharacterLost = 0,
+        BalloonLost,
+        Crushed,
+        Collapsed,
+        Objective,
+        Boomed
+    }
+
     public bool isGameEnd = false;
-    [System.NonSerializedAttribute]
-    public Win winMessage;
-    [System.NonSerializedAttribute]
-    public Lose loseMessage;
+    [System.NonSerializedAttribute] public Win winMessage;
+    [System.NonSerializedAttribute] public Lose loseMessage;
     public Dictionary<string, int> mission;
     Dictionary<string, int> accomplished = new Dictionary<string, int>();
     static GameState _instance;
@@ -33,6 +46,7 @@ public class GameState : MonoBehaviour
             return _instance;
         }
     }
+
     public static void Win()
     {
         if (instance.isGameEnd) return;
@@ -41,6 +55,7 @@ public class GameState : MonoBehaviour
         instance.isGameEnd = true;
         instance.Invoke("ShowWinGameMessage", 3f);
     }
+
     public static void Lose(LoseCause _cause)
     {
         if (instance.isGameEnd) return;
@@ -48,6 +63,7 @@ public class GameState : MonoBehaviour
         instance.Invoke("ShowLoseGameMessage", 3f);
         instance.loseMessage.SetMessage(_cause);
     }
+
     void Initialize()
     {
         winMessage = GetComponentInChildren<Win>(true);
@@ -63,6 +79,7 @@ public class GameState : MonoBehaviour
         mission = stageData.mission;
         pyramid = FindObjectOfType<Pyramid>();
     }
+
     public static void EndGame()
     {
         if (instance.isGameEnd) return;
@@ -75,6 +92,7 @@ public class GameState : MonoBehaviour
         if (IsMissionComplete()) Win();
         else Lose(LoseCause.Objective);
     }
+
     static bool IsMissionComplete()
     {
         foreach (var kvp in instance.mission)
@@ -98,6 +116,7 @@ public class GameState : MonoBehaviour
         }
         return true;
     }
+
     public static void Accomplished(string key, int value)
     {
         if (!instance.accomplished.ContainsKey(key))
@@ -109,6 +128,7 @@ public class GameState : MonoBehaviour
             instance.AccomplishedListener(instance.accomplished);
         }
     }
+
     void calculateScore()
     {
         Debug.Log("MaxRotation : " + pyramid.maxRotation);
@@ -125,16 +145,19 @@ public class GameState : MonoBehaviour
         if (!scoreOverPrime) stars--;
         scoreToSend = new Score(rotationScore + blockScore, stars);
     }
+
     void ShowWinGameMessage()
     {
         winMessage.finalScore = scoreToSend;
         WindowManager.instance.OpenWindow(winMessage);
         winMessage.WinGame();
     }
+
     void ShowLoseGameMessage()
     {
         WindowManager.instance.OpenWindow(loseMessage);
     }
+
     IEnumerator SendScoreToServer()
     {
         string id = System.Guid.NewGuid().ToString();
@@ -153,6 +176,7 @@ public class GameState : MonoBehaviour
         Debug.Log(www.text);
         winMessage.SetRanking(Convert.ToDouble(www.text));
     }
+
     void CheckAndUpdateHighscore(string id, int stage)
     {
         var clearData = new SaveDataManager.ClearData();
@@ -184,6 +208,7 @@ public class Score
 {
     public readonly int score;
     public readonly int stars;
+
     public Score(int _score, int _stars)
     {
         score = _score;

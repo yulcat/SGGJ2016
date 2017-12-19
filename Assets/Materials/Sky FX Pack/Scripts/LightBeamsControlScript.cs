@@ -6,11 +6,10 @@ public class LightBeamsControlScript : MonoBehaviour
     public GameObject SourceObject;
     public GameObject TargetObject;
 
-    
 
     public GameObject RayPrefab;
-    
-	// Use this for initialization
+
+    // Use this for initialization
 
     public Color RayColor;
 
@@ -56,8 +55,7 @@ public class LightBeamsControlScript : MonoBehaviour
         ray.ResetRay();
     }
 
-    
-    
+
     void SpawnRay()
     {
         if (Spawned < NumRays)
@@ -71,18 +69,18 @@ public class LightBeamsControlScript : MonoBehaviour
         currentCountdown = spawnInterval;
     }
 
-	void Start () 
+    void Start()
     {
         spawnInterval = TimeToSpawnAll / NumRays;
 
         rays = new RayBehavior[NumRays];
 
         SpawnRay();
-	}
+    }
 
-	
-	// Update is called once per frame
-	void Update () 
+
+    // Update is called once per frame
+    void Update()
     {
         if (Spawned < NumRays)
         {
@@ -93,6 +91,5 @@ public class LightBeamsControlScript : MonoBehaviour
 
             currentCountdown -= Time.deltaTime;
         }
-        
-	}
+    }
 }

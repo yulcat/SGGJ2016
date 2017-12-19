@@ -4,10 +4,10 @@ using UnityEngine;
 namespace UnityStandardAssets.ImageEffects
 {
 #if UNITY_5_4_OR_NEWER
-	[ImageEffectAllowedInSceneView]
+    [ImageEffectAllowedInSceneView]
 #endif
-	[ExecuteInEditMode]
-    [RequireComponent(typeof (Camera))]
+    [ExecuteInEditMode]
+    [RequireComponent(typeof(Camera))]
     [AddComponentMenu("Image Effects/Color Adjustments/Tonemapping")]
     public class Tonemapping : PostEffectsBase
     {
@@ -38,6 +38,7 @@ namespace UnityStandardAssets.ImageEffects
 
         // CURVE parameter
         public AnimationCurve remapCurve;
+
         private Texture2D curveTex = null;
 
         // UNCHARTED parameter
@@ -45,11 +46,13 @@ namespace UnityStandardAssets.ImageEffects
 
         // REINHARD parameter
         public float middleGrey = 0.4f;
+
         public float white = 2.0f;
         public float adaptionSpeed = 1.5f;
 
         // usual & internal stuff
         public Shader tonemapper = null;
+
         public bool validRenderTextureFormat = true;
         private Material tonemapMaterial = null;
         private RenderTexture rt = null;
@@ -84,14 +87,14 @@ namespace UnityStandardAssets.ImageEffects
             {
                 if (remapCurve.length > 0)
                     range = remapCurve[remapCurve.length - 1].time;
-                for (float i = 0.0f; i <= 1.0f; i += 1.0f/255.0f)
+                for (float i = 0.0f; i <= 1.0f; i += 1.0f / 255.0f)
                 {
-                    float c = remapCurve.Evaluate(i*1.0f*range);
-                    curveTex.SetPixel((int) Mathf.Floor(i*255.0f), 0, new Color(c, c, c));
+                    float c = remapCurve.Evaluate(i * 1.0f * range);
+                    curveTex.SetPixel((int) Mathf.Floor(i * 255.0f), 0, new Color(c, c, c));
                 }
                 curveTex.Apply();
             }
-            return 1.0f/range;
+            return 1.0f / range;
         }
 
 
@@ -121,7 +124,9 @@ namespace UnityStandardAssets.ImageEffects
             {
                 return false;
             }
-            rtFormat = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RGHalf) ? RenderTextureFormat.RGHalf : RenderTextureFormat.ARGBHalf;
+            rtFormat = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.RGHalf)
+                ? RenderTextureFormat.RGHalf
+                : RenderTextureFormat.ARGBHalf;
             rt = new RenderTexture(1, 1, 0, rtFormat);
             rt.hideFlags = HideFlags.DontSave;
             return true;
@@ -184,7 +189,7 @@ namespace UnityStandardAssets.ImageEffects
 
             if (type == TonemapperType.OptimizedHejiDawson)
             {
-                tonemapMaterial.SetFloat("_ExposureAdjustment", 0.5f*exposureAdjustment);
+                tonemapMaterial.SetFloat("_ExposureAdjustment", 0.5f * exposureAdjustment);
                 Graphics.Blit(source, destination, tonemapMaterial, 7);
                 return;
             }
@@ -196,18 +201,20 @@ namespace UnityStandardAssets.ImageEffects
 
             // AdaptiveReinhardAutoWhite will calculate white value automagically
 
-            bool freshlyBrewedInternalRt = CreateInternalRenderTexture(); // this retrieves rtFormat, so should happen before rt allocations
+            bool freshlyBrewedInternalRt =
+                CreateInternalRenderTexture(); // this retrieves rtFormat, so should happen before rt allocations
 
-            RenderTexture rtSquared = RenderTexture.GetTemporary((int) adaptiveTextureSize, (int) adaptiveTextureSize, 0, rtFormat);
+            RenderTexture rtSquared =
+                RenderTexture.GetTemporary((int) adaptiveTextureSize, (int) adaptiveTextureSize, 0, rtFormat);
             Graphics.Blit(source, rtSquared);
 
-            int downsample = (int) Mathf.Log(rtSquared.width*1.0f, 2);
+            int downsample = (int) Mathf.Log(rtSquared.width * 1.0f, 2);
 
             int div = 2;
             var rts = new RenderTexture[downsample];
             for (int i = 0; i < downsample; i++)
             {
-                rts[i] = RenderTexture.GetTemporary(rtSquared.width/div, rtSquared.width/div, 0, rtFormat);
+                rts[i] = RenderTexture.GetTemporary(rtSquared.width / div, rtSquared.width / div, 0, rtFormat);
                 div *= 2;
             }
 
@@ -249,7 +256,7 @@ namespace UnityStandardAssets.ImageEffects
 #endif
 
             middleGrey = middleGrey < 0.001f ? 0.001f : middleGrey;
-            tonemapMaterial.SetVector("_HdrParams", new Vector4(middleGrey, middleGrey, middleGrey, white*white));
+            tonemapMaterial.SetVector("_HdrParams", new Vector4(middleGrey, middleGrey, middleGrey, white * white));
             tonemapMaterial.SetTexture("_SmallTex", rt);
             if (type == TonemapperType.AdaptiveReinhard)
             {

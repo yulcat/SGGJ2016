@@ -12,15 +12,15 @@ public class StageMakerEditor : Editor
 
         if (GUILayout.Button("Make New Stage"))
         {
-			maker.MakeStage();
+            maker.MakeStage();
         }
         if (GUILayout.Button("Save Current Stage"))
         {
-			maker.SaveStage();
+            maker.SaveStage();
         }
         if (GUILayout.Button("Overwrite Current Stage"))
         {
-			maker.OverwriteStage();
+            maker.OverwriteStage();
         }
     }
 }

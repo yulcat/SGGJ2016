@@ -1,66 +1,66 @@
 namespace InControl
 {
-	using UnityEngine;
+    using UnityEngine;
 
 
-	public class Touch
-	{
-		public readonly static int FingerID_None = -1;
-		public readonly static int FingerID_Mouse = -2;
+    public class Touch
+    {
+        public readonly static int FingerID_None = -1;
+        public readonly static int FingerID_Mouse = -2;
 
-		public int fingerId;
+        public int fingerId;
 
-		public TouchPhase phase;
-		public int tapCount;
+        public TouchPhase phase;
+        public int tapCount;
 
-		public Vector2 position;
-		public Vector2 deltaPosition;
-		public Vector2 lastPosition;
+        public Vector2 position;
+        public Vector2 deltaPosition;
+        public Vector2 lastPosition;
 
-		public float deltaTime;
-		public ulong updateTick;
+        public float deltaTime;
+        public ulong updateTick;
 
-		public TouchType type;
+        public TouchType type;
 
-		public float altitudeAngle;
-		public float azimuthAngle;
-		public float maximumPossiblePressure;
-		public float pressure;
-		public float radius;
-		public float radiusVariance;
-
-
-		internal Touch()
-		{
-			fingerId = FingerID_None;
-			phase = TouchPhase.Ended;
-		}
+        public float altitudeAngle;
+        public float azimuthAngle;
+        public float maximumPossiblePressure;
+        public float pressure;
+        public float radius;
+        public float radiusVariance;
 
 
-		internal void Reset()
-		{
-			fingerId = FingerID_None;
-			phase = TouchPhase.Ended;
-			tapCount = 0;
-			position = Vector2.zero;
-			deltaPosition = Vector2.zero;
-			lastPosition = Vector2.zero;
-			deltaTime = 0.0f;
-			updateTick = 0;
-			type = (TouchType) 0;
-			altitudeAngle = 0.0f;
-			azimuthAngle = 0.0f;
-			maximumPossiblePressure = 0.0f;
-			pressure = 0.0f;
-			radius = 0.0f;
-			radiusVariance = 0.0f;
-		}
+        internal Touch()
+        {
+            fingerId = FingerID_None;
+            phase = TouchPhase.Ended;
+        }
 
 
-		internal void SetWithTouchData( UnityEngine.Touch touch, ulong updateTick, float deltaTime )
-		{
-			phase = touch.phase;
-			tapCount = touch.tapCount;
+        internal void Reset()
+        {
+            fingerId = FingerID_None;
+            phase = TouchPhase.Ended;
+            tapCount = 0;
+            position = Vector2.zero;
+            deltaPosition = Vector2.zero;
+            lastPosition = Vector2.zero;
+            deltaTime = 0.0f;
+            updateTick = 0;
+            type = (TouchType) 0;
+            altitudeAngle = 0.0f;
+            azimuthAngle = 0.0f;
+            maximumPossiblePressure = 0.0f;
+            pressure = 0.0f;
+            radius = 0.0f;
+            radiusVariance = 0.0f;
+        }
+
+
+        internal void SetWithTouchData(UnityEngine.Touch touch, ulong updateTick, float deltaTime)
+        {
+            phase = touch.phase;
+            tapCount = touch.tapCount;
 
 #if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 			type = TouchType.Direct;
@@ -71,108 +71,108 @@ namespace InControl
 			radius = 1.0f;
 			radiusVariance = 0.0f;
 #else
-			altitudeAngle = touch.altitudeAngle;
-			azimuthAngle = touch.azimuthAngle;
-			maximumPossiblePressure = touch.maximumPossiblePressure;
-			pressure = touch.pressure;
-			radius = touch.radius;
-			radiusVariance = touch.radiusVariance;
+            altitudeAngle = touch.altitudeAngle;
+            azimuthAngle = touch.azimuthAngle;
+            maximumPossiblePressure = touch.maximumPossiblePressure;
+            pressure = touch.pressure;
+            radius = touch.radius;
+            radiusVariance = touch.radiusVariance;
 #endif
 
-			var touchPosition = touch.position;
+            var touchPosition = touch.position;
 
-			// Deal with Unity Remote weirdness.
-			if (touchPosition.x < 0.0f)
-			{
-				touchPosition.x = Screen.width + touchPosition.x;
-			}
+            // Deal with Unity Remote weirdness.
+            if (touchPosition.x < 0.0f)
+            {
+                touchPosition.x = Screen.width + touchPosition.x;
+            }
 
-			if (phase == TouchPhase.Began)
-			{
-				deltaPosition = Vector2.zero;
-				lastPosition = touchPosition;
-				position = touchPosition;
-			}
-			else
-			{
-				if (phase == TouchPhase.Stationary)
-				{
-					phase = TouchPhase.Moved;
-				}
+            if (phase == TouchPhase.Began)
+            {
+                deltaPosition = Vector2.zero;
+                lastPosition = touchPosition;
+                position = touchPosition;
+            }
+            else
+            {
+                if (phase == TouchPhase.Stationary)
+                {
+                    phase = TouchPhase.Moved;
+                }
 
-				deltaPosition = touchPosition - lastPosition;
-				lastPosition = position;
-				position = touchPosition;
-			}
+                deltaPosition = touchPosition - lastPosition;
+                lastPosition = position;
+                position = touchPosition;
+            }
 
-			this.deltaTime = deltaTime;
-			this.updateTick = updateTick;
-		}
+            this.deltaTime = deltaTime;
+            this.updateTick = updateTick;
+        }
 
 
-		internal bool SetWithMouseData( ulong updateTick, float deltaTime )
-		{
-			// Unity Remote and possibly some platforms like WP8 simulates mouse with
-			// touches so detect that situation and reject the mouse.
-			if (Input.touchCount > 0)
-			{
-				return false;
-			}
+        internal bool SetWithMouseData(ulong updateTick, float deltaTime)
+        {
+            // Unity Remote and possibly some platforms like WP8 simulates mouse with
+            // touches so detect that situation and reject the mouse.
+            if (Input.touchCount > 0)
+            {
+                return false;
+            }
 
-			var mousePosition = new Vector2( Mathf.Round( Input.mousePosition.x ), Mathf.Round( Input.mousePosition.y ) );
+            var mousePosition = new Vector2(Mathf.Round(Input.mousePosition.x), Mathf.Round(Input.mousePosition.y));
 
-			if (Input.GetMouseButtonDown( 0 ))
-			{
-				phase = TouchPhase.Began;
+            if (Input.GetMouseButtonDown(0))
+            {
+                phase = TouchPhase.Began;
 
-				tapCount = 1;
-				type = TouchType.Mouse;
+                tapCount = 1;
+                type = TouchType.Mouse;
 
-				deltaPosition = Vector2.zero;
-				lastPosition = mousePosition;
-				position = mousePosition;
+                deltaPosition = Vector2.zero;
+                lastPosition = mousePosition;
+                position = mousePosition;
 
-				this.deltaTime = deltaTime;
-				this.updateTick = updateTick;
+                this.deltaTime = deltaTime;
+                this.updateTick = updateTick;
 
-				return true;
-			}
+                return true;
+            }
 
-			if (Input.GetMouseButtonUp( 0 ))
-			{
-				phase = TouchPhase.Ended;
+            if (Input.GetMouseButtonUp(0))
+            {
+                phase = TouchPhase.Ended;
 
-				tapCount = 1;
-				type = TouchType.Mouse;
+                tapCount = 1;
+                type = TouchType.Mouse;
 
-				deltaPosition = mousePosition - lastPosition;
-				lastPosition = position;
-				position = mousePosition;
+                deltaPosition = mousePosition - lastPosition;
+                lastPosition = position;
+                position = mousePosition;
 
-				this.deltaTime = deltaTime;
-				this.updateTick = updateTick;
+                this.deltaTime = deltaTime;
+                this.updateTick = updateTick;
 
-				return true;
-			}
+                return true;
+            }
 
-			if (Input.GetMouseButton( 0 ))
-			{
-				phase = TouchPhase.Moved;
+            if (Input.GetMouseButton(0))
+            {
+                phase = TouchPhase.Moved;
 
-				tapCount = 1;
-				type = TouchType.Mouse;
+                tapCount = 1;
+                type = TouchType.Mouse;
 
-				deltaPosition = mousePosition - lastPosition;
-				lastPosition = position;
-				position = mousePosition;
+                deltaPosition = mousePosition - lastPosition;
+                lastPosition = position;
+                position = mousePosition;
 
-				this.deltaTime = deltaTime;
-				this.updateTick = updateTick;
+                this.deltaTime = deltaTime;
+                this.updateTick = updateTick;
 
-				return true;
-			}
+                return true;
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

@@ -1,14 +1,13 @@
 ﻿namespace InControl
 {
-	using System;
+    using System;
 
 
-	public struct NativeVersionInfo
-	{
-		public UInt32 major;
-		public UInt32 minor;
-		public UInt32 patch;
-		public UInt32 build;
-	}
+    public struct NativeVersionInfo
+    {
+        public UInt32 major;
+        public UInt32 minor;
+        public UInt32 patch;
+        public UInt32 build;
+    }
 }
-

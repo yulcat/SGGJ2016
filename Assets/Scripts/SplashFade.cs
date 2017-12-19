@@ -7,6 +7,7 @@ using DG.Tweening;
 public class SplashFade : MonoBehaviour
 {
     static bool isFirstTime = true;
+
     // Use this for initialization
     IEnumerator Start()
     {

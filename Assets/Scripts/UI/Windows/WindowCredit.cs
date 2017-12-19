@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class WindowCredit : WindowPop {
-	static WindowCredit instanciated;
-	public static void OpenCredit()
+public class WindowCredit : WindowPop
+{
+    static WindowCredit instanciated;
+
+    public static void OpenCredit()
     {
         var canvas = FindObjectOfType<Canvas>();
         if (instanciated != null)

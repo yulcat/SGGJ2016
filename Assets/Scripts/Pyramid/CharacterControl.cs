@@ -1,36 +1,39 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System.Linq;
 using DG.Tweening;
-using System;
+using InControl;
+using UnityEngine;
 
 public class CharacterControl : PyramidComponent
 {
-    Vector3 moveTarget;
-    int currentFloor;
-    public float thickness = 0.25f;
-    public float moveSpeed = 1f;
-    [RangeAttribute(0f, 1f)]
-    public float counterTorqueMultiplier = 1f;
-    public GameObject crushEffect;
+    [NonSerialized] public Animator anim;
+
+    public bool automatic;
+    FlagBalloon balloon;
     public Animator[] characterAnimators;
-    [System.NonSerializedAttribute]
-    public Animator anim;
+    [Range(0f, 1f)] public float counterTorqueMultiplier = 1f;
+    public GameObject crushEffect;
+    int currentFloor;
+    public float moveSpeed = 1f;
+    Vector3 moveTarget;
+    public float thickness = 0.25f;
+
+    public override float torque => GetTorque(transform.localPosition, body.mass);
 
     public override void SetPyramid(Pyramid m)
     {
         base.SetPyramid(m);
-        var floatPos = transform.localPosition * 2f;
         currentFloor = Mathf.RoundToInt(transform.localPosition.y * 2f);
         try
         {
-            anim = characterAnimators[(int)GameState.SelectedCharacter];
+            anim = characterAnimators[(int) GameState.SelectedCharacter];
         }
-        catch { return; }
-        foreach (var a in characterAnimators)
+        catch
         {
-            a.gameObject.SetActive(a == anim);
+            return;
         }
+        foreach (var a in characterAnimators)
+            a.gameObject.SetActive(a == anim);
     }
 
     public override void RefreshPosition()
@@ -59,71 +62,53 @@ public class CharacterControl : PyramidComponent
         }
     }
 
-    public override float torque
-    {
-        get
-        {
-            return GetTorque(transform.localPosition, body.mass);
-            // return transform.localPosition.x * body.mass;
-        }
-    }
-
     public bool BlockFallTest(Block target)
     {
         return CheckOverlap(transform.localPosition.x, currentFloor, target);
     }
 
-    bool CheckFeet(float x, int y, PyramidComponent target, int dy = -2)
+    bool CheckFeet(float x, int y, PyramidComponent target)
     {
         var blockTarget = target as Block;
         if (blockTarget && blockTarget.CollideResult)
         {
             var check = blockTarget.position;
-            return (check.y == y - 2)
-                && (check.x + 1 >= (x - thickness) * 2f)
-                && (check.x - 1 <= (x + thickness) * 2f);
+            return check.y == y - 2
+                   && check.x + 1 >= (x - thickness) * 2f
+                   && check.x - 1 <= (x + thickness) * 2f;
         }
         return false;
     }
 
     bool CheckOverlap(float x, int y, PyramidComponent target)
     {
-        if (target is Block)
-        {
-            var check = (target as Block).position;
-            return (check.y == y)
-                && (check.x + 1 >= (x - thickness) * 2f)
-                && (check.x - 1 <= (x + thickness) * 2f);
-        }
-        return false;
+        var block = target as Block;
+        if (block == null) return false;
+        var check = block.position;
+        return check.y == y
+               && check.x + 1 >= (x - thickness) * 2f
+               && check.x - 1 <= (x + thickness) * 2f;
     }
 
     bool CheckCollideOverlap(float x, int y, PyramidComponent target)
     {
         var blockTarget = target as Block;
         if (blockTarget != null && blockTarget.CollideResult)
-        {
             return CheckOverlap(x, y, target);
-        }
-        else return false;
+        return false;
     }
 
     bool CheckFlag<T>(float x, int y, PyramidComponent target)
     {
         if (target is T) return CheckOverlap(x, y, target);
-        else return false;
+        return false;
     }
-
-    public bool automatic = false;
-    FlagBalloon balloon;
 
     IEnumerator Start()
     {
         var bodies = GetComponentsInChildren<Rigidbody>();
         foreach (var childBody in bodies)
-        {
             childBody.constraints = RigidbodyConstraints.FreezeAll;
-        }
         while (true)
         {
             yield return null;
@@ -132,10 +117,9 @@ public class CharacterControl : PyramidComponent
             if (floating) yield return StartCoroutine(WaitForLanding());
             var currentX = transform.localPosition.x;
             var direction = Input.GetAxis("Horizontal");
-            var touchDirection = InControl
-                .InputManager
+            var touchDirection = InputManager
                 .ActiveDevice
-                .GetControl(InControl.InputControlType.LeftStickX)
+                .GetControl(InputControlType.LeftStickX)
                 .Value;
             if (Mathf.Abs(direction) < 0.3f) direction = touchDirection;
             if (automatic && Mathf.Abs(touchDirection) < 0.3f) direction = GetAutomaticDirection();
@@ -147,11 +131,10 @@ public class CharacterControl : PyramidComponent
             var rotation = direction > 0 ? 120 : -120;
             anim.transform.localRotation = Quaternion.Euler(0, rotation, 0);
             anim.SetBool("IsTrace", true);
-            float dx = direction * moveSpeed * Time.deltaTime;
-            float destination = currentX + dx;
+            var dx = direction * moveSpeed * Time.deltaTime;
+            var destination = currentX + dx;
             var overlap = OverlapTest(destination, currentFloor);
-            if (overlap != null)
-                overlap.Overlap(this);
+            overlap?.Overlap(this);
             if (!enabled) yield break;
             if (pyramid.HasBlocks(c => CheckCollideOverlap(destination, currentFloor, c)))
                 continue; //Blocked by block
@@ -167,25 +150,23 @@ public class CharacterControl : PyramidComponent
         }
     }
 
-    private float GetAutomaticDirection()
+    float GetAutomaticDirection()
     {
         if (balloon == null)
-        {
             balloon = FindObjectOfType<FlagBalloon>();
-        }
         if (pyramid.transform.parent == null)
         {
             var balloonPos = balloon.transform.position;
             var myPos = transform.position;
             if (Mathf.Abs(myPos.x - balloonPos.x) < 0.1f) return 0;
-            else return Mathf.Clamp(balloonPos.x - myPos.x, -1f, 1f);
+            return Mathf.Clamp(balloonPos.x - myPos.x, -1f, 1f);
         }
         else
         {
             var balloonPos = pyramid.transform.parent.InverseTransformPoint(balloon.transform.position);
             var myPos = pyramid.transform.parent.InverseTransformPoint(transform.position);
             if (Mathf.Abs(myPos.x - balloonPos.x) < 0.1f) return 0;
-            else return Mathf.Clamp(balloonPos.x - myPos.x, -1f, 1f);
+            return Mathf.Clamp(balloonPos.x - myPos.x, -1f, 1f);
         }
     }
 
@@ -193,28 +174,30 @@ public class CharacterControl : PyramidComponent
     {
         var overlap = pyramid.GetBlock(c => CheckFlag<IOverlapLister>(x, floor, c));
         if (overlap != null)
-        {
             return overlap as IOverlapLister;
-        }
         return null;
     }
+
     float GetMoveMomentum(float vx)
     {
         var mv = transform.right * vx * body.mass;
         var r = transform.localPosition;
         return -Vector3.Cross(r, mv).z;
     }
+
     public void TurnToCamera()
     {
         anim.transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
+
     public override void FallOff(bool refresh = true)
     {
         transform.SetParent(null);
         FreeBodyRagdoll();
         GameState.Lose(GameState.LoseCause.CharacterLost);
     }
-    public void FreeBodyRagdoll()
+
+    void FreeBodyRagdoll()
     {
         transform.DOKill();
         withPhysics = true;
@@ -227,6 +210,7 @@ public class CharacterControl : PyramidComponent
         StopAllCoroutines();
         anim.enabled = false;
     }
+
     public void FlyWithBalloon()
     {
         body.velocity = Vector3.zero;
@@ -236,38 +220,37 @@ public class CharacterControl : PyramidComponent
         body.useGravity = true;
         var cols = GetComponentsInChildren<Collider>();
         foreach (var col in cols)
-        {
             col.enabled = false;
-        }
         var bodies = GetComponentsInChildren<Rigidbody>();
         foreach (var childBody in bodies)
-        {
             if (body != childBody) childBody.isKinematic = true;
-        }
     }
+
     public void Kill(GameState.LoseCause cause = GameState.LoseCause.Crushed)
     {
         crushEffect.SetActive(true);
         anim.gameObject.SetActive(false);
         GameState.Lose(cause);
     }
+
     IEnumerator WaitForLanding()
     {
         while (true)
-        {
-            if (floating) yield return null;
+            if (floating)
+            {
+                yield return null;
+            }
             else
             {
                 GetComponent<AudioList>().Play("step");
                 anim.SetTrigger("Land");
                 var overlap = OverlapTest(transform.localPosition.x, currentFloor);
-                if (overlap != null)
-                    overlap.Overlap(this);
+                overlap?.Overlap(this);
                 pyramid.RefreshBlocks();
                 yield break;
             }
-        }
     }
+
     public void SetFloating(bool isFloating)
     {
         floating = isFloating;

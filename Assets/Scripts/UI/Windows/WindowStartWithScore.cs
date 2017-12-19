@@ -11,6 +11,7 @@ public class WindowStartWithScore : WindowStart
     public Text rank;
     public GameObject[] stars;
     int stageToLoad;
+
     public new void OpenStartWindow(int _stageToLoad)
     {
         stageToLoad = _stageToLoad;
@@ -19,6 +20,7 @@ public class WindowStartWithScore : WindowStart
             throw new System.Exception("WindowStartWithScore is trying to load stage without clear record");
         StartCoroutine(ApplyClearData());
     }
+
     IEnumerator ApplyClearData()
     {
         foreach (var star in stars)
@@ -36,6 +38,7 @@ public class WindowStartWithScore : WindowStart
             yield return new WaitForSeconds(0.1333f);
         }
     }
+
     IEnumerator LoadWorldRank()
     {
         var clearData = SaveDataManager.clearRecord[stageToLoad.ToString()];
@@ -48,7 +51,7 @@ public class WindowStartWithScore : WindowStart
         yield return www;
         try
         {
-            float ranking = (float)System.Convert.ToDouble(www.text) * 100;
+            float ranking = (float) System.Convert.ToDouble(www.text) * 100;
             rank.text = ranking.ToString("0.0") + "%";
         }
         catch

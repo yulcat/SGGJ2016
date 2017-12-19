@@ -10,6 +10,7 @@ public class WindowHeartInsufficient : Window
     public Text showAdText;
     static WindowHeartInsufficient instanciated;
     HeartAdvertise advertise = new HeartAdvertise();
+
     public static void Open()
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -28,13 +29,14 @@ public class WindowHeartInsufficient : Window
     {
         advertise.ShowRewardedAd();
     }
+
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     void Update()
     {
         var timeLeft = advertise.TimeLeftToShowAd();
-        if(!timeLeft.HasValue)
+        if (!timeLeft.HasValue)
         {
             showAdButton.interactable = true;
             showAdText.text = string.Empty;
@@ -42,7 +44,7 @@ public class WindowHeartInsufficient : Window
         }
         var timevalue = timeLeft.Value;
         showAdButton.interactable = false;
-        if(timevalue.CompareTo(TimeSpan.Zero) <= 0)
+        if (timevalue.CompareTo(TimeSpan.Zero) <= 0)
         {
             showAdText.text = "0:00";
         }
@@ -52,4 +54,3 @@ public class WindowHeartInsufficient : Window
         }
     }
 }
-

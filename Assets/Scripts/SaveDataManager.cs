@@ -12,6 +12,7 @@ public static class SaveDataManager
         public int score;
         public int stars;
     }
+
     public class SaveData
     {
         public Dictionary<string, ClearData> clearRecord = new Dictionary<string, ClearData>();
@@ -26,7 +27,9 @@ public static class SaveDataManager
         public int unlockedCharacters = 0;
         public int spentStars = 0;
     }
+
     private static SaveData _data;
+
     public static SaveData data
     {
         get
@@ -42,13 +45,12 @@ public static class SaveDataManager
             return _data;
         }
     }
+
     public static Dictionary<string, ClearData> clearRecord
     {
-        get
-        {
-            return data.clearRecord;
-        }
+        get { return data.clearRecord; }
     }
+
     private static SaveData LoadData()
     {
         try
@@ -65,21 +67,25 @@ public static class SaveDataManager
             return new SaveData();
         }
     }
+
     public static bool IsCharacterAvailable(int index)
     {
         if (index == 0) return true;
         return ((1 << index) & data.unlockedCharacters) != 0;
     }
+
     public static void UnlockCharacter(int index)
     {
         data.unlockedCharacters |= 1 << index;
         Save();
     }
+
     public static void DebugAddStar(int count)
     {
         data.spentStars -= count;
         Save();
     }
+
     public static bool SpendStar(int count)
     {
         if (data.spentStars + count > data.clearRecord.Values.Sum(c => c.stars)) return false;
@@ -87,12 +93,14 @@ public static class SaveDataManager
         Save();
         return true;
     }
+
     public static bool BuyCharacter(int index)
     {
         if (!SpendStar(DB.characterDB[index].price)) return false;
         UnlockCharacter(index);
         return true;
     }
+
     public static void Save()
     {
         PlayerPrefs.SetString("data", AesEncryptor.Encrypt(LitJson.JsonMapper.ToJson(_data)));

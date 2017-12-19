@@ -3,8 +3,8 @@ using UnityEngine;
 using Facebook.Unity;
 using UnityEngine.UI;
 
-public class FacebookScript : MonoBehaviour {
-
+public class FacebookScript : MonoBehaviour
+{
     public Text FriendsText;
 
     private void Awake()
@@ -31,9 +31,10 @@ public class FacebookScript : MonoBehaviour {
     }
 
     #region Login / Logout
+
     public void FacebookLogin()
     {
-        var permissions = new List<string>() { "public_profile", "email", "user_friends" };
+        var permissions = new List<string>() {"public_profile", "email", "user_friends"};
         FB.LogInWithReadPermissions(permissions);
     }
 
@@ -41,16 +42,19 @@ public class FacebookScript : MonoBehaviour {
     {
         FB.LogOut();
     }
+
     #endregion
 
     public void FacebookShare()
     {
         FB.ShareLink(new System.Uri("https://www.facebook.com/nablagame/"), "Check it out!",
             "Good programming tutorials lol!",
-            new System.Uri("https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p480x480/23517997_1520327648017126_7208423714345216161_n.png?oh=df8c4863d0363d81014aca3eef09eb4e&oe=5A9D4344"));
+            new System.Uri(
+                "https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-1/p480x480/23517997_1520327648017126_7208423714345216161_n.png?oh=df8c4863d0363d81014aca3eef09eb4e&oe=5A9D4344"));
     }
 
     #region Inviting
+
     public void FacebookGameRequest()
     {
         FB.AppRequest("Play Nabla!!", title: "Nabla!!");
@@ -60,6 +64,7 @@ public class FacebookScript : MonoBehaviour {
     {
         FB.Mobile.AppInvite(new System.Uri("https://play.google.com/store/apps/details?id=com.tappybyte.byteaway"));
     }
+
     #endregion
 
 //    public void GetFriendsPlayingThisGame()

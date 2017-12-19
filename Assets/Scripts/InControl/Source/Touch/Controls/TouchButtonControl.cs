@@ -1,238 +1,212 @@
 namespace InControl
 {
-	using UnityEngine;
+    using UnityEngine;
 
 
-	public class TouchButtonControl : TouchControl
-	{
-		[Header( "Position" )]
+    public class TouchButtonControl : TouchControl
+    {
+        [Header("Position")] [SerializeField] TouchControlAnchor anchor = TouchControlAnchor.BottomRight;
 
-		[SerializeField]
-		TouchControlAnchor anchor = TouchControlAnchor.BottomRight;
+        [SerializeField] TouchUnitType offsetUnitType = TouchUnitType.Percent;
 
-		[SerializeField]
-		TouchUnitType offsetUnitType = TouchUnitType.Percent;
+        [SerializeField] Vector2 offset = new Vector2(-10.0f, 10.0f);
 
-		[SerializeField]
-		Vector2 offset = new Vector2( -10.0f, 10.0f );
-
-		[SerializeField]
-		bool lockAspectRatio = true;
+        [SerializeField] bool lockAspectRatio = true;
 
 
-		[Header( "Options" )]
-
-		public ButtonTarget target = ButtonTarget.Action1;
-		public bool allowSlideToggle = true;
-		public bool toggleOnLeave = false;
+        [Header("Options")] public ButtonTarget target = ButtonTarget.Action1;
+        public bool allowSlideToggle = true;
+        public bool toggleOnLeave = false;
 
 
-		[Header( "Sprites" )]
-
-		public TouchSprite button = new TouchSprite( 15.0f );
+        [Header("Sprites")] public TouchSprite button = new TouchSprite(15.0f);
 
 
-		bool buttonState;
-		Touch currentTouch;
-		bool dirty;
+        bool buttonState;
+        Touch currentTouch;
+        bool dirty;
 
 
-		public override void CreateControl()
-		{
-			button.Create( "Button", transform, 1000 );
-		}
+        public override void CreateControl()
+        {
+            button.Create("Button", transform, 1000);
+        }
 
 
-		public override void DestroyControl()
-		{
-			button.Delete();
+        public override void DestroyControl()
+        {
+            button.Delete();
 
-			if (currentTouch != null)
-			{
-				TouchEnded( currentTouch );
-				currentTouch = null;
-			}
-		}
-
-
-		public override void ConfigureControl()
-		{
-			transform.position = OffsetToWorldPosition( anchor, offset, offsetUnitType, lockAspectRatio );
-			button.Update( true );
-		}
+            if (currentTouch != null)
+            {
+                TouchEnded(currentTouch);
+                currentTouch = null;
+            }
+        }
 
 
-		public override void DrawGizmos()
-		{
-			button.DrawGizmos( ButtonPosition, Color.yellow );
-		}
+        public override void ConfigureControl()
+        {
+            transform.position = OffsetToWorldPosition(anchor, offset, offsetUnitType, lockAspectRatio);
+            button.Update(true);
+        }
 
 
-		void Update()
-		{
-			if (dirty)
-			{
-				ConfigureControl();
-				dirty = false;
-			}
-			else
-			{
-				button.Update();
-			}
-		}
+        public override void DrawGizmos()
+        {
+            button.DrawGizmos(ButtonPosition, Color.yellow);
+        }
 
 
-		public override void SubmitControlState( ulong updateTick, float deltaTime )
-		{
-			if (currentTouch == null && allowSlideToggle)
-			{
-				ButtonState = false;
-				var touchCount = TouchManager.TouchCount;
-				for (var i = 0; i < touchCount; i++)
-				{
-					ButtonState = ButtonState || button.Contains( TouchManager.GetTouch( i ) );
-				}
-			}
-
-			SubmitButtonState( target, ButtonState, updateTick, deltaTime );
-		}
+        void Update()
+        {
+            if (dirty)
+            {
+                ConfigureControl();
+                dirty = false;
+            }
+            else
+            {
+                button.Update();
+            }
+        }
 
 
-		public override void CommitControlState( ulong updateTick, float deltaTime )
-		{
-			CommitButton( target );
-		}
+        public override void SubmitControlState(ulong updateTick, float deltaTime)
+        {
+            if (currentTouch == null && allowSlideToggle)
+            {
+                ButtonState = false;
+                var touchCount = TouchManager.TouchCount;
+                for (var i = 0; i < touchCount; i++)
+                {
+                    ButtonState = ButtonState || button.Contains(TouchManager.GetTouch(i));
+                }
+            }
+
+            SubmitButtonState(target, ButtonState, updateTick, deltaTime);
+        }
 
 
-		public override void TouchBegan( Touch touch )
-		{
-			if (currentTouch != null)
-			{
-				return;
-			}
-
-			if (button.Contains( touch ))
-			{
-				ButtonState = true;
-				currentTouch = touch;
-			}
-		}
+        public override void CommitControlState(ulong updateTick, float deltaTime)
+        {
+            CommitButton(target);
+        }
 
 
-		public override void TouchMoved( Touch touch )
-		{
-			if (currentTouch != touch)
-			{
-				return;
-			}
+        public override void TouchBegan(Touch touch)
+        {
+            if (currentTouch != null)
+            {
+                return;
+            }
 
-			if (toggleOnLeave && !button.Contains( touch ))
-			{
-				ButtonState = false;
-				currentTouch = null;
-			}
-		}
-
-
-		public override void TouchEnded( Touch touch )
-		{
-			if (currentTouch != touch)
-			{
-				return;
-			}
-
-			ButtonState = false;
-			currentTouch = null;
-		}
+            if (button.Contains(touch))
+            {
+                ButtonState = true;
+                currentTouch = touch;
+            }
+        }
 
 
-		bool ButtonState
-		{
-			get
-			{
-				return buttonState;
-			}
+        public override void TouchMoved(Touch touch)
+        {
+            if (currentTouch != touch)
+            {
+                return;
+            }
 
-			set
-			{
-				if (buttonState != value)
-				{
-					buttonState = value;
-					button.State = value;
-				}
-			}
-		}
+            if (toggleOnLeave && !button.Contains(touch))
+            {
+                ButtonState = false;
+                currentTouch = null;
+            }
+        }
 
 
-		public Vector3 ButtonPosition
-		{
-			get
-			{
-				return button.Ready ? button.Position : transform.position;
-			}
+        public override void TouchEnded(Touch touch)
+        {
+            if (currentTouch != touch)
+            {
+                return;
+            }
 
-			set
-			{
-				if (button.Ready)
-				{
-					button.Position = value;
-				}
-			}
-		}
+            ButtonState = false;
+            currentTouch = null;
+        }
 
 
-		public TouchControlAnchor Anchor
-		{ 
-			get
-			{
-				return anchor;
-			}
+        bool ButtonState
+        {
+            get { return buttonState; }
 
-			set
-			{
-				if (anchor != value)
-				{
-					anchor = value;
-					dirty = true;
-				}
-			}
-		}
+            set
+            {
+                if (buttonState != value)
+                {
+                    buttonState = value;
+                    button.State = value;
+                }
+            }
+        }
 
 
-		public Vector2 Offset
-		{ 
-			get
-			{
-				return offset;
-			}
+        public Vector3 ButtonPosition
+        {
+            get { return button.Ready ? button.Position : transform.position; }
 
-			set
-			{
-				if (offset != value)
-				{
-					offset = value;
-					dirty = true;
-				}
-			}
-		}
+            set
+            {
+                if (button.Ready)
+                {
+                    button.Position = value;
+                }
+            }
+        }
 
 
-		public TouchUnitType OffsetUnitType
-		{ 
-			get
-			{
-				return offsetUnitType;
-			}
+        public TouchControlAnchor Anchor
+        {
+            get { return anchor; }
 
-			set
-			{
-				if (offsetUnitType != value)
-				{
-					offsetUnitType = value;
-					dirty = true;
-				}
-			}
-		}
-	}
+            set
+            {
+                if (anchor != value)
+                {
+                    anchor = value;
+                    dirty = true;
+                }
+            }
+        }
+
+
+        public Vector2 Offset
+        {
+            get { return offset; }
+
+            set
+            {
+                if (offset != value)
+                {
+                    offset = value;
+                    dirty = true;
+                }
+            }
+        }
+
+
+        public TouchUnitType OffsetUnitType
+        {
+            get { return offsetUnitType; }
+
+            set
+            {
+                if (offsetUnitType != value)
+                {
+                    offsetUnitType = value;
+                    dirty = true;
+                }
+            }
+        }
+    }
 }
-
