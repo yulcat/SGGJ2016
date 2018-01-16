@@ -1015,7 +1015,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352561973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 661, y: 343, z: 0}
+  m_LocalPosition: {x: 660, y: 343, z: 0}
   m_LocalScale: {x: 0.9527778, y: 0.9527778, z: 0.9527778}
   m_Children:
   - {fileID: 752232445}
@@ -1444,8 +1444,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 395197700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 661, y: 343, z: 0}
-  m_LocalScale: {x: 1.0328125, y: 1.0328125, z: 1.0328125}
+  m_LocalPosition: {x: 660, y: 343, z: 0}
+  m_LocalScale: {x: 1.03125, y: 1.03125, z: 1.03125}
   m_Children:
   - {fileID: 38432561}
   m_Father: {fileID: 0}
@@ -5210,7 +5210,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1775319195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -693.7609, y: 360, z: 0}
+  m_LocalPosition: {x: -692.71136, y: 360, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1535264350}
@@ -5491,7 +5491,47 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1970385262575014, guid: 436dabd34b91a48b8ad4f6ae9226feb1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012864250204190, guid: 436dabd34b91a48b8ad4f6ae9226feb1, type: 2}
+      propertyPath: m_Name
+      value: FbButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 114489335784201386, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.07520543
+      objectReference: {fileID: 0}
+    - target: {fileID: 114489335784201386, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.3156635
+      objectReference: {fileID: 0}
+    - target: {fileID: 114489335784201386, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.78676474
+      objectReference: {fileID: 0}
+    - target: {fileID: 114405965238099368, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_Text
+      value: "\uACF5\uC720\uD558\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114537528771462796, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300150, guid: 360eb52140898064bbb778b5432537d2,
+        type: 3}
+    - target: {fileID: 114830171764949676, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2119320491}
+    - target: {fileID: 114830171764949676, guid: 436dabd34b91a48b8ad4f6ae9226feb1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FacebookShare
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 436dabd34b91a48b8ad4f6ae9226feb1, type: 2}
@@ -7054,7 +7094,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1415070317212694, guid: 21901d40a51d84427b2ba7ec53c3e296, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21901d40a51d84427b2ba7ec53c3e296, type: 2}
