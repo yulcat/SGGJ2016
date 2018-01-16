@@ -7,8 +7,8 @@ using UnityEngine;
 public enum CharacterType
 {
     Bear = 0,
-    Owl,
-    Cat
+    Panda,
+    Gummy
 }
 
 public class GameState : MonoBehaviour
@@ -33,6 +33,9 @@ public class GameState : MonoBehaviour
     Score scoreToSend;
     public Action<Dictionary<string, int>> accomplishedListener;
     public static CharacterType selectedCharacter;
+
+    public static float PyramidRotateSpeed
+        => selectedCharacter == CharacterType.Panda ? DB.characterDB[(int) CharacterType.Panda].special : 1f;
 
     public static GameState Instance
     {

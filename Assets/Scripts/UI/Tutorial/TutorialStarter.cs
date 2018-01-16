@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialStarter : MonoBehaviour
@@ -9,11 +8,9 @@ public class TutorialStarter : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (StageManager.IsInitialized() && StageManager.instance.stageToLoad == 1)
-        {
-            StartCoroutine(Tutorial());
-            StartCoroutine(GameEndCheck());
-        }
+        if (!StageManager.IsInitialized() || StageManager.instance.stageToLoad != 1) return;
+        StartCoroutine(Tutorial());
+        StartCoroutine(GameEndCheck());
     }
 
     IEnumerator WaitForDisable(GameObject objectToWait)
