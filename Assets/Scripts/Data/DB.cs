@@ -65,4 +65,5 @@ public class CharacterData
     public string name;
     public int price;
     public int heartCost;
+    public float special;
 }
