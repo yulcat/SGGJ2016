@@ -7,6 +7,9 @@ public class Snow : Block, IOverlapLister
 {
     public void Overlap(CharacterControl character)
     {
+        var effect = EffectSpawner.GetEffect("Effects/SnowSplash");
+        effect.transform.position = transform.position;
+        effect.SetActive(true);
         pyramid.RemoveBlock(this);
         Destroy(gameObject);
     }
