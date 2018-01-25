@@ -25,10 +25,7 @@ public class Water : Block, IOverlapLister
         }
     }
 
-    public override bool CollideResult
-    {
-        get { return false; }
-    }
+    public override bool CollideResult => false;
 
     public override void Remove()
     {
