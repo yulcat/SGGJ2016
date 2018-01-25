@@ -16489,7 +16489,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -34670,7 +34670,7 @@ Prefab:
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224503415140563928, guid: ff09ba742d38a49f8a2b79550d617bf7,
         type: 2}
