@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
+﻿using UnityEngine;
 
 public class WindowYNPop : WindowPop
 {
     static WindowYNPop instanciated;
     System.Action onSelect;
     System.Action onCancel;
+
     public static void OpenYNPop(string message, System.Action select, System.Action cancel = null)
     {
         var canvas = FindObjectOfType<Canvas>();
@@ -28,11 +25,13 @@ public class WindowYNPop : WindowPop
         instanciated.onSelect = select;
         instanciated.onCancel = cancel;
     }
+
     public void Select()
     {
         base.BackToPrevWindow();
         if (onSelect != null) onSelect();
     }
+
     public override void BackToPrevWindow()
     {
         base.BackToPrevWindow();

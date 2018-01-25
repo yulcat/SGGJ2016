@@ -22,28 +22,48 @@ public class StageDB : ListData<StageDataLoader.StageData, StageDB>
 {
     protected override List<StageDataLoader.StageData> CSVToTValue(string csv)
     {
-        return CSVLoader.ToList<StageDataLoader.StageMiddleData>(csv).Select(s => new StageDataLoader.StageData(s)).ToList();
+        return CSVLoader.ToList<StageDataLoader.StageMiddleData>(csv).Select(s => new StageDataLoader.StageData(s))
+            .ToList();
     }
-    public StageDB() { dataPath = "stageDB.txt"; Load(419959845); }
+
+    public StageDB()
+    {
+        dataPath = "stageDB.txt";
+        Load(419959845);
+    }
 }
 
 public class ScoreDB : DictionaryData<int, ScoreDB>
 {
-    public ScoreDB() { dataPath = "scoreDB.txt"; Load(495693467); }
+    public ScoreDB()
+    {
+        dataPath = "scoreDB.txt";
+        Load(495693467);
+    }
 }
 
 public class MessageDB : DictionaryData<string, MessageDB>
 {
-    public MessageDB() { dataPath = "messageDB.txt"; Load(1681149424); }
+    public MessageDB()
+    {
+        dataPath = "messageDB.txt";
+        Load(1681149424);
+    }
 }
 
 public class CharacterDB : ListData<CharacterData, CharacterDB>
 {
-    public CharacterDB() { dataPath = "characterDB.txt"; Load(167980508); }
+    public CharacterDB()
+    {
+        dataPath = "characterDB.txt";
+        Load(167980508);
+    }
 }
 
 public class CharacterData
 {
     public string name;
     public int price;
+    public int heartCost;
+    public float special;
 }

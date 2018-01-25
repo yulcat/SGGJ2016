@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class EffectSpawner : MonoBehaviour {
-	static EffectSpawner _instance;
-	public static EffectSpawner instance
-	{
-		get
-		{
-			if(_instance == null)
-			{
-				var obj = new GameObject("Effect Spawner");
-				_instance = obj.AddComponent<EffectSpawner>();
-			}
-			return _instance;
-		}
-	}
-	Dictionary<string,List<GameObject>> dic = new Dictionary<string,List<GameObject>>();
-	public static GameObject GetEffect(string name)
-	{
-		return instance.GetEffectInstance(name);
-	}
-	GameObject GetEffectInstance(string name)
-	{
-		if(!dic.ContainsKey(name))
-		{
-			dic.Add(name, new List<GameObject>());
-		}
-		var idle = dic[name].FirstOrDefault(o => !o.activeSelf);
-		if(idle == null)
-		{
-			var original = Resources.Load<GameObject>(name);
-			var obj = Instantiate<GameObject>(original);
-			dic[name].Add(obj);
-			obj.transform.SetParent(transform);
-			return obj;
-		}
-		else return idle;
-	}
+public class EffectSpawner : MonoBehaviour
+{
+    static EffectSpawner instance;
+
+    public static EffectSpawner Instance
+    {
+        get
+        {
+            if (instance != null) return instance;
+            var obj = new GameObject("Effect Spawner");
+            instance = obj.AddComponent<EffectSpawner>();
+            return instance;
+        }
+    }
+
+    readonly Dictionary<string, List<GameObject>> dic = new Dictionary<string, List<GameObject>>();
+
+    public static GameObject GetEffect(string name)
+    {
+        return Instance.GetEffectInstance(name);
+    }
+
+    GameObject GetEffectInstance(string effectName)
+    {
+        if (!dic.ContainsKey(effectName))
+        {
+            dic.Add(effectName, new List<GameObject>());
+        }
+        var idle = dic[effectName].FirstOrDefault(o => !o.activeSelf);
+        if (idle == null)
+        {
+            var original = Resources.Load<GameObject>(effectName);
+            var obj = Instantiate(original);
+            dic[effectName].Add(obj);
+            obj.transform.SetParent(transform);
+            return obj;
+        }
+        else return idle;
+    }
 }

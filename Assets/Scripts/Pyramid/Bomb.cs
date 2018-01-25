@@ -7,9 +7,10 @@ public class Bomb : Block
 {
     public override void ClickListener()
     {
-        if (pyramid == null || GameState.instance.isGameEnd) return;
+        if (pyramid == null || GameState.Instance.isGameEnd) return;
         Remove();
     }
+
     public override void Remove()
     {
         pyramid.RemoveBlock(this);
@@ -19,6 +20,7 @@ public class Bomb : Block
         body.velocity = transform.TransformVector(Vector3.forward * 12f);
         Explode();
     }
+
     void Explode()
     {
         var onLeft = pyramid.GetBlock(b => CheckSide(position, b, -1));

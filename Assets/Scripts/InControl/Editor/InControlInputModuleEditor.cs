@@ -38,9 +38,12 @@ namespace InControl
 			GUILayout.Space( 10.0f );
 			EditorGUILayout.LabelField( "Navigation", EditorStyles.boldLabel );
 
-			analogMoveThreshold.floatValue = EditorGUILayout.Slider( "Analog Threshold", analogMoveThreshold.floatValue, 0.1f, 0.9f );
-			moveRepeatFirstDuration.floatValue = EditorGUILayout.FloatField( "Delay Until Repeat", moveRepeatFirstDuration.floatValue );
-			moveRepeatDelayDuration.floatValue = EditorGUILayout.FloatField( "Repeat Interval", moveRepeatDelayDuration.floatValue );
+			analogMoveThreshold.floatValue =
+EditorGUILayout.Slider( "Analog Threshold", analogMoveThreshold.floatValue, 0.1f, 0.9f );
+			moveRepeatFirstDuration.floatValue =
+EditorGUILayout.FloatField( "Delay Until Repeat", moveRepeatFirstDuration.floatValue );
+			moveRepeatDelayDuration.floatValue =
+EditorGUILayout.FloatField( "Repeat Interval", moveRepeatDelayDuration.floatValue );
 
 			GUILayout.Space( 10.0f );
 			EditorGUILayout.LabelField( "Interaction", EditorStyles.boldLabel );

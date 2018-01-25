@@ -4,29 +4,35 @@ using System.Collections;
 using UnityEngine;
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 
 public class Win : Window
 {
     public Text score;
     public Text stageNumber;
     public Text stageRanking;
-    [System.NonSerializedAttribute]
-    public Score finalScore;
+    [NonSerializedAttribute] public Score finalScore;
     public GameObject[] stars;
     int scoreShow;
     double? rankingToShow;
-    override protected void OnEnable()
+
+    protected override void OnEnable()
     {
         base.OnEnable();
-        foreach (var star in stars) { star.SetActive(false); }
+        foreach (var star in stars)
+        {
+            star.SetActive(false);
+        }
         stageNumber.text = FindObjectOfType<PyramidBuilder>().stageToLoad.ToString();
     }
+
     public void WinGame()
     {
         StartCoroutine(ShowScoreUp());
         StartCoroutine(ShowStars(finalScore.stars));
         // HeartManager.AddHeart();
     }
+
     IEnumerator ShowStars(int starCount)
     {
         foreach (var star in stars.Take(starCount))
@@ -36,10 +42,11 @@ public class Win : Window
             yield return new WaitForSeconds(0.1333f);
         }
     }
+
     IEnumerator ShowScoreUp()
     {
         scoreShow = 0;
-        DOTween.To(() => (float)scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore.score, 2)
+        DOTween.To(() => (float) scoreShow, x => scoreShow = Mathf.RoundToInt(x), finalScore.score, 2)
             .SetEase(Ease.OutExpo);
         while (scoreShow != finalScore.score)
         {
@@ -54,13 +61,17 @@ public class Win : Window
             stageRanking.text = "??%";
         }
     }
+
+    [UsedImplicitly]
     public void ToNextStage()
     {
         StageManager.LoadNextStageSelectScene();
     }
+
+    [UsedImplicitly]
     public void ReloadCurrentStage()
     {
-        if (HeartManager.heartLeft <= 0)
+        if (HeartManager.HeartLeft < GameState.GetHeartCost())
         {
             WindowHeartInsufficient.Open();
             return;
@@ -68,9 +79,20 @@ public class Win : Window
         HeartManager.SpendHeart();
         StageManager.ReloadCurrentStage();
     }
+
+    [UsedImplicitly]
     public void ToStageSelect()
     {
         StageManager.LoadStageSelectScene();
+    }
+
+    [UsedImplicitly]
+    public void ShareTwitter()
+    {
+        var twitter = GetComponent<TwitterShare>();
+        if (rankingToShow == null) return;
+        var rankString = (rankingToShow.Value * 100).ToString("0.0") + "%";
+        twitter.ShareScoreOnTwitter(stageNumber.text, rankString);
     }
 
     public void SetRanking(double v)

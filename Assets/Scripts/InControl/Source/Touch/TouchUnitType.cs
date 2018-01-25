@@ -1,8 +1,8 @@
 ﻿namespace InControl
 {
-	public enum TouchUnitType : int
-	{
-		Percent,
-		Pixels
-	}
+    public enum TouchUnitType : int
+    {
+        Percent,
+        Pixels
+    }
 }

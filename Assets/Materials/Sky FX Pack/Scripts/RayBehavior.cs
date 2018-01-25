@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RayBehavior : MonoBehaviour 
+public class RayBehavior : MonoBehaviour
 {
     public GameObject BeginLocation;
     public GameObject EndLocation;
@@ -32,15 +32,13 @@ public class RayBehavior : MonoBehaviour
     public float FadeSpeed = 1.0f;
 
 
-	// Use this for initialization
+    // Use this for initialization
     public void ResetRay()
     {
-        Offset = new Vector3( Random.Range(-PositionRange.x, PositionRange.x), 
+        Offset = new Vector3(Random.Range(-PositionRange.x, PositionRange.x),
             Random.Range(-PositionRange.y, PositionRange.y),
             Random.Range(-PositionRange.z, PositionRange.z)
-            );
-
-        
+        );
 
 
         changed = true;
@@ -50,22 +48,22 @@ public class RayBehavior : MonoBehaviour
     {
         Line.SetPosition(0, BeginLocation.transform.position + (Offset * RadiusA));
         Line.SetPosition(1, EndLocation.transform.position + (Offset * RadiusB));
-        
+
         Line.SetWidth(WidthA, WidthB);
     }
 
 
-	void Start () 
+    void Start()
     {
         Line = GetComponent<LineRenderer>();
         Anim = GetComponent<Animation>();
 
 
-        Anim["RayAlphaCurve"].speed = FadeSpeed;        
-	}
-	
-	// Update is called once per frame
-	void Update () 
+        Anim["RayAlphaCurve"].speed = FadeSpeed;
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         if (changed)
         {
@@ -73,13 +71,11 @@ public class RayBehavior : MonoBehaviour
             UpdateLineData();
         }
 
-        
+
         Line.SetColors(new Color(BeginColor.r, BeginColor.g, BeginColor.b, AlphaCurve),
             new Color(EndColor.r, EndColor.g, EndColor.b, AlphaCurve));
-        
 
-        
+
         //Line.renderer.material.color = new Color(1, 1, 1, AlphaCurve);
-	
-	}
+    }
 }

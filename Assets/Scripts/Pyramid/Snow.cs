@@ -8,9 +8,10 @@ public class Snow : Block, IOverlapLister
     public void Overlap(CharacterControl character)
     {
         pyramid.RemoveBlock(this);
-		Destroy(gameObject);
+        Destroy(gameObject);
     }
-	protected override void FallResult()
+
+    protected override void FallResult()
     {
         floating = false;
         var character = pyramid.GetBlock(c => c is CharacterControl) as CharacterControl;
@@ -19,11 +20,9 @@ public class Snow : Block, IOverlapLister
             Overlap(character);
         }
     }
-	public override bool CollideResult
+
+    public override bool CollideResult
     {
-        get
-        {
-            return false;
-        }
+        get { return false; }
     }
 }

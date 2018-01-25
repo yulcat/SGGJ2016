@@ -1,10 +1,9 @@
 ﻿namespace InControl
 {
-	public enum NativeDeviceTransportType : ushort
-	{
-		Unknown,
-		USB,
-		Bluetooth,
-	}
+    public enum NativeDeviceTransportType : ushort
+    {
+        Unknown,
+        USB,
+        Bluetooth,
+    }
 }
-

@@ -8,11 +8,13 @@ public struct XY
 {
     public int x;
     public int y;
+
     public XY(int newX, int newY)
     {
         x = newX;
         y = newY;
     }
+
     public XY(Vector3 vec)
     {
         vec.y = Mathf.Floor(vec.y);
@@ -21,20 +23,24 @@ public struct XY
         x = Mathf.RoundToInt(vec.x);
         y = Mathf.RoundToInt(vec.y);
     }
+
     public Vector3 ToVector3()
     {
         var vec = new Vector3(x, y, 0);
         return vec / 2f;
     }
+
     public static bool operator ==(XY one, XY other)
     {
         return one.x == other.x && one.y == other.y;
     }
+
     public static bool operator !=(XY one, XY other)
     {
         return !(one == other);
     }
 }
+
 public class Block : PyramidComponent, ICollidable
 {
     List<Block> Feet;
@@ -48,6 +54,7 @@ public class Block : PyramidComponent, ICollidable
         var floatPos = transform.localPosition * 2f;
         position = new XY(Mathf.RoundToInt(floatPos.x), Mathf.RoundToInt(floatPos.y));
     }
+
     public override void RefreshPosition()
     {
         RefreshPositionSelf(position);
@@ -55,18 +62,12 @@ public class Block : PyramidComponent, ICollidable
 
     public override float torque
     {
-        get
-        {
-            return GetTorque(position.ToVector3(), body.mass);
-        }
+        get { return GetTorque(position.ToVector3(), body.mass); }
     }
 
     public virtual bool CollideResult
     {
-        get
-        {
-            return true;
-        }
+        get { return true; }
     }
 
     protected override void FallResult()
@@ -113,38 +114,41 @@ public class Block : PyramidComponent, ICollidable
         {
             var check = (target as Block).position;
             return (check.y == pos.y - 2)
-                && (check.x >= pos.x - 1)
-                && (check.x <= pos.x + 1);
+                   && (check.x >= pos.x - 1)
+                   && (check.x <= pos.x + 1);
         }
         return false;
     }
+
     public virtual void ClickListener()
     {
-        if (pyramid == null || GameState.instance.isGameEnd) return;
+        if (pyramid == null || GameState.Instance.isGameEnd) return;
         if (++currentClickCount == ClickCount)
         {
             Remove();
         }
         else
         {
-            transform.DOLocalMoveZ((float)currentClickCount / ClickCount, 0.3f)
+            transform.DOLocalMoveZ((float) currentClickCount / ClickCount, 0.3f)
                 .SetEase(Ease.OutQuint);
         }
         var audio = GetComponent<AudioList>();
         if (audio != null) audio.Play("Push");
     }
+
     public virtual void Remove()
     {
         pyramid.RemoveBlock(this);
         FallOff();
         body.velocity = transform.TransformVector(Vector3.forward * 12f);
     }
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag != "Ground") return;
         var contact = col.contacts[0].point;
         var theme = pyramid.GetComponent<PyramidBuilder>().currentTheme;
-        var effect = EffectSpawner.GetEffect("Dust_"+theme);
+        var effect = EffectSpawner.GetEffect("Dust_" + theme);
         effect.transform.position = contact;
         effect.SetActive(true);
     }

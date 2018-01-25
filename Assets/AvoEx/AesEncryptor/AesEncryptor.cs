@@ -13,7 +13,9 @@ namespace AvoEx
     {
         // only the 128, 192, and 256-bit key sizes are specified in the AES standard. https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
         const int keySize = 16; // keySize must be 16, 24 or 32 bytes.
-        const string keyString = "defaultKeyString"; // EDIT 'keyString' BEFORE RELEASE. keyString must be longer than keySize.
+
+        const string keyString = "defaultKeyString"
+            ; // EDIT 'keyString' BEFORE RELEASE. keyString must be longer than keySize.
         // DO NOT EDIT 'keySize, keyString' AFTER RELEASE YOUR PROJECT.
         // if you change keyString, you can not decrypt saved data encrypted by old keyString.
 
@@ -27,7 +29,7 @@ namespace AvoEx
         static AesEncryptor()
         {
             encoder = new UTF8Encoding();
-            aes = new AesManaged { Key = encoder.GetBytes(keyString).Take(keySize).ToArray() };
+            aes = new AesManaged {Key = encoder.GetBytes(keyString).Take(keySize).ToArray()};
             aes.BlockSize = IvLength * 8; // only the 128-bit block size is specified in the AES standard.
         }
 
@@ -38,6 +40,7 @@ namespace AvoEx
         }
 
         #region PREPEND_VECTOR
+
         /// <summary>
         /// encrypt bytes with random vector. prepend vector to result.
         /// </summary>
@@ -62,9 +65,11 @@ namespace AvoEx
                 return decryptor.TransformFinalBlock(buffer, IvLength, buffer.Length - IvLength);
             }
         }
+
         #endregion PREPEND_VECTOR
 
         #region CUSTOM_KEY
+
         /// <summary>
         /// not prepend vector to result. you must use DecryptIV(byte[], byte[]) to decrypt.
         /// </summary>
@@ -96,9 +101,11 @@ namespace AvoEx
                 return decryptor.TransformFinalBlock(buffer, 0, buffer.Length);
             }
         }
+
         #endregion CUSTOM_KEY
 
         #region ENCRYPT_TO_STRING
+
         // string
         /// <summary>
         /// encrypt string with random vector. prepend vector to result.
@@ -116,10 +123,12 @@ namespace AvoEx
         {
             return DecryptString(encrypted);
         }
+
         public static string DecryptString(string encrypted)
         {
             return DecryptString(Convert.FromBase64String(encrypted));
         }
+
         public static string DecryptString(byte[] encrypted)
         {
             byte[] bytesDecrypted = Decrypt(encrypted);
@@ -153,6 +162,7 @@ namespace AvoEx
         {
             return DecryptBool(Convert.FromBase64String(encrypted));
         }
+
         public static bool DecryptBool(byte[] encrypted)
         {
             return BitConverter.ToBoolean(Decrypt(encrypted), 0);
@@ -168,6 +178,7 @@ namespace AvoEx
         {
             return DecryptChar(Convert.FromBase64String(encrypted));
         }
+
         public static char DecryptChar(byte[] encrypted)
         {
             return BitConverter.ToChar(Decrypt(encrypted), 0);
@@ -183,6 +194,7 @@ namespace AvoEx
         {
             return DecryptDouble(Convert.FromBase64String(encrypted));
         }
+
         public static double DecryptDouble(byte[] encrypted)
         {
             return BitConverter.ToDouble(Decrypt(encrypted), 0);
@@ -198,6 +210,7 @@ namespace AvoEx
         {
             return DecryptFloat(Convert.FromBase64String(encrypted));
         }
+
         public static float DecryptFloat(byte[] encrypted)
         {
             return BitConverter.ToSingle(Decrypt(encrypted), 0);
@@ -208,10 +221,12 @@ namespace AvoEx
         {
             return Convert.ToBase64String(Encrypt(BitConverter.GetBytes(unencrypted)));
         }
+
         public static int DecryptInt(string encrypted)
         {
             return DecryptInt(Convert.FromBase64String(encrypted));
         }
+
         public static int DecryptInt(byte[] encrypted)
         {
             return BitConverter.ToInt32(Decrypt(encrypted), 0);
@@ -227,6 +242,7 @@ namespace AvoEx
         {
             return DecryptLong(Convert.FromBase64String(encrypted));
         }
+
         public static long DecryptLong(byte[] encrypted)
         {
             return BitConverter.ToInt64(Decrypt(encrypted), 0);
@@ -242,6 +258,7 @@ namespace AvoEx
         {
             return DecryptShort(Convert.FromBase64String(encrypted));
         }
+
         public static short DecryptShort(byte[] encrypted)
         {
             return BitConverter.ToInt16(Decrypt(encrypted), 0);
@@ -257,6 +274,7 @@ namespace AvoEx
         {
             return DecryptUInt(Convert.FromBase64String(encrypted));
         }
+
         public static uint DecryptUInt(byte[] encrypted)
         {
             return BitConverter.ToUInt32(Decrypt(encrypted), 0);
@@ -272,6 +290,7 @@ namespace AvoEx
         {
             return DecryptULong(Convert.FromBase64String(encrypted));
         }
+
         public static ulong DecryptULong(byte[] encrypted)
         {
             return BitConverter.ToUInt64(Decrypt(encrypted), 0);
@@ -287,10 +306,12 @@ namespace AvoEx
         {
             return DecryptUShort(Convert.FromBase64String(encrypted));
         }
+
         public static ushort DecryptUShort(byte[] encrypted)
         {
             return BitConverter.ToUInt16(Decrypt(encrypted), 0);
         }
+
         #endregion ENCRYPT_TO_STRING
     }
 }

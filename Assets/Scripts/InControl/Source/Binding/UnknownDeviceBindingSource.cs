@@ -1,187 +1,181 @@
 ﻿namespace InControl
 {
-	using System.IO;
-	using UnityEngine;
+    using System.IO;
+    using UnityEngine;
 
 
-	public class UnknownDeviceBindingSource : BindingSource
-	{
-		public UnknownDeviceControl Control { get; protected set; }
+    public class UnknownDeviceBindingSource : BindingSource
+    {
+        public UnknownDeviceControl Control { get; protected set; }
 
 
-		internal UnknownDeviceBindingSource()
-		{
-			Control = UnknownDeviceControl.None;
-		}
+        internal UnknownDeviceBindingSource()
+        {
+            Control = UnknownDeviceControl.None;
+        }
 
 
-		public UnknownDeviceBindingSource( UnknownDeviceControl control )
-		{
-			Control = control;
-		}
+        public UnknownDeviceBindingSource(UnknownDeviceControl control)
+        {
+            Control = control;
+        }
 
 
-		public override float GetValue( InputDevice device )
-		{
-			return Control.GetValue( device );
-		}
+        public override float GetValue(InputDevice device)
+        {
+            return Control.GetValue(device);
+        }
 
 
-		public override bool GetState( InputDevice device )
-		{
-			if (device == null)
-			{
-				return false;
-			}
+        public override bool GetState(InputDevice device)
+        {
+            if (device == null)
+            {
+                return false;
+            }
 
-			return Utility.IsNotZero( GetValue( device ) );
-		}
+            return Utility.IsNotZero(GetValue(device));
+        }
 
 
-		public override string Name
-		{ 
-			get
-			{
-				if (BoundTo == null)
-				{
+        public override string Name
+        {
+            get
+            {
+                if (BoundTo == null)
+                {
 //					Debug.LogWarning( "Cannot query property 'Name' for unbound BindingSource." );
-					return "";
-				}
-				else
-				{
-					var prefix = "";
-					if (Control.SourceRange == InputRangeType.ZeroToMinusOne)
-					{
-						prefix = "Negative ";
-					}
-					else
-					if (Control.SourceRange == InputRangeType.ZeroToOne)
-					{
-						prefix = "Positive ";
-					}
+                    return "";
+                }
+                else
+                {
+                    var prefix = "";
+                    if (Control.SourceRange == InputRangeType.ZeroToMinusOne)
+                    {
+                        prefix = "Negative ";
+                    }
+                    else if (Control.SourceRange == InputRangeType.ZeroToOne)
+                    {
+                        prefix = "Positive ";
+                    }
 
-					var device = BoundTo.Device;
-					if (device == InputDevice.Null)
-					{
-						return prefix + Control.Control.ToString();
-					}
+                    var device = BoundTo.Device;
+                    if (device == InputDevice.Null)
+                    {
+                        return prefix + Control.Control.ToString();
+                    }
 
-					var control = device.GetControl( Control.Control );
-					if (control == InputControl.Null)
-					{
-						return prefix + Control.Control.ToString();
-					}
+                    var control = device.GetControl(Control.Control);
+                    if (control == InputControl.Null)
+                    {
+                        return prefix + Control.Control.ToString();
+                    }
 
-					return prefix + control.Handle;
-				}
-			}
-		}
+                    return prefix + control.Handle;
+                }
+            }
+        }
 
 
-		public override string DeviceName
-		{ 
-			get
-			{
-				if (BoundTo == null)
-				{
+        public override string DeviceName
+        {
+            get
+            {
+                if (BoundTo == null)
+                {
 //					Debug.LogWarning( "Cannot query property 'DeviceName' for unbound BindingSource." );
-					return "";
-				}
-				else
-				{
-					var device = BoundTo.Device;
-					if (device == InputDevice.Null)
-					{
-						return "Unknown Controller";
-					}
+                    return "";
+                }
+                else
+                {
+                    var device = BoundTo.Device;
+                    if (device == InputDevice.Null)
+                    {
+                        return "Unknown Controller";
+                    }
 
-					return device.Name;
-				}
-			}
-		}
-
-
-		public override bool Equals( BindingSource other )
-		{
-			if (other == null)
-			{
-				return false;
-			}
-
-			var bindingSource = other as UnknownDeviceBindingSource;
-			if (bindingSource != null)
-			{
-				return Control == bindingSource.Control;
-			}
-
-			return false;
-		}
+                    return device.Name;
+                }
+            }
+        }
 
 
-		public override bool Equals( object other )
-		{
-			if (other == null)
-			{
-				return false;
-			}
+        public override bool Equals(BindingSource other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
 
-			var bindingSource = other as UnknownDeviceBindingSource;
-			if (bindingSource != null)
-			{
-				return Control == bindingSource.Control;
-			}
+            var bindingSource = other as UnknownDeviceBindingSource;
+            if (bindingSource != null)
+            {
+                return Control == bindingSource.Control;
+            }
 
-			return false;
-		}
-
-
-		public override int GetHashCode()
-		{
-			return Control.GetHashCode();
-		}
+            return false;
+        }
 
 
-		public override BindingSourceType BindingSourceType
-		{
-			get
-			{
-				return BindingSourceType.UnknownDeviceBindingSource;
-			}
-		}
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            var bindingSource = other as UnknownDeviceBindingSource;
+            if (bindingSource != null)
+            {
+                return Control == bindingSource.Control;
+            }
+
+            return false;
+        }
 
 
-		internal override bool IsValid
-		{ 
-			get
-			{
-				if (BoundTo == null)
-				{
-					Debug.LogError( "Cannot query property 'IsValid' for unbound BindingSource." );
-					return false;
-				}
-				else
-				{
-					var device = BoundTo.Device;
-					return device == InputDevice.Null || device.HasControl( Control.Control );
-				}
-			}
-		}
+        public override int GetHashCode()
+        {
+            return Control.GetHashCode();
+        }
 
 
-		internal override void Load( BinaryReader reader )
-		{
-			// Have to do this because it's a struct property? Weird.
-			var temp = new UnknownDeviceControl();
-			temp.Load( reader );
-			Control = temp;
-		}
+        public override BindingSourceType BindingSourceType
+        {
+            get { return BindingSourceType.UnknownDeviceBindingSource; }
+        }
 
 
-		internal override void Save( BinaryWriter writer )
-		{
-			Control.Save( writer );	
-		}
-	}
+        internal override bool IsValid
+        {
+            get
+            {
+                if (BoundTo == null)
+                {
+                    Debug.LogError("Cannot query property 'IsValid' for unbound BindingSource.");
+                    return false;
+                }
+                else
+                {
+                    var device = BoundTo.Device;
+                    return device == InputDevice.Null || device.HasControl(Control.Control);
+                }
+            }
+        }
+
+
+        internal override void Load(BinaryReader reader)
+        {
+            // Have to do this because it's a struct property? Weird.
+            var temp = new UnknownDeviceControl();
+            temp.Load(reader);
+            Control = temp;
+        }
+
+
+        internal override void Save(BinaryWriter writer)
+        {
+            Control.Save(writer);
+        }
+    }
 }
-
-

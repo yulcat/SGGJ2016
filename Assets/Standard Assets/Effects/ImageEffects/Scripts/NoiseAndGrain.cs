@@ -9,7 +9,6 @@ namespace UnityStandardAssets.ImageEffects
     [AddComponentMenu("Image Effects/Noise/Noise And Grain (Filmic)")]
     public class NoiseAndGrain : PostEffectsBase
     {
-
         public float intensityMultiplier = 0.25f;
 
         public float generalIntensity = 0.5f;
@@ -53,7 +52,7 @@ namespace UnityStandardAssets.ImageEffects
             if (dx11Grain && supportDX11)
             {
 #if UNITY_EDITOR
-				dx11NoiseShader = Shader.Find("Hidden/NoiseAndGrainDX11");
+                dx11NoiseShader = Shader.Find("Hidden/NoiseAndGrainDX11");
 #endif
                 dx11NoiseMaterial = CheckShaderAndCreateMaterial(dx11NoiseShader, dx11NoiseMaterial);
             }
@@ -70,7 +69,8 @@ namespace UnityStandardAssets.ImageEffects
                 Graphics.Blit(source, destination);
                 if (null == noiseTexture)
                 {
-                    Debug.LogWarning("Noise & Grain effect failing as noise texture is not assigned. please assign.", transform);
+                    Debug.LogWarning("Noise & Grain effect failing as noise texture is not assigned. please assign.",
+                        transform);
                 }
                 return;
             }
@@ -85,11 +85,13 @@ namespace UnityStandardAssets.ImageEffects
                 dx11NoiseMaterial.SetTexture("_NoiseTex", noiseTexture);
                 dx11NoiseMaterial.SetVector("_NoisePerChannel", monochrome ? Vector3.one : intensities);
                 dx11NoiseMaterial.SetVector("_MidGrey", new Vector3(midGrey, 1.0f / (1.0f - midGrey), -1.0f / midGrey));
-                dx11NoiseMaterial.SetVector("_NoiseAmount", new Vector3(generalIntensity, blackIntensity, whiteIntensity) * intensityMultiplier);
+                dx11NoiseMaterial.SetVector("_NoiseAmount",
+                    new Vector3(generalIntensity, blackIntensity, whiteIntensity) * intensityMultiplier);
 
                 if (softness > Mathf.Epsilon)
                 {
-                    RenderTexture rt = RenderTexture.GetTemporary((int)(source.width * (1.0f - softness)), (int)(source.height * (1.0f - softness)));
+                    RenderTexture rt = RenderTexture.GetTemporary((int) (source.width * (1.0f - softness)),
+                        (int) (source.height * (1.0f - softness)));
                     DrawNoiseQuadGrid(source, rt, dx11NoiseMaterial, noiseTexture, mesh, monochrome ? 3 : 2);
                     dx11NoiseMaterial.SetTexture("_NoiseTex", rt);
                     Graphics.Blit(source, destination, dx11NoiseMaterial, 4);
@@ -112,11 +114,13 @@ namespace UnityStandardAssets.ImageEffects
                 noiseMaterial.SetVector("_NoisePerChannel", monochrome ? Vector3.one : intensities);
                 noiseMaterial.SetVector("_NoiseTilingPerChannel", monochrome ? Vector3.one * monochromeTiling : tiling);
                 noiseMaterial.SetVector("_MidGrey", new Vector3(midGrey, 1.0f / (1.0f - midGrey), -1.0f / midGrey));
-                noiseMaterial.SetVector("_NoiseAmount", new Vector3(generalIntensity, blackIntensity, whiteIntensity) * intensityMultiplier);
+                noiseMaterial.SetVector("_NoiseAmount",
+                    new Vector3(generalIntensity, blackIntensity, whiteIntensity) * intensityMultiplier);
 
                 if (softness > Mathf.Epsilon)
                 {
-                    RenderTexture rt2 = RenderTexture.GetTemporary((int)(source.width * (1.0f - softness)), (int)(source.height * (1.0f - softness)));
+                    RenderTexture rt2 = RenderTexture.GetTemporary((int) (source.width * (1.0f - softness)),
+                        (int) (source.height * (1.0f - softness)));
                     DrawNoiseQuadGrid(source, rt2, noiseMaterial, noiseTexture, mesh, 2);
                     noiseMaterial.SetTexture("_NoiseTex", rt2);
                     Graphics.Blit(source, destination, noiseMaterial, 1);
@@ -127,7 +131,8 @@ namespace UnityStandardAssets.ImageEffects
             }
         }
 
-        static void DrawNoiseQuadGrid(RenderTexture source, RenderTexture dest, Material fxMaterial, Texture2D noise, Mesh mesh, int passNr)
+        static void DrawNoiseQuadGrid(RenderTexture source, RenderTexture dest, Material fxMaterial, Texture2D noise,
+            Mesh mesh, int passNr)
         {
             RenderTexture.active = dest;
 
@@ -166,8 +171,8 @@ namespace UnityStandardAssets.ImageEffects
             float stepSizeX = 1.0f / subDs;
             float stepSizeY = stepSizeX * aspectCorrection;
 
-            int meshWidth = (int)Mathf.Ceil(subDs);
-            int meshHeight = (int)Mathf.Ceil(1.0f / stepSizeY);
+            int meshWidth = (int) Mathf.Ceil(subDs);
+            int meshHeight = (int) Mathf.Ceil(1.0f / stepSizeY);
 
             // only rebuild the vertex info if the screen size has changed
             if (mesh.vertices.Length != meshWidth * meshHeight * 4)

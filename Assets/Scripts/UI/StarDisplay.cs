@@ -9,6 +9,7 @@ public class StarDisplay : MonoBehaviour
     public Text starCount;
     int prevSpentStars;
     int earnedStars;
+
     /// <summary>
     /// This function is called when the object becomes enabled and active.
     /// </summary>

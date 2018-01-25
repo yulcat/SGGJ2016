@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
+﻿using UnityEngine;
 
-public class WindowCredit : WindowPop {
-	static WindowCredit instanciated;
-	public static void OpenCredit()
+public class WindowCredit : WindowPop
+{
+    static WindowCredit instanciated;
+
+    public static void OpenCredit()
     {
         var canvas = FindObjectOfType<Canvas>();
         if (instanciated != null)

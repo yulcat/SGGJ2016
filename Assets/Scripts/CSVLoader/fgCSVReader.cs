@@ -34,60 +34,60 @@ public class fgCSVReader
 
             switch (c)
             {
-            case '"':
-                if (!inside_quotes)
-                {
-                    inside_quotes = true;
-                }
-                else
-                {
-                    if (cur_file_index == file_length)
+                case '"':
+                    if (!inside_quotes)
                     {
-                        // end of file
-                        inside_quotes = false;
-                        goto case '\n';
-                    }
-                    else if (file_contents[cur_file_index] == '"')
-                    {
-                        // double quote, save one
-                        cur_item.Append("\"");
-                        cur_file_index++;
+                        inside_quotes = true;
                     }
                     else
                     {
-                        // leaving quotes section
-                        inside_quotes = false;
+                        if (cur_file_index == file_length)
+                        {
+                            // end of file
+                            inside_quotes = false;
+                            goto case '\n';
+                        }
+                        else if (file_contents[cur_file_index] == '"')
+                        {
+                            // double quote, save one
+                            cur_item.Append("\"");
+                            cur_file_index++;
+                        }
+                        else
+                        {
+                            // leaving quotes section
+                            inside_quotes = false;
+                        }
                     }
-                }
-                break;
-            case '\r':
-                // ignore it completely
-                break;
-            case ',':
-                goto case '\n';
-            case '\n':
-                if (inside_quotes)
-                {
-                    // inside quotes, this characters must be included
-                    cur_item.Append(c);
-                }
-                else
-                {
-                    // end of current item
-                    cur_line.Add(cur_item.ToString());
-                    cur_item.Length = 0;
-                    if (c == '\n' || cur_file_index == file_length)
+                    break;
+                case '\r':
+                    // ignore it completely
+                    break;
+                case ',':
+                    goto case '\n';
+                case '\n':
+                    if (inside_quotes)
                     {
-                        // also end of line, call line reader
-                        line_reader(cur_line_number++, cur_line);
-                        cur_line.Clear();
+                        // inside quotes, this characters must be included
+                        cur_item.Append(c);
                     }
-                }
-                break;
-            default:
-                // other cases, add char
-                cur_item.Append(c);
-                break;
+                    else
+                    {
+                        // end of current item
+                        cur_line.Add(cur_item.ToString());
+                        cur_item.Length = 0;
+                        if (c == '\n' || cur_file_index == file_length)
+                        {
+                            // also end of line, call line reader
+                            line_reader(cur_line_number++, cur_line);
+                            cur_line.Clear();
+                        }
+                    }
+                    break;
+                default:
+                    // other cases, add char
+                    cur_item.Append(c);
+                    break;
             }
         }
     }

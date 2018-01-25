@@ -10,6 +10,7 @@ public class SelfDisable : MonoBehaviour
     {
         Invoke("DisableSelf", disableTime);
     }
+
     void DisableSelf()
     {
         gameObject.SetActive(false);

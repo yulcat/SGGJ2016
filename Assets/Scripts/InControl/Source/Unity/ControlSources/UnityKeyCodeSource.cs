@@ -1,41 +1,40 @@
 namespace InControl
 {
-	using UnityEngine;
+    using UnityEngine;
 
 
-	public class UnityKeyCodeSource : InputControlSource
-	{
-		public KeyCode[] KeyCodeList;
+    public class UnityKeyCodeSource : InputControlSource
+    {
+        public KeyCode[] KeyCodeList;
 
 
-		public UnityKeyCodeSource()
-		{
-		}
-		
-		
-		public UnityKeyCodeSource( params KeyCode[] keyCodeList )
-		{
-			KeyCodeList = keyCodeList;
-		}
+        public UnityKeyCodeSource()
+        {
+        }
 
 
-		public float GetValue( InputDevice inputDevice )
-		{
-			return GetState( inputDevice ) ? 1.0f : 0.0f;
-		}
+        public UnityKeyCodeSource(params KeyCode[] keyCodeList)
+        {
+            KeyCodeList = keyCodeList;
+        }
 
 
-		public bool GetState( InputDevice inputDevice )
-		{
-			for (var i = 0; i < KeyCodeList.Length; i++)
-			{
-				if (Input.GetKey( KeyCodeList[i] ))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-	}
+        public float GetValue(InputDevice inputDevice)
+        {
+            return GetState(inputDevice) ? 1.0f : 0.0f;
+        }
+
+
+        public bool GetState(InputDevice inputDevice)
+        {
+            for (var i = 0; i < KeyCodeList.Length; i++)
+            {
+                if (Input.GetKey(KeyCodeList[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }
-

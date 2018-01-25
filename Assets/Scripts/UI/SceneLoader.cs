@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     static SceneLoader _instance;
+
     static SceneLoader instance
     {
         get
@@ -19,22 +20,25 @@ public class SceneLoader : MonoBehaviour
             return _instance;
         }
     }
+
     public static Coroutine LoadScene(int sceneNumber)
     {
         if (instance.loadingScene) return null;
         instance.gameObject.SetActive(true);
         return instance.StartCoroutine(instance.LoadSceneInstance(null, sceneNumber));
     }
+
     public static Coroutine LoadSceneByName(string sceneName)
     {
         if (instance.loadingScene) return null;
         instance.gameObject.SetActive(true);
         return instance.StartCoroutine(instance.LoadSceneInstance(sceneName));
     }
-    [UnityEngine.HideInInspector]
-    public bool loadingScene = false;
+
+    [UnityEngine.HideInInspector] public bool loadingScene = false;
     public float fadeTime = 1.5f;
     Image img;
+
     IEnumerator LoadSceneInstance(string targetScene, int? targetIndex = null)
     {
         loadingScene = true;
@@ -42,7 +46,7 @@ public class SceneLoader : MonoBehaviour
         complete = false;
         img.DOColor(Color.black, fadeTime).OnComplete(() => complete = true);
         yield return StartCoroutine(WaitForFade());
-        if(targetIndex.HasValue)
+        if (targetIndex.HasValue)
         {
             operation = SceneManager.LoadSceneAsync(targetIndex.Value);
         }
@@ -51,17 +55,20 @@ public class SceneLoader : MonoBehaviour
             operation = SceneManager.LoadSceneAsync(targetScene);
         }
         yield return StartCoroutine(WaitForLoad());
-		StartCoroutine(LoadSceneFinish());
-	}
-	IEnumerator LoadSceneFinish()
-	{
+        StartCoroutine(LoadSceneFinish());
+    }
+
+    IEnumerator LoadSceneFinish()
+    {
         complete = false;
         img.DOColor(Color.clear, fadeTime).OnComplete(() => complete = true);
         yield return StartCoroutine(WaitForFade());
         loadingScene = false;
         gameObject.SetActive(false);
     }
+
     bool complete;
+
     IEnumerator WaitForFade()
     {
         while (true)
@@ -70,7 +77,9 @@ public class SceneLoader : MonoBehaviour
             if (complete) yield break;
         }
     }
+
     AsyncOperation operation;
+
     IEnumerator WaitForLoad()
     {
         while (true)

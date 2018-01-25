@@ -1,4 +1,3 @@
-
 #if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
 using tv.ouya.console.api;
 #endif
@@ -6,47 +5,47 @@ using tv.ouya.console.api;
 
 namespace InControl
 {
-	public class OuyaEverywhereDeviceManager : InputDeviceManager
-	{
-		bool[] deviceConnected = new bool[] { false, false, false, false };
+    public class OuyaEverywhereDeviceManager : InputDeviceManager
+    {
+        bool[] deviceConnected = new bool[] {false, false, false, false};
 
 
-		public OuyaEverywhereDeviceManager()
-		{
-			for (var deviceIndex = 0; deviceIndex < 4; deviceIndex++)
-			{
-				devices.Add( new OuyaEverywhereDevice( deviceIndex ) );
-			}
-		}
+        public OuyaEverywhereDeviceManager()
+        {
+            for (var deviceIndex = 0; deviceIndex < 4; deviceIndex++)
+            {
+                devices.Add(new OuyaEverywhereDevice(deviceIndex));
+            }
+        }
 
 
-		public override void Update( ulong updateTick, float deltaTime )
-		{
-			for (var deviceIndex = 0; deviceIndex < 4; deviceIndex++)
-			{
-				var device = devices[deviceIndex] as OuyaEverywhereDevice;
+        public override void Update(ulong updateTick, float deltaTime)
+        {
+            for (var deviceIndex = 0; deviceIndex < 4; deviceIndex++)
+            {
+                var device = devices[deviceIndex] as OuyaEverywhereDevice;
 
-				if (device.IsConnected != deviceConnected[deviceIndex])
-				{
-					if (device.IsConnected)
-					{
-						device.BeforeAttach();
-						InputManager.AttachDevice( device );
-					}
-					else
-					{
-						InputManager.DetachDevice( device );
-					}
+                if (device.IsConnected != deviceConnected[deviceIndex])
+                {
+                    if (device.IsConnected)
+                    {
+                        device.BeforeAttach();
+                        InputManager.AttachDevice(device);
+                    }
+                    else
+                    {
+                        InputManager.DetachDevice(device);
+                    }
 
-					deviceConnected[deviceIndex] = device.IsConnected;
-				}
-			}
-		}
+                    deviceConnected[deviceIndex] = device.IsConnected;
+                }
+            }
+        }
 
 
-		public static void Enable()
-		{
-			#if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
+        public static void Enable()
+        {
+#if UNITY_ANDROID && INCONTROL_OUYA && !UNITY_EDITOR
 			if (OuyaSDK.isRunningOnOUYASupportedHardware())
 			{
 				Debug.Log( "[InControl] All systems go; firing up OUYA adapter." );
@@ -57,7 +56,6 @@ namespace InControl
 				Debug.Log( "[InControl] OuyaSDK.isRunningOnOUYASupportedHardware() has returned false." );
 			}
 			#endif
-		}
-	}
+        }
+    }
 }
-

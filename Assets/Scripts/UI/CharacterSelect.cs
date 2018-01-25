@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 using System;
+using JetBrains.Annotations;
 using UnityEngine.UI;
 
 public class CharacterSelect : MonoBehaviour
@@ -10,9 +9,10 @@ public class CharacterSelect : MonoBehaviour
     public GameObject[] characters;
     public GameObject cursor;
     Action unlockResult;
+
     void OnEnable()
     {
-        for (int i = 1; i < characters.Length; i++)
+        for (var i = 1; i < characters.Length; i++)
         {
             var available = SaveDataManager.IsCharacterAvailable(i);
             var charImg = characters[i].transform.GetChild(0).GetComponent<Image>();
@@ -24,13 +24,12 @@ public class CharacterSelect : MonoBehaviour
 
     void Update()
     {
-        if (unlockResult != null)
-        {
-            unlockResult();
-            unlockResult = null;
-        }
+        if (unlockResult == null) return;
+        unlockResult();
+        unlockResult = null;
     }
 
+    [UsedImplicitly]
     public void SelectCharacter(int index)
     {
         if (!SaveDataManager.IsCharacterAvailable(index))
@@ -38,16 +37,18 @@ public class CharacterSelect : MonoBehaviour
             TryUnlockCharacter(index);
             return;
         }
-        GameState.SelectedCharacter = (CharacterType)index;
+        GameState.selectedCharacter = (CharacterType) index;
         cursor.transform.DOMove(characters[index].transform.position, 0.3f, true).SetEase(Ease.OutBack);
     }
 
-    private void TryUnlockCharacter(int index)
+    void TryUnlockCharacter(int index)
     {
-        WindowYNPop.OpenYNPop(string.Format(DB.MessageDB["charBuy_confirm"], DB.characterDB[index].name, DB.characterDB[index].price), () => UnlockSuccess(index));
+        WindowYNPop.OpenYNPop(
+            string.Format(DB.MessageDB["charBuy_confirm"], DB.characterDB[index].name, DB.characterDB[index].price),
+            () => UnlockSuccess(index));
     }
 
-    private void UnlockSuccess(int index)
+    void UnlockSuccess(int index)
     {
         var success = SaveDataManager.BuyCharacter(index);
         unlockResult = () => WindowPop.Open(success ? DB.MessageDB["charBuy_success"] : DB.MessageDB["charBuy_failed"]);

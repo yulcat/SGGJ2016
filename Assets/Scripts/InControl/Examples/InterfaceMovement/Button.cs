@@ -1,34 +1,33 @@
 namespace InterfaceMovement
 {
-	using UnityEngine;
+    using UnityEngine;
 
 
-	public class Button : MonoBehaviour
-	{
-		Renderer cachedRenderer;
+    public class Button : MonoBehaviour
+    {
+        Renderer cachedRenderer;
 
-		public Button up = null;
-		public Button down = null;
-		public Button left = null;
-		public Button right = null;
-
-
-		void Start()
-		{
-			cachedRenderer = GetComponent<Renderer>();
-		}
+        public Button up = null;
+        public Button down = null;
+        public Button left = null;
+        public Button right = null;
 
 
-		void Update()
-		{
-			// Find out if we're the focused button.
-			var hasFocus = transform.parent.GetComponent<ButtonManager>().focusedButton == this;
+        void Start()
+        {
+            cachedRenderer = GetComponent<Renderer>();
+        }
 
-			// Fade alpha in and out depending on focus.
-			var color = cachedRenderer.material.color;
-			color.a = Mathf.MoveTowards( color.a, hasFocus ? 1.0f : 0.5f, Time.deltaTime * 3.0f );
-			cachedRenderer.material.color = color;
-		}
-	}
+
+        void Update()
+        {
+            // Find out if we're the focused button.
+            var hasFocus = transform.parent.GetComponent<ButtonManager>().focusedButton == this;
+
+            // Fade alpha in and out depending on focus.
+            var color = cachedRenderer.material.color;
+            color.a = Mathf.MoveTowards(color.a, hasFocus ? 1.0f : 0.5f, Time.deltaTime * 3.0f);
+            cachedRenderer.material.color = color;
+        }
+    }
 }
-

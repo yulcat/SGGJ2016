@@ -1,27 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using UnityEngine;
 
 public class Pyramid : MonoBehaviour
 {
     List<PyramidComponent> blocks;
-    float angularVelocity = 0f;
+    float angularVelocity;
     public float angularDamp = 0.1f;
     public float torqueMultiplier = 5f;
     public float returnTorque = 10f;
     public float torqueSum;
     public float inertia;
-    public bool calculate = false;
-    [System.NonSerializedAttribute]
-    public float maxRotation;
-    [System.NonSerializedAttribute]
-    public int maxY;
-    [System.NonSerialized]
-    public int coinCount;
-    private Plane inputPlane;
-    private Vector3 recentClick;
-    private bool initializedByBuilder = false;
+    public bool calculate;
+    [NonSerialized] public float maxRotation;
+    [NonSerialized] public int maxY;
+    [NonSerialized] public int coinCount;
+    Plane inputPlane;
+    Vector3 recentClick;
+
+    bool initializedByBuilder;
+
     // Use this for initialization
     void Start()
     {
@@ -33,7 +33,9 @@ public class Pyramid : MonoBehaviour
         inputPlane = new Plane(transform.forward, transform.position + (transform.forward * -0.5f));
         maxY = GetMaxY();
         coinCount = GetCoinCount();
+        StartCoroutine(FixedUpdateCoroutine());
     }
+
     public void EnlistBlocks(IEnumerable<PyramidComponent> newBlocks)
     {
         // blocks.ForEach(b => Destroy(b.gameObject));
@@ -42,9 +44,10 @@ public class Pyramid : MonoBehaviour
         blocks.ForEach(b => b.SetPyramid(this));
         initializedByBuilder = true;
     }
+
     void Update()
     {
-        if (Pause.paused) return;
+        if (Pause.Paused) return;
 
         foreach (var t in Input.touches)
         {
@@ -56,6 +59,7 @@ public class Pyramid : MonoBehaviour
             RayCheck(Input.mousePosition);
         }
     }
+
     void RayCheck(Vector3 position)
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
@@ -66,6 +70,7 @@ public class Pyramid : MonoBehaviour
             PushBlock(transform.InverseTransformPoint(recentClick));
         }
     }
+
     void PushBlock(Vector3 clickPosition)
     {
         var block = GetBlock(b => IsClicked(b, clickPosition)) as Block;
@@ -81,14 +86,15 @@ public class Pyramid : MonoBehaviour
             block.ClickListener();
         }
     }
+
     bool IsClicked(PyramidComponent obj, Vector3 clickPosition)
     {
         var block = obj as Block;
         if (block == null) return false;
         var y = Mathf.FloorToInt(clickPosition.y) * 2 + 1;
         return block.position.y == y
-            && block.position.x + 1 >= clickPosition.x * 2
-            && block.position.x - 1 <= clickPosition.x * 2;
+               && block.position.x + 1 >= clickPosition.x * 2
+               && block.position.x - 1 <= clickPosition.x * 2;
     }
 
     public void RemoveBlock(PyramidComponent block, bool refresh = true)
@@ -101,6 +107,7 @@ public class Pyramid : MonoBehaviour
         if (refresh)
             RefreshBlocks();
     }
+
     public void RefreshBlocks()
     {
         blocks.Do(b => b.RefreshPosition());
@@ -110,10 +117,12 @@ public class Pyramid : MonoBehaviour
     {
         return blocks.Any(func);
     }
+
     public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
     {
         return blocks.FirstOrDefault(func);
     }
+
     public void CollapseAll()
     {
         blocks.ForEach(b => b.FallOff(false));
@@ -134,47 +143,68 @@ public class Pyramid : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    IEnumerator FixedUpdateCoroutine()
     {
-        if (blocks.Count == 0) return;
-        inertia = blocks.Aggregate(0f, GetInertiaSum) * 0.01f;
-        torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
-        var currentRot = transform.localRotation.eulerAngles.z;
-        var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
-        ApplyMomentum(torqueSum + returning);
-        ApplyAngularVelocity();
-        angularVelocity *= 1 - angularDamp;
+        while (true)
+        {
+            if (blocks.Count == 0) yield break;
+            yield return new WaitForFixedUpdate();
+            inertia = blocks.Aggregate(0f, GetInertiaSum) * 0.01f;
+            torqueSum = -blocks.Sum(b => b.torque) * torqueMultiplier;
+            var currentRot = transform.localRotation.eulerAngles.z;
+            var returning = -returnTorque * Mathf.Sin(currentRot * Mathf.Deg2Rad);
+            ApplyMomentum(torqueSum + returning);
+            var stuck = ApplyAngularVelocity();
+            if (stuck)
+            {
+                Time.timeScale = 0.5f;
+                yield return new WaitForSeconds(DB.characterDB[(int) CharacterType.Gummy].special);
+                Time.timeScale = 1f;
+            }
+            angularVelocity *= 1 - angularDamp;
+        }
     }
-    float GetInertiaSum(float inertia, PyramidComponent comp)
+
+    float GetInertiaSum(float inert, PyramidComponent comp)
     {
         var mass = comp.GetComponent<Rigidbody>().mass;
         var r = comp.transform.localPosition.magnitude;
         var multiplier = comp is Balloon ? 0 : 1;
-        return (mass * r * r * multiplier) + inertia;
+        return (mass * r * r * multiplier) + inert;
     }
+
     public void ApplyMomentum(float momentum)
     {
         angularVelocity += momentum * Time.deltaTime / inertia;
     }
-    void ApplyAngularVelocity()
+
+    bool everStucked;
+
+    bool ApplyAngularVelocity()
     {
         var currentRot = transform.localRotation.eulerAngles.z;
-        var dc = angularVelocity * Time.fixedDeltaTime;
+        var dc = angularVelocity * Time.fixedDeltaTime * GameState.PyramidRotateSpeed;
         var nextRot = currentRot + dc;
         transform.localRotation = Quaternion.Euler(0, 0, nextRot);
         maxRotation = Mathf.Max(maxRotation, Mathf.Abs(Mathf.DeltaAngle(0, nextRot)));
-        if (Mathf.Cos(nextRot * Mathf.Deg2Rad) < 0.9f)
+        if (!(Mathf.Cos(nextRot * Mathf.Deg2Rad) < 0.9f)) return false;
+        if (GameState.selectedCharacter == CharacterType.Gummy && !everStucked)
         {
-            GameState.Lose(GameState.LoseCause.Collapsed);
-            CollapseAll();
+            everStucked = true;
+            return true;
         }
+        GameState.Lose(GameState.LoseCause.Collapsed);
+        CollapseAll();
+        return false;
     }
+
     int GetMaxY()
     {
         return blocks
             .Where(block => block.BlockType != BlockType.Character)
             .Max(block => (new XY(block.transform.localPosition).y + 1) / 2);
     }
+
     int GetCoinCount()
     {
         return blocks.Count(block => block.BlockType == BlockType.Coin);

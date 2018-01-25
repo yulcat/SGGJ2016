@@ -16,74 +16,74 @@ using Gamepad;
 
 namespace InControl
 {
-	using UnityEngine;
+    using UnityEngine;
 
 
-	public class XboxOneInputDevice : InputDevice
-	{
-		const uint AnalogLeftStickX = 0;
-		const uint AnalogLeftStickY = 1;
+    public class XboxOneInputDevice : InputDevice
+    {
+        const uint AnalogLeftStickX = 0;
+        const uint AnalogLeftStickY = 1;
 
-		const uint AnalogRightStickX = 3;
-		const uint AnalogRightStickY = 4;
+        const uint AnalogRightStickX = 3;
+        const uint AnalogRightStickY = 4;
 
-		const uint AnalogLeftTrigger = 8;
-		const uint AnalogRightTrigger = 9;
+        const uint AnalogLeftTrigger = 8;
+        const uint AnalogRightTrigger = 9;
 
-		const float LowerDeadZone = 0.2f;
-		const float UpperDeadZone = 0.9f;
+        const float LowerDeadZone = 0.2f;
+        const float UpperDeadZone = 0.9f;
 
-		internal uint JoystickId { get; private set; }
+        internal uint JoystickId { get; private set; }
 
-		public ulong ControllerId { get; private set; }
+        public ulong ControllerId { get; private set; }
 
 
-		public XboxOneInputDevice( uint joystickId )
-			: base( "Xbox One Controller" )
-		{
-			JoystickId = joystickId;
-			SortOrder = (int) joystickId;
-			Meta = "Xbox One Device #" + joystickId;
+        public XboxOneInputDevice(uint joystickId)
+            : base("Xbox One Controller")
+        {
+            JoystickId = joystickId;
+            SortOrder = (int) joystickId;
+            Meta = "Xbox One Device #" + joystickId;
 
 #if UNITY_XBOXONE
 			ControllerId = XboxOneInput.GetControllerId( joystickId );
 #endif
 
-			AddControl( InputControlType.LeftStickLeft, "Left Stick Left", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.LeftStickRight, "Left Stick Right", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.LeftStickUp, "Left Stick Up", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.LeftStickDown, "Left Stick Down", LowerDeadZone, UpperDeadZone );
+            AddControl(InputControlType.LeftStickLeft, "Left Stick Left", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.LeftStickRight, "Left Stick Right", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.LeftStickUp, "Left Stick Up", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.LeftStickDown, "Left Stick Down", LowerDeadZone, UpperDeadZone);
 
-			AddControl( InputControlType.RightStickLeft, "Right Stick Left", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.RightStickRight, "Right Stick Right", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.RightStickUp, "Right Stick Up", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.RightStickDown, "Right Stick Down", LowerDeadZone, UpperDeadZone );
+            AddControl(InputControlType.RightStickLeft, "Right Stick Left", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.RightStickRight, "Right Stick Right", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.RightStickUp, "Right Stick Up", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.RightStickDown, "Right Stick Down", LowerDeadZone, UpperDeadZone);
 
-			AddControl( InputControlType.LeftTrigger, "Left Trigger", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.RightTrigger, "Right Trigger", LowerDeadZone, UpperDeadZone );
+            AddControl(InputControlType.LeftTrigger, "Left Trigger", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.RightTrigger, "Right Trigger", LowerDeadZone, UpperDeadZone);
 
-			AddControl( InputControlType.DPadUp, "DPad Up", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.DPadDown, "DPad Down", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.DPadLeft, "DPad Left", LowerDeadZone, UpperDeadZone );
-			AddControl( InputControlType.DPadRight, "DPad Right", LowerDeadZone, UpperDeadZone );
+            AddControl(InputControlType.DPadUp, "DPad Up", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.DPadDown, "DPad Down", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.DPadLeft, "DPad Left", LowerDeadZone, UpperDeadZone);
+            AddControl(InputControlType.DPadRight, "DPad Right", LowerDeadZone, UpperDeadZone);
 
-			AddControl( InputControlType.Action1, "A" );
-			AddControl( InputControlType.Action2, "B" );
-			AddControl( InputControlType.Action3, "X" );
-			AddControl( InputControlType.Action4, "Y" );
+            AddControl(InputControlType.Action1, "A");
+            AddControl(InputControlType.Action2, "B");
+            AddControl(InputControlType.Action3, "X");
+            AddControl(InputControlType.Action4, "Y");
 
-			AddControl( InputControlType.LeftBumper, "Left Bumper" );
-			AddControl( InputControlType.RightBumper, "Right Bumper" );
+            AddControl(InputControlType.LeftBumper, "Left Bumper");
+            AddControl(InputControlType.RightBumper, "Right Bumper");
 
-			AddControl( InputControlType.LeftStickButton, "Left Stick Button" );
-			AddControl( InputControlType.RightStickButton, "Right Stick Button" );
+            AddControl(InputControlType.LeftStickButton, "Left Stick Button");
+            AddControl(InputControlType.RightStickButton, "Right Stick Button");
 
-			AddControl( InputControlType.View, "View" );
-			AddControl( InputControlType.Menu, "Menu" );
-		}
+            AddControl(InputControlType.View, "View");
+            AddControl(InputControlType.Menu, "Menu");
+        }
 
-		public override void Update( ulong updateTick, float deltaTime )
-		{
+        public override void Update(ulong updateTick, float deltaTime)
+        {
 #if UNITY_XBOXONE
 			var lsv = new Vector2( GetAnalogValue( AnalogLeftStickX ), -GetAnalogValue( AnalogLeftStickY ) );
 			UpdateLeftStickWithValue( lsv, updateTick, deltaTime );
@@ -115,7 +115,7 @@ namespace InControl
 
 			Commit( updateTick, deltaTime );
 #endif
-		}
+        }
 
 
 #if UNITY_XBOXONE
@@ -139,33 +139,32 @@ namespace InControl
 #endif
 
 
-		public bool IsConnected
-		{
-			get
-			{
+        public bool IsConnected
+        {
+            get
+            {
 #if UNITY_XBOXONE
 				return XboxOneInput.IsGamepadActive( JoystickId );
 #else
-				return false;
+                return false;
 #endif
-			}
-		}
+            }
+        }
 
 
-		public override void Vibrate( float leftMotor, float rightMotor )
-		{
+        public override void Vibrate(float leftMotor, float rightMotor)
+        {
 #if UNITY_XBOXONE
 			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, 0, 0 );
 #endif
-		}
+        }
 
 
-		public void Vibrate( float leftMotor, float rightMotor, float leftTrigger, float rightTrigger )
-		{
+        public void Vibrate(float leftMotor, float rightMotor, float leftTrigger, float rightTrigger)
+        {
 #if UNITY_XBOXONE
 			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, leftTrigger, rightTrigger );
 #endif
-		}
-	}
+        }
+    }
 }
-

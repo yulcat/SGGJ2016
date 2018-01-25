@@ -1,100 +1,93 @@
 ﻿namespace InControl
 {
-	using System;
+    using System;
 
 
-	public class PlayerOneAxisAction : OneAxisInputControl
-	{
-		PlayerAction negativeAction;
-		PlayerAction positiveAction;
+    public class PlayerOneAxisAction : OneAxisInputControl
+    {
+        PlayerAction negativeAction;
+        PlayerAction positiveAction;
 
-		/// <summary>
-		/// The binding source type that last provided input to this action set.
-		/// </summary>
-		public BindingSourceType LastInputType = BindingSourceType.None;
+        /// <summary>
+        /// The binding source type that last provided input to this action set.
+        /// </summary>
+        public BindingSourceType LastInputType = BindingSourceType.None;
 
-		/// <summary>
-		/// Occurs when the binding source type that last provided input to this action set changes.
-		/// </summary>
-		public event Action<BindingSourceType> OnLastInputTypeChanged;
+        /// <summary>
+        /// Occurs when the binding source type that last provided input to this action set changes.
+        /// </summary>
+        public event Action<BindingSourceType> OnLastInputTypeChanged;
 
-		/// <summary>
-		/// This property can be used to store whatever arbitrary game data you want on this action.
-		/// </summary>
-		public object UserData { get; set; }
-
-
-		internal PlayerOneAxisAction( PlayerAction negativeAction, PlayerAction positiveAction )
-		{
-			this.negativeAction = negativeAction;
-			this.positiveAction = positiveAction;
-			Raw = true;
-		}
+        /// <summary>
+        /// This property can be used to store whatever arbitrary game data you want on this action.
+        /// </summary>
+        public object UserData { get; set; }
 
 
-		internal void Update( ulong updateTick, float deltaTime )
-		{
-			ProcessActionUpdate( negativeAction );
-			ProcessActionUpdate( positiveAction );
-
-			var value = Utility.ValueFromSides( negativeAction, positiveAction );
-			CommitWithValue( value, updateTick, deltaTime );
-		}
+        internal PlayerOneAxisAction(PlayerAction negativeAction, PlayerAction positiveAction)
+        {
+            this.negativeAction = negativeAction;
+            this.positiveAction = positiveAction;
+            Raw = true;
+        }
 
 
-		void ProcessActionUpdate( PlayerAction action )
-		{
-			var lastInputType = LastInputType;
+        internal void Update(ulong updateTick, float deltaTime)
+        {
+            ProcessActionUpdate(negativeAction);
+            ProcessActionUpdate(positiveAction);
 
-			if (action.UpdateTick > UpdateTick)
-			{
-				UpdateTick = action.UpdateTick;
-				lastInputType = action.LastInputType;
-			}
-
-			if (LastInputType != lastInputType)
-			{
-				LastInputType = lastInputType;
-				if (OnLastInputTypeChanged != null)
-				{
-					OnLastInputTypeChanged.Invoke( lastInputType );
-				}
-			}
-		}
+            var value = Utility.ValueFromSides(negativeAction, positiveAction);
+            CommitWithValue(value, updateTick, deltaTime);
+        }
 
 
-		[Obsolete( "Please set this property on device controls directly. It does nothing here." )]
-		public new float LowerDeadZone
-		{
-			get
-			{
-				return 0.0f;
-			}
+        void ProcessActionUpdate(PlayerAction action)
+        {
+            var lastInputType = LastInputType;
 
-			set
-			{
+            if (action.UpdateTick > UpdateTick)
+            {
+                UpdateTick = action.UpdateTick;
+                lastInputType = action.LastInputType;
+            }
+
+            if (LastInputType != lastInputType)
+            {
+                LastInputType = lastInputType;
+                if (OnLastInputTypeChanged != null)
+                {
+                    OnLastInputTypeChanged.Invoke(lastInputType);
+                }
+            }
+        }
+
+
+        [Obsolete("Please set this property on device controls directly. It does nothing here.")]
+        public new float LowerDeadZone
+        {
+            get { return 0.0f; }
+
+            set
+            {
 #pragma warning disable 0168
-				var dummy = value;
+                var dummy = value;
 #pragma warning restore 0168
-			}
-		}
+            }
+        }
 
 
-		[Obsolete( "Please set this property on device controls directly. It does nothing here." )]
-		public new float UpperDeadZone
-		{
-			get
-			{
-				return 0.0f;
-			}
+        [Obsolete("Please set this property on device controls directly. It does nothing here.")]
+        public new float UpperDeadZone
+        {
+            get { return 0.0f; }
 
-			set
-			{
+            set
+            {
 #pragma warning disable 0168
-				var dummy = value;
+                var dummy = value;
 #pragma warning restore 0168
-			}
-		}
-	}
+            }
+        }
+    }
 }
-

@@ -12,7 +12,7 @@ public class BlockIconTextureApplierEditor : Editor
 
         if (GUILayout.Button("Load Icon Image"))
         {
-			applier.LoadIcon();
+            applier.LoadIcon();
         }
     }
 }
