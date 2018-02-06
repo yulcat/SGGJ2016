@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using System.Collections;
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class SceneLoader : MonoBehaviour
             if (_instance == null)
             {
                 var original = Resources.Load("SceneLoadCurtain") as GameObject;
-                _instance = Instantiate<GameObject>(original).GetComponent<SceneLoader>();
+                _instance = Instantiate(original).GetComponent<SceneLoader>();
             }
             return _instance;
         }
@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour
         return instance.StartCoroutine(instance.LoadSceneInstance(sceneName));
     }
 
-    [UnityEngine.HideInInspector] public bool loadingScene = false;
+    [HideInInspector] public bool loadingScene;
     public float fadeTime = 1.5f;
     Image img;
 

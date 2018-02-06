@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using Data;
 
 public static class DB
 {
-    public readonly static StageDB StageDB = new StageDB();
-    public readonly static ScoreDB ScoreDB = new ScoreDB();
-    public readonly static MessageDB MessageDB = new MessageDB();
-
-    internal static void LoadAll()
-    {
-        Debug.Log("do nothing");
-    }
-
-    public readonly static CharacterDB characterDB = new CharacterDB();
+    public static readonly StageDB StageDB = new StageDB();
+    public static readonly ScoreDB ScoreDB = new ScoreDB();
+    public static readonly MessageDB MessageDB = new MessageDB();
+    public static readonly CharacterDB characterDB = new CharacterDB();
 }
 
 public class StageDB : ListData<StageDataLoader.StageData, StageDB>
@@ -29,7 +21,7 @@ public class StageDB : ListData<StageDataLoader.StageData, StageDB>
     public StageDB()
     {
         dataPath = "stageDB.txt";
-        Load(419959845);
+        SetId(419959845);
     }
 }
 
@@ -38,16 +30,26 @@ public class ScoreDB : DictionaryData<int, ScoreDB>
     public ScoreDB()
     {
         dataPath = "scoreDB.txt";
-        Load(495693467);
+        SetId(495693467);
     }
 }
 
-public class MessageDB : DictionaryData<string, MessageDB>
+public class MessageDB
 {
-    public MessageDB()
+    public static readonly LanguageDB korMessageDB = new LanguageDB("messageDB.txt", 1681149424);
+    public static readonly LanguageDB engMessageDB = new LanguageDB("engMessage.txt", 332871737);
+
+    public string this[string key] => LanguageManager.GetLang() == LanguageManager.Language.English
+        ? engMessageDB[key]
+        : korMessageDB[key];
+}
+
+public class LanguageDB : DictionaryData<string, LanguageDB>
+{
+    public LanguageDB(string path, int id)
     {
-        dataPath = "messageDB.txt";
-        Load(1681149424);
+        dataPath = path;
+        SetId(id);
     }
 }
 
@@ -56,7 +58,7 @@ public class CharacterDB : ListData<CharacterData, CharacterDB>
     public CharacterDB()
     {
         dataPath = "characterDB.txt";
-        Load(167980508);
+        SetId(167980508);
     }
 }
 

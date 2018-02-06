@@ -61,6 +61,6 @@ public class SaveFileModifier : Editor
     [MenuItem("Tools/Edit Save File/Reload DB")]
     static void ReloadDB()
     {
-        PlayerPrefs.DeleteKey("downloadTime");
+        DataLoader.DownloadAll();
     }
 }
