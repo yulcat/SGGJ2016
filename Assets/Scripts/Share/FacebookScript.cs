@@ -55,12 +55,13 @@ public class FacebookScript : MonoBehaviour
             linkCaption: "Please Download in PlayStore",
             linkDescription: "desc",
             picture: new System.Uri ("https://www.facebook.com/nablagame/"),
-            mediaSource: ""
-
-//            new System.Uri("http://resocoder.com"), "Check it out!",
-//            "Good programming tutorials lol!",
-//            new System.Uri("http://resocoder.com/wp-content/uploads/2017/01/logoRound512.png")
+            mediaSource: "",
+            callback: shareCallBack
         );
+    }
+
+    void shareCallBack(){
+    
     }
 
     #region Inviting
