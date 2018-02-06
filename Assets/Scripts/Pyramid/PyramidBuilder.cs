@@ -22,7 +22,8 @@ public enum BlockType
     Wood,
     More,
     Snow,
-    TutorialBase
+    TutorialBase,
+    Landmine
 }
 
 public struct BlockData

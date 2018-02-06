@@ -51,6 +51,8 @@ public class CharacterControl : PyramidComponent
         }
         else if (pyramid.HasBlocks(c => CheckFeet(x, y, c)) || OverlapTest(x, y) != null)
         {
+            var feet = pyramid.GetBlock(c => CheckFeet(x, y, c));
+            if (feet != null) (feet as IFeetDetect)?.OnStepOn();
             if (currentFloor == y) return;
             FallTo(currentFloor, y);
             currentFloor = y;
@@ -146,6 +148,11 @@ public class CharacterControl : PyramidComponent
                 RefreshPosition();
                 anim.SetBool("IsTrace", false);
                 //Jump off
+            }
+            else
+            {
+                var feet = pyramid.GetBlock(c => CheckFeet(destination, currentFloor, c));
+                (feet as IFeetDetect)?.OnStepOn();
             }
         }
     }

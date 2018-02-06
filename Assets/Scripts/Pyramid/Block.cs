@@ -60,15 +60,9 @@ public class Block : PyramidComponent, ICollidable
         RefreshPositionSelf(position);
     }
 
-    public override float torque
-    {
-        get { return GetTorque(position.ToVector3(), body.mass); }
-    }
+    public override float torque => GetTorque(position.ToVector3(), body.mass);
 
-    public virtual bool CollideResult
-    {
-        get { return true; }
-    }
+    public virtual bool CollideResult => true;
 
     protected override void FallResult()
     {

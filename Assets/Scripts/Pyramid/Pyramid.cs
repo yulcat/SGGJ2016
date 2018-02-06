@@ -184,7 +184,7 @@ public class Pyramid : MonoBehaviour
     {
         var currentRot = transform.localRotation.eulerAngles.z;
         var dc = angularVelocity * Time.fixedDeltaTime * GameState.PyramidRotateSpeed;
-        var nextRot = currentRot + dc;
+        var nextRot = float.IsNaN(dc) ? currentRot : currentRot + dc;
         transform.localRotation = Quaternion.Euler(0, 0, nextRot);
         maxRotation = Mathf.Max(maxRotation, Mathf.Abs(Mathf.DeltaAngle(0, nextRot)));
         if (!(Mathf.Cos(nextRot * Mathf.Deg2Rad) < 0.9f)) return false;

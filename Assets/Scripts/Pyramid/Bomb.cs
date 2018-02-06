@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using DG.Tweening;
-using System;
+using UnityEngine;
 
 public class Bomb : Block
 {
@@ -33,17 +32,16 @@ public class Bomb : Block
         Destroy(gameObject);
     }
 
-    private void ThrowAway(PyramidComponent target)
+    void ThrowAway(PyramidComponent target)
     {
         if (target is CharacterControl)
         {
             var characterTarget = target as CharacterControl;
             characterTarget.Kill(GameState.LoseCause.Boomed);
-            return;
         }
         else if (target is Block)
         {
-            var blockTarget = target as Block;
+            var blockTarget = (Block) target;
             blockTarget.Remove();
         }
     }
@@ -61,7 +59,7 @@ public class Bomb : Block
         }
         if (check.y != pos.y) return false;
         if (direction == 1) return (check.x >= pos.x - 3 && check.x < pos.x);
-        else if (direction == -1) return (check.x <= pos.x + 3 && check.x > pos.x);
-        else throw new System.Exception("Finding wierd direction");
+        if (direction == -1) return (check.x <= pos.x + 3 && check.x > pos.x);
+        throw new Exception("Finding wierd direction");
     }
 }
