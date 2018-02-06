@@ -23,22 +23,22 @@ public class Lose : Window
         switch (cause)
         {
             case GameState.LoseCause.BalloonLost:
-                text.text = MessageData.dictionary["fail_balloonLost"];
+                text.text = DB.MessageDB["fail_balloonLost"];
                 break;
             case GameState.LoseCause.CharacterLost:
-                text.text = MessageData.dictionary["fail_bearFalled"];
+                text.text = DB.MessageDB["fail_bearFalled"];
                 break;
             case GameState.LoseCause.Collapsed:
-                text.text = MessageData.dictionary["fail_nablaFalled"];
+                text.text = DB.MessageDB["fail_nablaFalled"];
                 break;
             case GameState.LoseCause.Crushed:
-                text.text = MessageData.dictionary["fail_crushed"];
+                text.text = DB.MessageDB["fail_crushed"];
                 break;
             case GameState.LoseCause.Objective:
-                text.text = MessageData.dictionary["fail_objective"];
+                text.text = DB.MessageDB["fail_objective"];
                 break;
             case GameState.LoseCause.Boomed:
-                text.text = MessageData.dictionary["fail_boomed"];
+                text.text = DB.MessageDB["fail_boomed"];
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(cause), cause, null);

@@ -124,7 +124,7 @@ public class Block : PyramidComponent, ICollidable
         else
         {
             transform.DOLocalMoveZ((float) currentClickCount / ClickCount, 0.3f)
-                .SetEase(Ease.OutQuint);
+                .SetEase(Ease.OutElastic);
         }
         var audio = GetComponent<AudioList>();
         if (audio != null) audio.Play("Push");

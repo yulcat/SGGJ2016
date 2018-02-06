@@ -10,6 +10,6 @@ public class Init : MonoBehaviour
     /// </summary>
     void Start()
     {
-        DB.LoadAll();
+//        DB.LoadAll();
     }
 }
