@@ -158,8 +158,11 @@ public class Pyramid : MonoBehaviour
             if (stuck)
             {
                 Time.timeScale = 0.5f;
+                var first = blocks.OfType<CharacterControl>().FirstOrDefault();
+                if (first != null) GrayscaleEffect.SetGrayscale(first.transform.position);
                 yield return new WaitForSeconds(DB.characterDB[(int) CharacterType.Gummy].special);
                 Time.timeScale = 1f;
+                GrayscaleEffect.UnsetGraysclae();
             }
             angularVelocity *= 1 - angularDamp;
         }
