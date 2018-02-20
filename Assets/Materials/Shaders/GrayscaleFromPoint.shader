@@ -57,7 +57,8 @@
 				float dx = (i.uv.x - _GrayscaleCenter.x) * width;
 				float dy = (i.uv.y - _GrayscaleCenter.y);
 				float dist = dx * dx + dy * dy;
-				return lerp(col, saturate(pow(fixed4(lum,1), _Pow)), saturate(-(dist-_GrayscaleRadius) * _GrayscaleLerp));
+				float radius = (_GrayscaleRadius * _GrayscaleRadius);
+				return lerp(col, saturate(pow(fixed4(lum,1), _Pow)), saturate(-(dist-radius) * _GrayscaleLerp));
 			}
 			ENDCG
 		}
