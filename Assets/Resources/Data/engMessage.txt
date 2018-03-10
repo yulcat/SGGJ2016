@@ -5,8 +5,8 @@ fail_bearFalled,the Bear’ has Fallen!,실패2
 fail_balloonLost,Lost the Balloon!,실패3
 fail_crushed,Crushed under blocks!,실패4
 fail_objective,Mission Objective not accomplished!,실패5
-,,
-heartLack,Need more Hearts!,입장권 부족
+heart_charge,,
+heart_lack,Need more Hearts!,입장권 부족
 exitGame,Exit?,게임종료
 ,,
 mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
@@ -58,13 +58,13 @@ buyHeart,Buy Heart,ui-2(heart)
 watchAd,Watch Ads,ui-2(heart)
 ,,
 createdBy,Creators,ui-3(credit)
-creator1,"Jungsoo, PARK",ui-3(credit)
-creator2,"Jongwon, LEE",ui-3(credit)
-creator3,"Seungbeom, JIN",ui-3(credit)
+creators,"Jungsoo PARK, Jongwon LEE, Seungbeom JIN",ui-3(credit)
+,,
+,,
 music,Music,ui-3(credit)
+musicBy,http://www.littlerobotsoundfactory.com/,ui-3(credit)
 ,,
 danger,Danger,ui-4(ingame)
-,,
 tutorial_move,Move ‘the Bear’ left and right with the Stick!,
 tutorial_touch,Push the Blocks by touching them!,
 tutorial_balloon,Escape from the Nabla by catching the Balloon!,
