@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
+using UnityEngine;
 
 public static class DB
 {
@@ -39,12 +40,20 @@ public class MessageDB
     public static LanguageDB korMessageDB = new LanguageDB("messageDB.txt", 1681149424);
     public static LanguageDB engMessageDB = new LanguageDB("engMessage.txt", 332871737);
 
-    public string this[string key] => LanguageManager.GetLang() == LanguageManager.Language.English
+    public string this[string key] => LanguageManager.GetLang() != LanguageManager.Language.Korean
         ? engMessageDB[key]
         : korMessageDB[key];
 
     public static bool HasKey(string localizerTextKey) =>
         engMessageDB.HasKey(localizerTextKey) && korMessageDB.HasKey(localizerTextKey);
+
+    public string GetTip()
+    {
+        var db = LanguageManager.GetLang() != LanguageManager.Language.Korean
+            ? engMessageDB
+            : korMessageDB;
+        return db.RandomKeyStartsWith("tip_");
+    }
 }
 
 public class LanguageDB : DictionaryData<string, LanguageDB>
@@ -56,6 +65,9 @@ public class LanguageDB : DictionaryData<string, LanguageDB>
     }
 
     public bool HasKey(string key) => ContainsKey(key);
+
+    public string RandomKeyStartsWith(string prefix) =>
+        dic.Where(p => p.Key.StartsWith(prefix)).OrderBy(o => Random.Range(0f, 1f)).First().Value;
 }
 
 public class CharacterDB : ListData<CharacterData, CharacterDB>
