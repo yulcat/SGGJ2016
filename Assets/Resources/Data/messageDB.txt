@@ -9,23 +9,16 @@ heart_charge,하트 충전,하트 충전
 heart_lack,하트가 부족해요!,입장권 부족
 exitGame,종료하시겠습니까?,게임종료
 ,,
-mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
-special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
-share_special,스페셜 스테이지 기록 : (n) 스테이지,스페셜자랑내용
-reward_special,200다이아가 지급됩니다!,스페셜자랑혜택
-,,
-,,
-,,
 ad_description,입장권이 10개 지급됩니다!,광고 시청 시 혜택설명
 ,,
-share_default,금메달 수집률 : (n/m)*100 %,설정자랑내용
+,,
 ,,
 ,,
 exit_description,게임을 종료하시겠습니까?,종료확인
 ,,
 charBuy_confirm,{0}를 구매하시겠어요? (별 {1}개 소모),캐릭터구매확인
-itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
-diaBuy_confirm,(다이아이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
+,,
+,,
 charBuy_success,구매 성공!,
 charBuy_failed,별이 부족해요!,
 ,,
@@ -72,16 +65,19 @@ tutorial_touch,터치하여 블럭을 밀어내야해요!,
 tutorial_balloon,풍선을 잡아 나블라를 탈출해야해요!,
 ,,
 ,,
-tip_facebook,페이스북에 점수를 공유하면 하트를 받을 수 있어요,
-tip_ad,광고를 시청하면 하트를 받을 수 있어요,
-tip_star,스타를 모아서 캐릭터를 얻을 수 있어요,
-tip_water,물 블럭에 캐릭터가 빠지면 움직일 수 없어요,
-tip_barrel,드럼통 블럭은 양 옆 블럭과 함께 폭발해요,
-tip_snow,눈 블럭을 밟으면 녹아 없어져요,
-tip_volcano,용암 블럭에 닿으면 다쳐서 추락해요,
-tip_space,자석 블럭은 주변 블럭을 고정해요,
-tip_weight,각 블럭은 무게가 달라요,
-tip_mission,스테이지 시작 전 미션내용을 확인하세요,
-tip_score1,나블라의 균형을 유지할 수록 높은 점수를 획득해요,
-tip_score2,블럭을 많이 깰 수록 높은 점수를 받을 수 있어요,
-tip_score3,코인을 획득할수록 높은 점수를 받아요,
+,,
+tip_ad,Tip: 광고를 시청하면 하트를 받을 수 있어요,
+tip_star,Tip: 스타를 모아서 캐릭터를 얻을 수 있어요,
+tip_water,Tip: 물 블럭에 캐릭터가 빠지면 움직일 수 없어요,
+tip_barrel,Tip: 드럼통 블럭은 양 옆 블럭과 함께 폭발해요,
+tip_snow,Tip: 눈 블럭을 밟으면 녹아 없어져요,
+tip_mine,Tip: 지뢰 블럭은 가로열을 모두 폭파시켜요,
+tip_volcano,Tip: 용암 블럭에 닿으면 다쳐서 추락해요,
+tip_weight,Tip: 각 블럭은 무게가 달라요,
+tip_mission,Tip: 스테이지 시작 전 미션내용을 확인하세요,
+tip_score1,Tip: 나블라의 균형을 유지할 수록 높은 점수를 획득해요,
+tip_score2,Tip: 블럭을 많이 깰 수록 높은 점수를 받을 수 있어요,
+tip_score3,Tip: 코인을 획득할수록 높은 점수를 받아요,
+tip_ranking,Tip: 랭킹은 상위 퍼센트를 보여여줘요,
+tip_panda,Tip: 판다곰은 나블라의 무너지는 속도를 늦춰요,
+tip_jelly,Tip: 젤리곰은 나블라가 무너지기 직전에 시간을 멈춰요,
