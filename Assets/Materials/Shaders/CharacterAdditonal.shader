@@ -21,7 +21,7 @@ Shader "Unlit/CharacterAdditonal"
 		Pass
         {
             Stencil {
-                Ref 1
+                Ref 2
                 Comp Equal
                 Pass Zero
             }

@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 224252147876818402}
   - component: {fileID: 222838672363651306}
   - component: {fileID: 114335595065558236}
+  - component: {fileID: 114029982537811238}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -474,6 +475,7 @@ GameObject:
   - component: {fileID: 224244989028939978}
   - component: {fileID: 222383882208615286}
   - component: {fileID: 114793799637319416}
+  - component: {fileID: 114293030539429586}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -591,6 +593,7 @@ GameObject:
   - component: {fileID: 224349472271877974}
   - component: {fileID: 222424925857144844}
   - component: {fileID: 114035517101328774}
+  - component: {fileID: 114861340469922404}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -648,6 +651,18 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: MENU
+--- !u!114 &114029982537811238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439479892068278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fada5b8668400789cb49c12e26e8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: stop
 --- !u!114 &114032932673158186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -848,6 +863,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114293030539429586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1827310323613226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fada5b8668400789cb49c12e26e8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: continue
 --- !u!114 &114323914213240802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1195,8 +1222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowOpenSound: pause
-  BGMSlider: {fileID: 114474377294381112}
-  SFXSlider: {fileID: 114171933254741558}
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!114 &114729372265995202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1471,6 +1498,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114861340469922404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962937205706908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fada5b8668400789cb49c12e26e8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: replay
 --- !u!114 &114927149243967060
 MonoBehaviour:
   m_ObjectHideFlags: 1

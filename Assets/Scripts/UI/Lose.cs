@@ -20,29 +20,34 @@ public class Lose : Window
 
     public void SetMessage(GameState.LoseCause cause)
     {
+        var loseCause = GetLoseCauseMessage(cause);
+        text.text = FormatMessage(loseCause);
+    }
+
+    string GetLoseCauseMessage(GameState.LoseCause cause)
+    {
         switch (cause)
         {
             case GameState.LoseCause.BalloonLost:
-                text.text = DB.MessageDB["fail_balloonLost"];
-                break;
+                return DB.MessageDB["fail_balloonLost"];
             case GameState.LoseCause.CharacterLost:
-                text.text = DB.MessageDB["fail_bearFalled"];
-                break;
+                return DB.MessageDB["fail_bearFalled"];
             case GameState.LoseCause.Collapsed:
-                text.text = DB.MessageDB["fail_nablaFalled"];
-                break;
+                return DB.MessageDB["fail_nablaFalled"];
             case GameState.LoseCause.Crushed:
-                text.text = DB.MessageDB["fail_crushed"];
-                break;
+                return DB.MessageDB["fail_crushed"];
             case GameState.LoseCause.Objective:
-                text.text = DB.MessageDB["fail_objective"];
-                break;
+                return DB.MessageDB["fail_objective"];
             case GameState.LoseCause.Boomed:
-                text.text = DB.MessageDB["fail_boomed"];
-                break;
+                return DB.MessageDB["fail_boomed"];
             default:
                 throw new ArgumentOutOfRangeException(nameof(cause), cause, null);
         }
+    }
+
+    string FormatMessage(string messageToShow)
+    {
+        return $"{messageToShow}\n\n<size=50>{DB.MessageDB.GetTip()}</size>";
     }
 
     [UsedImplicitly]

@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 224254643741524122}
   - component: {fileID: 222038482554190560}
   - component: {fileID: 114171041072219892}
+  - component: {fileID: 114006230712167272}
   m_Layer: 5
   m_Name: text
   m_TagString: Untagged
@@ -287,6 +288,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114006230712167272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590777795351086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fada5b8668400789cb49c12e26e8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: fail
 --- !u!114 &114171041072219892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -628,7 +641,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowOpenSound: openWindow
   text: {fileID: 114688187112269724}
-  cause: 0
 --- !u!114 &114688187112269724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -661,7 +673,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAC8C\uC784 \uC885\uB8CC"
+  m_Text: "\uB098\uBE14\uB77C\uAC00 \uBB34\uB108\uC84C\uC5B4\uC694!\n\n<size=50>tip
+    : \uD398\uC774\uC2A4\uBD81\uC5D0 \uC810\uC218\uB97C \uACF5\uC720\uD558\uBA74 \uD558\uD2B8\uB97C
+    \uBC1B\uC744 \uC218 \uC788\uC5B4\uC694</size>"
 --- !u!114 &114695494842608260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1146,7 +1160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 875.2001, y: 516.8}
+  m_AnchoredPosition: {x: 875.2, y: 516.8}
   m_SizeDelta: {x: 119, y: 116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224478653613822826

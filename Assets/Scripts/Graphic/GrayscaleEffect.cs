@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Camera))]
 [ExecuteInEditMode]
@@ -8,20 +10,48 @@ public class GrayscaleEffect : MonoBehaviour
 {
     public Material material;
 
+    Material setTexture;
     const float AnimationTime = 1f;
-    static GrayscaleEffect instance;
+    static List<GrayscaleEffect> instances;
+    Camera cam;
+    RenderTextureDescriptor descript;
+    RenderTexture target;
 
     void Awake()
     {
-        if (material == null)
-        {
-            material = Resources.Load<Material>("Grayscale");
-        }
+        material = Resources.Load<Material>("Grayscale");
+        setTexture = new Material(Shader.Find("Unlit/Unlit"));
+        cam = GetComponent<Camera>();
     }
 
-    void OnRenderImage(RenderTexture src, RenderTexture dest)
+    void OnPreRender()
     {
-        Graphics.Blit(src, dest, material);
+        descript = new RenderTextureDescriptor()
+        {
+            width = Screen.width,
+            height = Screen.height,
+            depthBufferBits = 24,
+            dimension = TextureDimension.Tex2D,
+            colorFormat = RenderTextureFormat.ARGB32,
+            volumeDepth = 1,
+            msaaSamples = 1
+        };
+        target = RenderTexture.GetTemporary(descript);
+        cam.targetTexture = target;
+        Graphics.SetRenderTarget(target);
+        GL.Clear(true, true, Color.clear);
+    }
+
+    void OnPostRender()
+    {
+        var dest = RenderTexture.GetTemporary(descript);
+        Graphics.SetRenderTarget(dest.colorBuffer, target.depthBuffer);
+        Graphics.Blit(target, material);
+        RenderTexture.active = null;
+        cam.targetTexture = null;
+        Graphics.Blit(dest, setTexture);
+        dest.Release();
+        target.Release();
     }
 
     void SetGrayscaleInstance(Vector2 pos)
@@ -41,16 +71,20 @@ public class GrayscaleEffect : MonoBehaviour
 
     public static void SetGrayscale(Vector3 position)
     {
-        if (instance == null)
+        if ((instances ?? (instances = new List<GrayscaleEffect>())).Count == 0)
         {
-            instance = Camera.main.gameObject.AddComponent<GrayscaleEffect>();
+            foreach (var cam in FindObjectsOfType<Camera>())
+            {
+                instances.Add(cam.gameObject.AddComponent<GrayscaleEffect>());
+            }
         }
         var pos = Camera.main.WorldToViewportPoint(position);
-        instance.SetGrayscaleInstance(pos);
+        instances.ForEach(instance => instance.SetGrayscaleInstance(pos));
     }
 
     public static void UnsetGraysclae()
     {
-        Destroy(instance);
+        instances.ForEach(Destroy);
+        instances.Clear();
     }
 }

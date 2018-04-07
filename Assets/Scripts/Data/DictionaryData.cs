@@ -14,7 +14,7 @@ public abstract class DictionaryData<TValue, TSelf> :
     IDataStorage,
     IEnumerable<KeyValuePair<string, TValue>> where TSelf : DictionaryData<TValue, TSelf>
 {
-    Dictionary<string, TValue> dic;
+    protected Dictionary<string, TValue> dic;
     protected string dataPath;
     public int Id { get; private set; }
     public string Path => $"Data/{dataPath.Split('.')[0]}";
