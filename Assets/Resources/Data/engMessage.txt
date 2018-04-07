@@ -1,34 +1,29 @@
 Key,Text,Note
-fail,실패,ui-3(ingame)
+fail,Fail,ui-3(ingame)
 fail_nablaFalled,Nabla has Fallen!,실패1
 fail_bearFalled,the Bear’ has Fallen!,실패2
 fail_balloonLost,Lost the Balloon!,실패3
 fail_crushed,Crushed under blocks!,실패4
 fail_objective,Mission Objective not accomplished!,실패5
-heart_charge,,
+heart_charge,More Hearts?,
 heart_lack,Need more Hearts!,입장권 부족
 exitGame,Exit?,게임종료
 ,,
-mission_special,한 번도 죽지 않고 최대한 많이 클리어 해보세요!,스페셜미션표시
-special_description,금메달을 5개 획득하실 때 마다 스페셜 스테이지가 열립니다!,스페셜하트설명
-share_special,스페셜 스테이지 기록 : (n) 스테이지,스페셜자랑내용
-reward_special,200다이아가 지급됩니다!,스페셜자랑혜택
-,,
-,,
-,,
 ad_description,10 hearts will be given.,광고 시청 시 혜택설명
 ,,
-share_default,금메달 수집률 : (n/m)*100 %,설정자랑내용
+,,
 ,,
 ,,
 exit_description,You are attempting to exit. Are you sure?,종료확인
 ,,
-charBuy_confirm,(캐릭터이미지)를 구매하시겠어요? 구매가격: (n)원,캐릭터구매확인
-itemBuy_confirm,(아이템이미지x5)를 구매하시겠어요? 구매가격: (n)원,아이템구매확인
-diaBuy_confirm,(다이아이미지x20)를 구매하시겠어요? 구매가격: (n)원,다이아구매확인
+charBuy_confirm,Are you sure you want to buy {0}? (costs {1}Stars),캐릭터구매확인
+,,
+,,
+charBuy_success,Successfully bought.,
+charBuy_failed,You need more Stars.,
 ,,
 heart_get,You have received {0} Hearts!,
-ad_skipped,광고가 중단되어서 하트를 {0}개만 받았어요!,
+ad_skipped,"You have received {0} Hearts, because the Ad was skipped.",
 ad_failed,Failed to watch Ad.,
 ,,
 Coin,Coin,블럭 이름들
@@ -70,16 +65,19 @@ tutorial_touch,Push the Blocks by touching them!,
 tutorial_balloon,Escape from the Nabla by catching the Balloon!,
 ,,
 ,,
-tip_facebook,페이스북에 점수를 공유하면 하트를 받을 수 있어요,
-tip_ad,광고를 시청하면 하트를 받을 수 있어요,
-tip_star,스타를 모아서 캐릭터를 얻을 수 있어요,
-tip_water,물 블럭에 캐릭터가 빠지면 움직일 수 없어요,
-tip_barrel,드럼통 블럭은 양 옆 블럭과 함께 폭발해요,
-tip_snow,Snow block melts when the character steps on it.,
-tip_volcano,Volcano block is harmful.,
-tip_space,자석 블럭은 주변 블럭을 고정해요,
-tip_weight,각 블럭은 무게가 달라요,
-tip_mission,Check mission objectives before starting a stage.,
-tip_score1,You receive higher score if you keep Nabla stable.,
-tip_score2,블럭을 많이 깰 수록 높은 점수를 받을 수 있어요,
-tip_score3,You receive higher score if you get more coins.,
+,,
+tip_ad,Tip: You can hearts by watching Ads.,
+tip_star,Tip: You can get new characters with stars,
+tip_water,Tip: Bear cannot move when ,
+tip_barrel,Tip: Barrel block explodes when it is touched.,
+tip_snow,Tip: Snow block melts when the character steps on it.,
+tip_mine,Tip: Mine block destroys the whole row.,
+tip_volcano,Tip: Volcano block is harmful.,
+tip_weight,Tip: Each blocks have different weight.,
+tip_mission,Tip: Check mission objectives before starting a stage.,
+tip_score1,Tip: You receive higher score if you keep Nabla stable.,
+tip_score2,Tip: You receive higher score if you break more blocks.,
+tip_score3,Tip: You receive higher score if you get more coins.,
+tip_rank,Tip: Ranking shows top percentage.,
+tip_panda,Tip: Panda slows down Nabla from collapsing.,
+tip_jelly,Tip: Jelly bear stops time for a few seconds.,
