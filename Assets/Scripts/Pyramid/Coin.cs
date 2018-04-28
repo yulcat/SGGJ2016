@@ -27,7 +27,7 @@ public class Coin : Block, IOverlapLister
 
     public void Overlap(CharacterControl character)
     {
-        GameState.Accomplished("Coin", 1);
+        GameState.Accomplished("Coin", 1, transform.position);
         pyramid.RemoveBlock(this);
         Destroy(gameObject);
     }

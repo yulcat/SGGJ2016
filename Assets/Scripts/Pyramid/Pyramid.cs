@@ -101,7 +101,7 @@ public class Pyramid : MonoBehaviour
     {
         if (block is Block && !(block is Coin))
         {
-            GameState.Accomplished(block.BlockType.ToString(), 1);
+            GameState.Accomplished(block.BlockType.ToString(), 1, block.transform.position);
         }
         blocks.Remove(block);
         if (refresh)

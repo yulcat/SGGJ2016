@@ -117,13 +117,15 @@ public class GameState : MonoBehaviour
         return true;
     }
 
-    public static void Accomplished(string key, int value)
+    public static void Accomplished(string key, int value, Vector3 position)
     {
         if (!Instance.accomplished.ContainsKey(key))
             Instance.accomplished.Add(key, value);
         else
             Instance.accomplished[key] += value;
         Instance.accomplishedListener?.Invoke(Instance.accomplished);
+        if (DB.ScoreDB.ContainsKey(key))
+            ScorePop.ShowScore(DB.ScoreDB[key], position);
     }
 
     public static int GetHeartCost()
