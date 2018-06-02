@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ab702b5e99a8a4c9daef9e217bd35b2c
+timeCreated: 1524888424
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 40
+  forceTextureCase: 3
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: DSEG7 Classic Mini
+  fontNames:
+  - DSEG7 Classic Mini
+  fallbackFontReferences: []
+  customCharacters: 0123456789-
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

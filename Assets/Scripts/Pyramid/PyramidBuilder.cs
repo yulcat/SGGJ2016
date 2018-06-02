@@ -23,7 +23,8 @@ public enum BlockType
     More,
     Snow,
     TutorialBase,
-    Landmine
+    Landmine,
+    TimeBomb,
 }
 
 public struct BlockData
