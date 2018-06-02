@@ -8,7 +8,7 @@ public class HeartManager : MonoBehaviour
     const int MaxHeart = 24;
     public const double HeartRefillMinutes = 5;
     const int HeartRefillCount = 4;
-    public const double AdRefillMinutes = 5;
+    public const double AdRefillMinutes = 0;
     bool initialized;
     public static bool adAvailable;
 
