@@ -108,20 +108,14 @@ public class Pyramid : MonoBehaviour
             RefreshBlocks();
     }
 
-    public void RefreshBlocks()
-    {
-        blocks.Do(b => b.RefreshPosition());
-    }
+    public void RefreshBlocks() => blocks.Do(b => b.RefreshPosition());
 
-    public bool HasBlocks(Func<PyramidComponent, bool> func)
-    {
-        return blocks.Any(func);
-    }
+    public bool HasBlocks(Func<PyramidComponent, bool> func) => blocks.Any(func);
 
-    public PyramidComponent GetBlock(Func<PyramidComponent, bool> func)
-    {
-        return blocks.FirstOrDefault(func);
-    }
+    public PyramidComponent GetBlock(Func<PyramidComponent, bool> func) => blocks.FirstOrDefault(func);
+
+    public IEnumerable<PyramidComponent> GetBlocks(Func<PyramidComponent, bool> func)
+        => blocks.Where(func);
 
     public void CollapseAll()
     {
