@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 [CustomEditor(typeof(PyramidBuilder))]
 public class PyramidBuilderEditor : Editor
@@ -18,15 +20,16 @@ public class PyramidBuilderEditor : Editor
     {
         // base.OnInspectorGUI();
         serializedObject.Update();
-        PyramidBuilder builder = target as PyramidBuilder;
+        var builder = (PyramidBuilder) target;
         EditorGUILayout.PropertyField(currentTheme);
         var loaded = Resources.LoadAll<TextAsset>("Stages");
         var intName = loaded.Select(asset => System.Convert.ToInt32(asset.name));
-        if (intName.Count() == 0) return;
+        if (!intName.Any()) return;
         EditorGUILayout.IntSlider(toLoad, intName.Min(), intName.Max(), new GUIContent("Stage"));
         if (GUILayout.Button("Load Stage"))
         {
             builder.LoadStage();
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
         if (GUILayout.Button("Clear Stage"))
         {

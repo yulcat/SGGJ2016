@@ -88,4 +88,9 @@ public class ScorePop : MonoBehaviour
         var xPosition = Canvas.referenceResolution.x * 0.5f + xFromCenter * relative;
         rect.anchoredPosition = new Vector2(xPosition, yPosition);
     }
+
+    void OnDestroy()
+    {
+        pool.Remove(gameObject);
+    }
 }
