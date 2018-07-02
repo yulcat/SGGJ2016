@@ -32,6 +32,11 @@ public class AudioList : MonoBehaviour
 
     public void Play(string name)
     {
+        if (packs.All(p => p.name != name))
+        {
+            Debug.LogWarning($"{gameObject.name} needs AudioSource \"{name}\"");
+            return;
+        }
         var pack = packs.First(p => p.name == name);
         var clip = pack.clips.OrderBy(c => Random.Range(0f, 1f)).First();
         source.clip = clip;
