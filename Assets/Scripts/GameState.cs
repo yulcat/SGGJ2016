@@ -78,6 +78,7 @@ public class GameState : MonoBehaviour
         var stageData = StageDataLoader.GetStageData(stage);
         mission = stageData.mission;
         pyramid = FindObjectOfType<Pyramid>();
+        Camera.main.cullingMask = LayerMask.GetMask("Pyramid");
     }
 
     public static void EndGame()
