@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Snow : Block, IOverlapLister
@@ -11,6 +12,19 @@ public class Snow : Block, IOverlapLister
         effect.transform.position = transform.position;
         effect.SetActive(true);
         pyramid.RemoveBlock(this);
+        Destroy(gameObject);
+    }
+
+    public override void Remove()
+    {
+        pyramid.RemoveBlock(this);
+        transform.DOKill();
+        withPhysics = true;
+        body.constraints = RigidbodyConstraints.None;
+        body.velocity = transform.TransformVector(Vector3.forward * 12f);
+        var effect = EffectSpawner.GetEffect("Effects/SnowSplash");
+        effect.transform.position = transform.position;
+        effect.SetActive(true);
         Destroy(gameObject);
     }
 
