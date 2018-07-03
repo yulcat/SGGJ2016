@@ -2,4 +2,3 @@ name,price,heart cost,special
 곰,0,1,1
 팬더,30,5,0.5
 구미베어,50,9,1.5
-asdf,300,4,0
