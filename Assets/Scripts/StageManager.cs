@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -70,6 +71,11 @@ public class StageManager : MonoBehaviour
 
     public static void LoadNextStageSelectScene()
     {
+        if (instance.stageToLoad == DB.StageDB.Last().stageNumber)
+        {
+            SceneLoader.LoadSceneByName("Credit");
+            return;
+        }
         instance.openStartWindow = true;
         instance.stageToLoad++;
         instance.StartCoroutine(instance.LoadStageSelectCoroutine());
