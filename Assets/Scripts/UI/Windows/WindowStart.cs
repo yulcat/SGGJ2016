@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class WindowStart : Window
@@ -17,6 +19,8 @@ public class WindowStart : Window
     [UsedImplicitly]
     public void StartStage()
     {
+        Debug.Log($"SelectedCharacter : {GameState.selectedCharacter}");
+        Debug.Log($"Character Count : {DB.characterDB.Count()}");
         if (HeartManager.HeartLeft < GameState.GetHeartCost())
         {
             WindowHeartInsufficient.Open();

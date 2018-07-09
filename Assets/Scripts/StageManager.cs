@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class StageManager : MonoBehaviour
         Ice = 1,
         Grass = 2,
         Rock = 3,
+        Volcanic = 4,
         Common = -1
     };
 
-    string[] sceneNames = {"Scene_Desert01", "Scene_Ice01", "Stage_Grass01", "Scene_Rocks01"};
+    string[] sceneNames = {"Scene_Desert01", "Scene_Ice01", "Stage_Grass01", "Scene_Rocks01", "Scene_Volcanic01"};
     static StageManager _instance;
 
     public static StageManager instance
@@ -69,6 +71,11 @@ public class StageManager : MonoBehaviour
 
     public static void LoadNextStageSelectScene()
     {
+        if (instance.stageToLoad == DB.StageDB.Last().stageNumber)
+        {
+            SceneLoader.LoadSceneByName("Credit");
+            return;
+        }
         instance.openStartWindow = true;
         instance.stageToLoad++;
         instance.StartCoroutine(instance.LoadStageSelectCoroutine());

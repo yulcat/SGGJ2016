@@ -39,7 +39,9 @@ public class CameraSetter : MonoBehaviour
 
     void Start()
     {
-        cameras = GetComponentsInChildren<Camera>();
+        cameras = GetComponentsInChildren<Camera>(true);
+        foreach (var camera1 in cameras)
+            camera1.enabled = false;
     }
 
     public Transform GetProperTransform(int height)

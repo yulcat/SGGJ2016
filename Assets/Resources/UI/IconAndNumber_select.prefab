@@ -167,6 +167,22 @@ MonoBehaviour:
     type: 13
     texture: {fileID: 0}
     uvTexture: {fileID: 2800000, guid: f77b07b9f6fc94d04af95dbdaa850d4b, type: 3}
+  - theme: -1
+    type: 7
+    texture: {fileID: 2800000, guid: ca00aa367f35f7c468f9bfadd3163ccc, type: 3}
+    uvTexture: {fileID: 2800000, guid: f77b07b9f6fc94d04af95dbdaa850d4b, type: 3}
+  - theme: -1
+    type: 17
+    texture: {fileID: 2800000, guid: bc49b7d3ea5584dd6811ba662d2a93a7, type: 3}
+    uvTexture: {fileID: 2800000, guid: e7c93a5d0a80f4437a39617f7920dc9c, type: 3}
+  - theme: -1
+    type: 13
+    texture: {fileID: 2800000, guid: 0aa4112bfd022aa47919f151ba79ddc1, type: 3}
+    uvTexture: {fileID: 2800000, guid: e7c93a5d0a80f4437a39617f7920dc9c, type: 3}
+  - theme: -1
+    type: 13
+    texture: {fileID: 2800000, guid: c415232a63a2c44cc9e2a07d08041a25, type: 3}
+    uvTexture: {fileID: 2800000, guid: e7c93a5d0a80f4437a39617f7920dc9c, type: 3}
   toLoad: 14
 --- !u!114 &114445874485653514
 MonoBehaviour:
@@ -219,6 +235,7 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!114 &114546714948405366
 MonoBehaviour:
   m_ObjectHideFlags: 1
