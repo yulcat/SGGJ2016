@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene_Volcanic01.unity
     guid: d907131994687ee49ae7b5e7cedbf822
+  - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: 2abebea64d22b4371ac40ffd4184ccb1
   m_configObjects: {}

@@ -7,8 +7,8 @@ using UnityEngine;
 public enum CharacterType
 {
     Bear = 0,
-    Panda,
-    Gummy
+    Panda = 1,
+    Gummy = 2
 }
 
 public class GameState : MonoBehaviour
@@ -24,8 +24,13 @@ public class GameState : MonoBehaviour
     }
 
     public bool isGameEnd;
-    [NonSerialized] public Win winMessage;
-    [NonSerialized] public Lose loseMessage;
+
+    [NonSerialized]
+    public Win winMessage;
+
+    [NonSerialized]
+    public Lose loseMessage;
+
     public Dictionary<string, int> mission;
     Dictionary<string, int> accomplished = new Dictionary<string, int>();
     static GameState instance;

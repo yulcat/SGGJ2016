@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class WindowStartWithScore : WindowStart
 {
@@ -18,6 +19,14 @@ public class WindowStartWithScore : WindowStart
         if (!SaveDataManager.clearRecord.ContainsKey(stageToLoad.ToString()))
             throw new System.Exception("WindowStartWithScore is trying to load stage without clear record");
         StartCoroutine(ApplyClearData());
+    }
+
+    [UsedImplicitly]
+    public void ShareTwitter()
+    {
+        var twitter = GetComponent<TwitterShare>();
+        var rankString = rank.text;
+        twitter.ShareScoreOnTwitter(stageToLoad.ToString(), rankString);
     }
 
     IEnumerator ApplyClearData()

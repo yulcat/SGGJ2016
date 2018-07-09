@@ -41,7 +41,7 @@ public static class DataLoader
         Debug.Log($"Writing File By : {storage.GetType().Name} At : {writePath}");
         if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
-        File.WriteAllText(writePath, value);
+        File.WriteAllText(writePath, value + '\n');
         storage.SetData(value);
     }
 }

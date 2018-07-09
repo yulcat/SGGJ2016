@@ -8,12 +8,7 @@ public class TwitterShare : MonoBehaviour
     const string TwitterAddress = "http://twitter.com/intent/tweet";
 
     //Language
-    const string TweetLanguage = "en";
-
-    //This is the text which you want to show
-    const string TextToDisplaybeg = "[Playing Nabla] https://www.facebook.com/nablagame // I scored ";
-
-    const string TextToDisplayend = "% at stage";
+//    const string TweetLanguage = "en";
 
     /*END OF TWITTER VARIABLES*/
 
@@ -21,8 +16,11 @@ public class TwitterShare : MonoBehaviour
     public void ShareScoreOnTwitter(string stageNumber, string stageRanking)
     {
         Debug.Log("Tweet");
-        Application.OpenURL(TwitterAddress + "?text=" + WWW.EscapeURL(TextToDisplaybeg) + stageNumber +
-                            WWW.EscapeURL(TextToDisplayend) + stageRanking + "&amp;lang=" +
-                            WWW.EscapeURL(TweetLanguage));
+        Application.OpenURL(TwitterAddress + "?text=" + WWW.EscapeURL(GetShareContent(stageNumber, stageRanking)));
+//                            "&amp;lang=" +
+//                            WWW.EscapeURL(TweetLanguage));
     }
+
+    string GetShareContent(string stageNumber, string stageRanking)
+        => string.Format(DB.MessageDB["twitter_share_score"], stageNumber, stageRanking);
 }
