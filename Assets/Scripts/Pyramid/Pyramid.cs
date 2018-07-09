@@ -14,9 +14,16 @@ public class Pyramid : MonoBehaviour
     public float torqueSum;
     public float inertia;
     public bool calculate;
-    [NonSerialized] public float maxRotation;
-    [NonSerialized] public int maxY;
-    [NonSerialized] public int coinCount;
+
+    [NonSerialized]
+    public float maxRotation;
+
+    [NonSerialized]
+    public int maxY;
+
+    [NonSerialized]
+    public int coinCount;
+
     Plane inputPlane;
     Vector3 recentClick;
 
@@ -123,6 +130,8 @@ public class Pyramid : MonoBehaviour
         transform.DetachChildren();
         blocks.Clear();
     }
+
+    public bool IsCollapsed() => blocks.Count == 0;
 
     void OnDrawGizmos()
     {
