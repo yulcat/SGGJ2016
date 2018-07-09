@@ -25,6 +25,8 @@ public enum BlockType
     TutorialBase,
     Landmine,
     TimeBomb,
+    TimeBombShort,
+    TimeBombLong
 }
 
 public struct BlockData

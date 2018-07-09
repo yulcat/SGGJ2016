@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 65657062709059308}
   - component: {fileID: 114397931743655636}
   m_Layer: 9
-  m_Name: TimeBomb
+  m_Name: TimeBomb3
   m_TagString: SAND
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 23f821bf3803343dbaaef49bdd015ed8, type: 2}
+  - {fileID: 2100000, guid: c52107d2f18994a56adb673ece6f228e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -313,11 +313,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7fa005b4e84784ba25d10136351eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockType: 17
+  BlockType: 18
   lifeTime: 5
   ClickCount: 1
   position:
     x: 0
     y: 0
   textMesh: {fileID: 102319538079572922}
-  explodeTick: 5
+  explodeTick: 3
