@@ -180,6 +180,7 @@ public class GameState : MonoBehaviour
         if (!string.IsNullOrEmpty(www.error))
         {
             Debug.LogWarning(www.error);
+            yield break;
         }
         Debug.Log(www.text);
         winMessage.SetRanking(Convert.ToDouble(www.text));
