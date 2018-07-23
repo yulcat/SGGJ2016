@@ -30,7 +30,8 @@ public class ScorePop : MonoBehaviour
         get
         {
             if (canvas != null) return canvas;
-            canvas = FindObjectOfType<CanvasScaler>();
+            var canvases = FindObjectsOfType<CanvasScaler>();
+            canvas = canvases.First(c => c.GetComponent<GameState>() != null);
             return canvas;
         }
     }
