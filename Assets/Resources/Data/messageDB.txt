@@ -5,6 +5,7 @@ fail_bearFalled,바닥으로 떨어졌어요!,실패2
 fail_balloonLost,풍선을 놓쳤어요!,실패3
 fail_crushed,블럭에 깔렸어요!,실패4
 fail_objective,목표를 달성하지 못했어요!,실패5
+fail_boomed,폭발에 휘말렸어요!,실패6
 heart_charge,하트 충전,하트 충전
 heart_lack,하트가 부족해요!,입장권 부족
 exitGame,종료하시겠습니까?,게임종료

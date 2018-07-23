@@ -5,6 +5,7 @@ fail_bearFalled,the Bear’ has Fallen!,실패2
 fail_balloonLost,Lost the Balloon!,실패3
 fail_crushed,Crushed under blocks!,실패4
 fail_objective,Mission Objective not accomplished!,실패5
+fail_boomed,Boom!,실패6
 heart_charge,More Hearts?,
 heart_lack,Need more Hearts!,입장권 부족
 exitGame,Exit?,게임종료
