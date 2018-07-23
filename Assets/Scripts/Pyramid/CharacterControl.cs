@@ -6,17 +6,22 @@ using UnityEngine;
 
 public class CharacterControl : PyramidComponent
 {
-    [NonSerialized] public Animator anim;
+    [NonSerialized]
+    public Animator anim;
 
     public bool automatic;
     FlagBalloon balloon;
     public Animator[] characterAnimators;
-    [Range(0f, 1f)] public float counterTorqueMultiplier = 1f;
+
+    [Range(0f, 1f)]
+    public float counterTorqueMultiplier = 1f;
+
     public GameObject crushEffect;
     int currentFloor;
     public float moveSpeed = 1f;
     Vector3 moveTarget;
     public float thickness = 0.25f;
+    public float MoveSpeedFinal => moveSpeed * (GameState.selectedCharacter == CharacterType.Panda ? 1.3f : 1f);
 
     public override float torque => GetTorque(transform.localPosition, body.mass);
 
@@ -133,7 +138,7 @@ public class CharacterControl : PyramidComponent
             var rotation = direction > 0 ? 120 : -120;
             anim.transform.localRotation = Quaternion.Euler(0, rotation, 0);
             anim.SetBool("IsTrace", true);
-            var dx = direction * moveSpeed * Time.deltaTime;
+            var dx = direction * MoveSpeedFinal * Time.deltaTime;
             var destination = currentX + dx;
             var overlap = OverlapTest(destination, currentFloor);
             overlap?.Overlap(this);
@@ -142,7 +147,7 @@ public class CharacterControl : PyramidComponent
                 continue; //Blocked by block
 
             transform.Translate(dx, 0, 0);
-            pyramid.ApplyMomentum(GetMoveMomentum(direction * moveSpeed) * counterTorqueMultiplier);
+            pyramid.ApplyMomentum(GetMoveMomentum(direction * MoveSpeedFinal) * counterTorqueMultiplier);
             if (!pyramid.HasBlocks(c => CheckFeet(destination, currentFloor, c)))
             {
                 RefreshPosition();

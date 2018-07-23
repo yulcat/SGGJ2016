@@ -5,6 +5,7 @@ fail_bearFalled,the Bear’ has Fallen!,실패2
 fail_balloonLost,Lost the Balloon!,실패3
 fail_crushed,Crushed under blocks!,실패4
 fail_objective,Mission Objective not accomplished!,실패5
+fail_boomed,Boom!,실패6
 heart_charge,More Hearts?,
 heart_lack,Need more Hearts!,입장권 부족
 exitGame,Exit?,게임종료
@@ -65,19 +66,19 @@ tutorial_touch,Push the Blocks by touching them!,
 tutorial_balloon,Escape from the Nabla by catching the Balloon!,
 ,,
 ,,
-,,
+tip_balloon,Tip: 풍선은 음의 중력을 갖고 있어요,
 tip_ad,Tip: You can hearts by watching Ads.,
-tip_star,Tip: You can get new characters with stars,
-tip_water,Tip: Bear cannot move when ,
-tip_barrel,Tip: Barrel block explodes when it is touched.,
-tip_snow,Tip: Snow block melts when the character steps on it.,
-tip_fixed,Tip: 고정 블럭은 움직일 수 없어요,
-tip_timebomb,Tip: 시한폭탄은 밟아서 끌 수 있어요,
+tip_star,Tip: You can get new characters with stars.,
+tip_water,Tip: The bear cannot move when it is drawning in water.,
+tip_barrel,Tip: Barrel block explodes when it is pushed.,
+tip_snow,Tip: Snow block melts when the bear steps on it.,
+tip_fixed,Tip: Fixed blcok cannot be moved.,
+tip_timebomb,Tip: Timebomb goes off when it is stepped on.,
 tip_weight,Tip: Each blocks have different weight.,
 tip_mission,Tip: Check mission objectives before starting a stage.,
-tip_score1,Tip: You receive higher score if you keep Nabla stable.,
-tip_score2,Tip: You receive higher score if you break more blocks.,
-tip_score3,Tip: You receive higher score if you get more coins.,
+tip_score1,Tip: You get higher score if you keep Nabla stable.,
+tip_score2,Tip: You get higher score if you break more blocks.,
+tip_score3,Tip: You get higher score if you get more coins.,
 tip_rank,Tip: Ranking shows top percentage.,
 tip_panda,Tip: Panda slows down Nabla from collapsing.,
 tip_jelly,Tip: Jelly bear stops time for a few seconds.,

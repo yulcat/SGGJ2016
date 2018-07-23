@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
         Sand = 0,
         Ice = 1,
         Grass = 2,
-        Rock = 3,
+        Rocks = 3,
         Volcanic = 4,
         Common = -1
     };
