@@ -5,15 +5,6 @@ using UnityEngine.UI;
 
 public class BlockIconTextureApplier : MonoBehaviour
 {
-    [System.SerializableAttribute]
-    public struct BlockIconPreset
-    {
-        public StageManager.Theme theme;
-        public BlockType type;
-        public Texture texture;
-        public Texture uvTexture;
-    }
-
     public BlockIconPreset[] blockIconPresetList;
     public int toLoad;
     Image img;
@@ -24,6 +15,7 @@ public class BlockIconTextureApplier : MonoBehaviour
     void OnEnable()
     {
         img = GetComponent<Image>();
+        blockIconPresetList = BlockIconTextureScriptable.instance.blockIconPresetList;
     }
 
     public void LoadIcon()
@@ -39,4 +31,13 @@ public class BlockIconTextureApplier : MonoBehaviour
         material.SetTexture("_UVTex", preset.uvTexture);
         img.material = material;
     }
+}
+
+[System.SerializableAttribute]
+public struct BlockIconPreset
+{
+    public StageManager.Theme theme;
+    public BlockType type;
+    public Texture texture;
+    public Texture uvTexture;
 }

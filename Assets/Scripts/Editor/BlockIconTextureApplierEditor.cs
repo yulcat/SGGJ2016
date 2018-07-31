@@ -14,5 +14,10 @@ public class BlockIconTextureApplierEditor : Editor
         {
             applier.LoadIcon();
         }
+
+        if (GUILayout.Button("Save Settings into Asset"))
+        {
+            BlockIconScriptableEditor.Create(applier.blockIconPresetList);
+        }
     }
 }
