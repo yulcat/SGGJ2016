@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-using System;
 
 public class MissionIcon : MonoBehaviour
 {
-    public Color incompleteColor;
     public Color completeColor;
-    public Color fontIncompleteColor;
     public Color fontCompleteColor;
-    [System.NonSerializedAttribute] public string iconType;
+
+    [NonSerialized]
+    public string iconType;
+
     Text text;
     Image bgImg;
     BlockIconTextureApplier blockIcon;
@@ -29,18 +28,20 @@ public class MissionIcon : MonoBehaviour
     public void SetIcon(string blockType, StageManager.Theme theme, int maxCountToSet)
     {
         var icons = blockIcon.blockIconPresetList.Where(b => b.type.ToString() == blockType);
-        if (icons.Any(b => b.theme == theme))
+        var blockIconPresets = icons as BlockIconPreset[] ?? icons.ToArray();
+        if (blockIconPresets.Any(b => b.theme == theme))
         {
-            blockIcon.LoadIcon(icons.First(b => b.theme == theme));
+            blockIcon.LoadIcon(blockIconPresets.First(b => b.theme == theme));
         }
-        else if (icons.Count() > 0)
+        else if (blockIconPresets.Any())
         {
-            blockIcon.LoadIcon(icons.First(b => b.theme == StageManager.Theme.Common));
+            blockIcon.LoadIcon(blockIconPresets.First(b => b.theme == StageManager.Theme.Common));
         }
         else
         {
-            throw new System.Exception("MissionIcon Cannot Load Icon : " + blockType.ToString());
+            throw new Exception("MissionIcon Cannot Load Icon : " + blockType);
         }
+
         maxCount = maxCountToSet;
         text.text = "0/" + maxCount;
         iconType = blockType;
@@ -49,18 +50,20 @@ public class MissionIcon : MonoBehaviour
     public void SetSelectIcon(string blockType, StageManager.Theme theme, string textToSet)
     {
         var icons = blockIcon.blockIconPresetList.Where(b => b.type.ToString() == blockType);
-        if (icons.Any(b => b.theme == theme))
+        var blockIconPresets = icons as BlockIconPreset[] ?? icons.ToArray();
+        if (blockIconPresets.Any(b => b.theme == theme))
         {
-            blockIcon.LoadIcon(icons.First(b => b.theme == theme));
+            blockIcon.LoadIcon(blockIconPresets.First(b => b.theme == theme));
         }
-        else if (icons.Count() > 0)
+        else if (blockIconPresets.Any())
         {
-            blockIcon.LoadIcon(icons.First(b => b.theme == StageManager.Theme.Common));
+            blockIcon.LoadIcon(blockIconPresets.First(b => b.theme == StageManager.Theme.Common));
         }
         else
         {
-            throw new System.Exception("MissionIcon Cannot Load Icon : " + blockType.ToString());
+            throw new Exception("MissionIcon Cannot Load Icon : " + blockType);
         }
+
         text.text = textToSet;
         iconType = blockType;
     }

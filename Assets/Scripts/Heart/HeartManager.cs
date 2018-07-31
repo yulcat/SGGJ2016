@@ -5,9 +5,9 @@ using UnityEngine;
 public class HeartManager : MonoBehaviour
 {
     static HeartManager instance;
-    const int MaxHeart = 24;
+    const int MaxHeart = 15;
     public const double HeartRefillMinutes = 5;
-    const int HeartRefillCount = 4;
+    const int HeartRefillCount = 3;
     public const double AdRefillMinutes = 0;
     bool initialized;
     public static bool adAvailable;
@@ -40,11 +40,13 @@ public class HeartManager : MonoBehaviour
         {
             throw new Exception("Spending Heart when Heart is zero!");
         }
+
         if (HeartIsMax)
         {
             Instance.StartCoroutine(Instance.SpendHeartFromMax(count));
             return;
         }
+
         SaveDataManager.data.heartLeft -= count;
         RefreshHeart();
     }
@@ -78,6 +80,7 @@ public class HeartManager : MonoBehaviour
             StartCoroutine(InitializeFromServerTime(true));
             SaveDataManager.data.heartLeft = MaxHeart;
         }
+
         StartCoroutine(RefreshHeartCount());
         initialized = true;
     }
@@ -104,6 +107,7 @@ public class HeartManager : MonoBehaviour
             SaveDataManager.data.lastRefillLocalTime =
                 SaveDataManager.data.lastHeartLocalTime.AddMinutes(-AdRefillMinutes);
         }
+
         SaveDataManager.data.timeInitialized = true;
         Debug.Log("initialized time from server");
     }
@@ -129,8 +133,10 @@ public class HeartManager : MonoBehaviour
             {
                 break;
             }
+
             SaveDataManager.data.heartLeft += HeartRefillCount;
         }
+
         var timeNow = DateTime.Now;
         var timeDiff = serverTime.Subtract(savedServerTime);
         SaveDataManager.data.lastHeartLocalTime = timeNow.Subtract(timeDiff);
@@ -155,6 +161,7 @@ public class HeartManager : MonoBehaviour
             var timeDiff = targetTime.Subtract(serverTime);
             SaveDataManager.data.lastRefillLocalTime = DateTime.Now.AddMinutes(-AdRefillMinutes).Add(timeDiff);
         }
+
         checkingAd = false;
     }
 

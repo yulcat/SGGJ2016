@@ -20,6 +20,8 @@ public class CharacterSelect : MonoBehaviour
             charImg.color = available ? Color.white : Color.black;
             lockImg.SetActive(!available);
         }
+
+        SelectCharacter((int) GameState.selectedCharacter);
     }
 
     void Update()
@@ -37,8 +39,12 @@ public class CharacterSelect : MonoBehaviour
             TryUnlockCharacter(index);
             return;
         }
+
         GameState.selectedCharacter = (CharacterType) index;
-        cursor.transform.DOMove(characters[index].transform.position, 0.3f, true).SetEase(Ease.OutBack);
+        var targetPosition = transform.parent.InverseTransformPoint(characters[index].transform.position);
+        cursor.transform
+            .DOLocalMove(targetPosition, 0.3f, true)
+            .SetEase(Ease.OutBack);
     }
 
     void TryUnlockCharacter(int index)
