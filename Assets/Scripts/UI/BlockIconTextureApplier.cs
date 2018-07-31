@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BlockIconTextureApplier : MonoBehaviour
 {
+    [NonSerialized]
     public BlockIconPreset[] blockIconPresetList;
+
     public int toLoad;
     Image img;
 
@@ -15,7 +16,7 @@ public class BlockIconTextureApplier : MonoBehaviour
     void OnEnable()
     {
         img = GetComponent<Image>();
-        blockIconPresetList = BlockIconTextureScriptable.instance.blockIconPresetList;
+        blockIconPresetList = BlockIconTextureScriptable.Instance.blockIconPresetList;
     }
 
     public void LoadIcon()
@@ -33,7 +34,7 @@ public class BlockIconTextureApplier : MonoBehaviour
     }
 }
 
-[System.SerializableAttribute]
+[Serializable]
 public struct BlockIconPreset
 {
     public StageManager.Theme theme;

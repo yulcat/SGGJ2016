@@ -3,15 +3,15 @@
 public class BlockIconTextureScriptable : ScriptableObject
 {
     public BlockIconPreset[] blockIconPresetList;
-    static BlockIconTextureScriptable _instance;
+    static BlockIconTextureScriptable instance;
 
-    public static BlockIconTextureScriptable instance
+    public static BlockIconTextureScriptable Instance
     {
         get
         {
-            if (_instance != null) return _instance;
-            _instance = Resources.Load<BlockIconTextureScriptable>("BlockIcons");
-            return _instance;
+            if (instance != null) return instance;
+            instance = Resources.Load<BlockIconTextureScriptable>("BlockIcons");
+            return instance;
         }
     }
 }
