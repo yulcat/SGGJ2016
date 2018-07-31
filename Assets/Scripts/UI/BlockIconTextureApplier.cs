@@ -1,20 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BlockIconTextureApplier : MonoBehaviour
 {
-    [System.SerializableAttribute]
-    public struct BlockIconPreset
-    {
-        public StageManager.Theme theme;
-        public BlockType type;
-        public Texture texture;
-        public Texture uvTexture;
-    }
-
+    [NonSerialized]
     public BlockIconPreset[] blockIconPresetList;
+
     public int toLoad;
     Image img;
 
@@ -24,6 +16,7 @@ public class BlockIconTextureApplier : MonoBehaviour
     void OnEnable()
     {
         img = GetComponent<Image>();
+        blockIconPresetList = BlockIconTextureScriptable.Instance.blockIconPresetList;
     }
 
     public void LoadIcon()
@@ -39,4 +32,13 @@ public class BlockIconTextureApplier : MonoBehaviour
         material.SetTexture("_UVTex", preset.uvTexture);
         img.material = material;
     }
+}
+
+[Serializable]
+public struct BlockIconPreset
+{
+    public StageManager.Theme theme;
+    public BlockType type;
+    public Texture texture;
+    public Texture uvTexture;
 }
