@@ -35,6 +35,7 @@ public class WindowStartWithScore : WindowStart
         {
             star.SetActive(false);
         }
+
         var clearData = SaveDataManager.clearRecord[stageToLoad.ToString()];
         highScore.text = clearData.score.ToString();
         StartCoroutine(LoadWorldRank());
@@ -50,7 +51,7 @@ public class WindowStartWithScore : WindowStart
     IEnumerator LoadWorldRank()
     {
         var clearData = SaveDataManager.clearRecord[stageToLoad.ToString()];
-        var builder = new System.Text.StringBuilder("http://52.78.26.149/api/values/");
+        var builder = new System.Text.StringBuilder("http://13.124.225.49/api/values/");
         builder.Append("stage");
         builder.Append(stageToLoad.ToString());
         builder.Append(".");
@@ -60,7 +61,7 @@ public class WindowStartWithScore : WindowStart
         try
         {
             var ranking = (float) System.Convert.ToDouble(www.text) * 100;
-            rank.text = ranking.ToString("0.0") + "%";
+            rank.text = $"{ranking:0.0}%";
         }
         catch
         {

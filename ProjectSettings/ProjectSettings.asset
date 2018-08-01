@@ -159,8 +159,8 @@ PlayerSettings:
     iOS: com.soulcompany.nabla2
     tvOS: com.soulcompany.nabla
   buildNumber:
-    iOS: 10
-  AndroidBundleVersionCode: 1
+    iOS: 12
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
