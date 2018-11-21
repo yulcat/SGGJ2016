@@ -4607,7 +4607,7 @@ Prefab:
       objectReference: {fileID: 2119320491}
     - target: {fileID: 1057337125312784, guid: 0d0ff675b513c44f5aeca1445fdee596, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224585043024623370, guid: 0d0ff675b513c44f5aeca1445fdee596,
         type: 2}
@@ -5124,6 +5124,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 456852, guid: 59a6dd1f15800a84d9e037f38667b04f,
     type: 2}
   m_PrefabInternal: {fileID: 1686039929}
+--- !u!1 &1689201863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1447739644057156, guid: 0d0ff675b513c44f5aeca1445fdee596,
+    type: 2}
+  m_PrefabInternal: {fileID: 1365656786}
+--- !u!114 &1689201864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1689201863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fada5b8668400789cb49c12e26e8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: mission_desc
 --- !u!1 &1775319195
 GameObject:
   m_ObjectHideFlags: 0
