@@ -88,3 +88,7 @@ MonoBehaviour:
     type: 14
     texture: {fileID: 2800000, guid: dad54f3dfc7bee24aa131b278a91f771, type: 3}
     uvTexture: {fileID: 2800000, guid: 435fc1182fabf42afab1b63991c8a28f, type: 3}
+  - theme: -1
+    type: 13
+    texture: {fileID: 0}
+    uvTexture: {fileID: 2800000, guid: f77b07b9f6fc94d04af95dbdaa850d4b, type: 3}

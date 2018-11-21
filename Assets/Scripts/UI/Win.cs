@@ -11,7 +11,10 @@ public class Win : Window
     public Text score;
     public Text stageNumber;
     public Text stageRanking;
-    [NonSerializedAttribute] public Score finalScore;
+
+    [NonSerializedAttribute]
+    public Score finalScore;
+
     public GameObject[] stars;
     int scoreShow;
     double? rankingToShow;
@@ -23,6 +26,7 @@ public class Win : Window
         {
             star.SetActive(false);
         }
+
         stageNumber.text = FindObjectOfType<PyramidBuilder>().stageToLoad.ToString();
     }
 
@@ -55,6 +59,7 @@ public class Win : Window
                 stageRanking.text = UnityEngine.Random.Range(0f, 100f).ToString("0.0") + "%";
             yield return null;
         }
+
         score.text = scoreShow.ToString();
         if (!rankingToShow.HasValue)
         {
@@ -76,6 +81,7 @@ public class Win : Window
             WindowHeartInsufficient.Open();
             return;
         }
+
         HeartManager.SpendHeart();
         StageManager.ReloadCurrentStage();
     }
@@ -98,6 +104,6 @@ public class Win : Window
     public void SetRanking(double v)
     {
         rankingToShow = v;
-        stageRanking.text = (v * 100).ToString("0.0") + "%";
+        stageRanking.text = $"{(v * 100):0.0}%";
     }
 }

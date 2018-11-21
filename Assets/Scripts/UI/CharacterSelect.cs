@@ -9,6 +9,7 @@ public class CharacterSelect : MonoBehaviour
     public GameObject[] characters;
     public GameObject cursor;
     Action unlockResult;
+    bool needToSelectDefault;
 
     void OnEnable()
     {
@@ -21,11 +22,14 @@ public class CharacterSelect : MonoBehaviour
             lockImg.SetActive(!available);
         }
 
-        SelectCharacter((int) GameState.selectedCharacter);
+        needToSelectDefault = true;
     }
 
     void Update()
     {
+        if (needToSelectDefault)
+            SelectCharacter((int) GameState.selectedCharacter);
+
         if (unlockResult == null) return;
         unlockResult();
         unlockResult = null;
@@ -34,6 +38,7 @@ public class CharacterSelect : MonoBehaviour
     [UsedImplicitly]
     public void SelectCharacter(int index)
     {
+        needToSelectDefault = false;
         if (!SaveDataManager.IsCharacterAvailable(index))
         {
             TryUnlockCharacter(index);
